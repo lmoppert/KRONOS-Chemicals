@@ -1,0 +1,19 @@
+{% load i18n %}
+<ul class="nav nav-pills">
+    {% for plant in plants %}
+    <li class="dropdown">
+        <a data-toggle="dropdown" role="button" href="#" id="dep_dd_{{ plant.name }}">
+            {{ plant.name }} <span class="caret"></span>
+        </a>
+        <ul id="dep_menu_{{ plant.name }}" class="dropdown-menu" role="menu" aria-labelledby="dep_dd_{{ plant.name }}">
+            {% for dep in plant.department_set.all %}
+            <li role="presentation" >
+                <a role="menuitem" tabindex="-1" href="{% url target_name dep.id %}">{{ dep.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </li>
+    {% endfor %}
+</ul>
+<!-- vim:syntax=htmldjango
+-->

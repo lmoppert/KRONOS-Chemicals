@@ -1,0 +1,16 @@
+{% extends "chemicals/base.html" %}
+{% load menu_tags cms_tags i18n chemical_tags %}
+{% load render_table from django_tables2 %}
+
+{% block chemical_content %}
+    <div class="row">
+        <h1>{{ tableheading }}</h1>
+        {% if show_filter.department %}{% department_filter plants target_name %}{% endif %}
+        {% if show_filter.letter %}{% letter_filter letters %}{% else %}<br>{% endif %}
+        {% block table_content %}
+        <div class="table-responsive">
+            {% render_table table "chemicals/table.html" %}
+        </div>
+        {% endblock %}
+    </div>
+{% endblock %}

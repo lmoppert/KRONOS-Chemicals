@@ -1,0 +1,206 @@
+{% extends "chemicals/base.html" %}
+{% load menu_tags cms_tags i18n chemical_tags %}
+{% load render_table from django_tables2 %}
+
+{% block chemical_content %}
+    <h1>{{ chemical.name }}</h1>
+    <div class="row">
+        <div class="col-lg-4">
+            <table>
+                <tr>
+                    <th style="width: 180px;">{% trans "Article Number" %}</th>
+                    <td>{{ chemical.article }}</td>
+                </tr><tr>
+                    <th>{% trans "Registration Number" %}</th>
+                    <td>{{ chemical.registration_number }}</td>
+                </tr><tr>
+                    <th>{% trans "CAS" %}</th>
+                    <td>{{ chemical.cas }}</td>
+                </tr><tr>
+                    <th>{% trans "EINECS" %}</th>
+                    <td>{{ chemical.einecs }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-lg-8">
+            <b>{% trans "Comment" %}</b>
+            <div class="well well-sm">
+                {{ chemical.comment }}
+            </div>
+        </div>
+    </div>
+    <p>
+    <span class="label {{ chemical.cmr|yesno:"label-info,label-default" }}">{% trans "CMR" %}</span>
+    <span class="label {{ chemical.needed|yesno:"label-info,label-default" }}">{% trans "Always needed" %}</span>
+    <span class="label {{ chemical.preparation|yesno:"label-info,label-default" }}">{% trans "Preparation" %}</span>
+    <span class="label {{ chemical.archive|yesno:"label-info,label-default" }}">{% trans "Archived" %}</span>
+    <span class="label {{ chemical.instruction|yesno:"label-info,label-default" }}">{% trans "Instruction" %}</span>
+    <span class="label {{ chemical.hazardous|yesno:"label-danger,label-default" }}">{% trans "Hazardous" %}</span>
+    <span class="label {{ chemical.reach_vo|yesno:"label-info,label-default" }}">{% trans "REACH-VO" %}</span>
+    <span class="label {{ chemical.components_registered|yesno:"label-info,label-default" }}">{% trans "components_registered" %}</span>
+    </p><p>
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#classification" data-toggle="tab">{% trans "Classification" %}</a></li>
+            <li><a href="#department" data-toggle="tab">{% trans "Department / Supplier" %}</a></li>
+            <li><a href="#sds" data-toggle="tab">{% trans "SDS / Document" %}</a></li>
+            <li><a href="#reach" data-toggle="tab">REACH</a></li>
+            <li><a href="#checklist" data-toggle="tab">{% trans "Checklist" %}</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="classification">
+                <br>
+                <h3>{% trans "Stoff Richtlinie" %}</h3>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <table class="table table-striped table-bordered table-condensed">
+                            <tr><th>{% trans "Risk" %}</th><th>{% trans "Info" %}</th></tr>
+                            {% for obj in chemical.risk_set.all %}
+                            <tr><td>{{ obj.riskindication.name }}</td><td>{{ obj.info }}</td></tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <div class="col-lg-6">
+                        <table class="table table-striped table-bordered table-condensed">
+                            <tr><th>{% trans "ID" %}</th><th>{% trans "R-Phrase" %}</th></tr>
+                            {% for obj in chemical.rphrases.all %}
+                            <tr><td>{{ obj.name }}</td><td>{{ obj.description }}</td></tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+                <h3>{% trans "CLP" %}</h3>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <table class="table table-striped table-bordered table-condensed">
+                            <tr><th>{% trans "Pictogram" %}</th><th>{% trans "Description" %}</th></tr>
+                            {% for obj in chemical.pictograms.all %}
+                            <tr><td><img src="{{ obj.image.url }}" alt="{{ obj.name }}"></td><td>{{ obj.name }}</td></tr>
+                            {% endfor %}
+                        </table>
+                        <p><b>{% trans "Signal" %}:</b> {{ chemical.signal_set.first.term|show_signal }}</p><br>
+                        <table class="table table-striped table-bordered table-condensed">
+                            <tr><th>{% trans "Storage Class" %}</th><th>{% trans "Description" %}</th></tr>
+                            {% for obj in chemical.storage_classes.all %}
+                            <tr><td>{{ obj.name }}</td><td>{{ obj.description }}</td></tr>
+                            {% endfor %}
+                        </table>
+                        <b>{% trans "WGK" %}:</b> {{ chemical.wgk }}
+                    </div>
+                    <div class="col-lg-6">
+                        <table class="table table-striped table-bordered table-condensed">
+                            <tr><th>{% trans "ID" %}</th><th>{% trans "H-Phrase" %}</th></tr>
+                            {% for obj in chemical.hphrases.all %}
+                            <tr><td>{{ obj.name }}</td><td>{{ obj.description }}</td></tr>
+                            {% endfor %}
+                        </table>
+                        <table class="table table-striped table-bordered table-condensed">
+                            <tr><th>{% trans "ID" %}</th><th>{% trans "P-Phrase" %}</th></tr>
+                            {% for obj in chemical.pphrases.all %}
+                            <tr><td>{{ obj.name }}</td><td>{{ obj.description }}</td></tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="department">
+                <h3>{% trans "Department" %}</h3>
+                <table class="table table-striped table-bordered table-condensed">
+                    <tr><th>{% trans "Chemical Storage" %}</th><th>{% trans "Department" %}</th><th>{% trans "Supplier" %}</th></tr>
+                    {% for obj in locations %}
+                    <tr><td><a href="%{{ obj.url }}">{{ obj.name }}</a></td><td>{{ obj.department }}</td><td>{{ obj.supplier }}</td></tr>
+                    {% endfor %}
+                </table>
+                <h3>{% trans "Producer" %}</h3>
+                <table class="table table-striped table-bordered table-condensed">
+                    <tr><th>{% trans "Name" %}</th><th>{% trans "Address" %}</th><th>{% trans "Country" %}</th><th>{% trans "Phone" %}</th><th>{% trans "E-Mail" %}</th></tr>
+                    {% for obj in chemical.producer.all %}
+                    <tr><td><a href="{{ obj.get_absolut_url }}">{{ obj.name }}</a></td><td class="with-linebreaks">{{ obj.address }}</td><td>{{ obj.country }}</td>
+                        <td>{{ obj.phone }}</td><td>{{ obj.email }}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="tab-pane fade" id="sds">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3>{% trans "Safety Data Sheets" %}</h3>
+                    </div>
+                    <div class="col-lg-6">
+                        <table class="table table-striped table-bordered table-condensed">
+                            <tr><th>{% trans "Published" %}</th><th>{% trans "Supplier" %}</th><th>{% trans "Language" %}</th><th>{% trans "SDS" %}</th></tr>
+                            {% for obj in chemical.safetydatasheet_set.all %}
+                            <tr><td>{{ obj.issue_date }}</td><td>{{ obj.supplier.name }}</td><td>{{ obj.country_code }}</td><td>
+                                    <a type="button" class="btn btn-warning btn-sm" href="{{ obj.file.url }}" target="_blank">
+                                        <span class="glyphicon glyphicon-file"></span> {{ obj.file.extension|upper }}</a>
+                            </td></tr>
+                            {% endfor %}
+                        </table>
+
+                    </div>
+                    <div class="col-lg-6">
+                        <table class="table table-striped table-bordered table-condensed">
+                            <tr><th>{% trans "Published" %}</th><th>{% trans "Supplier" %}</th><th>{% trans "Language" %}</th><th>{% trans "eSDS" %}</th></tr>
+                            {% for obj in chemical.extendedsafetydatasheet_set.all %}
+                            <tr><td>{{ obj.issue_date }}</td><td>{{ obj.supplier.name }}</td><td>{{ obj.country_code }}</td><td>
+                                    <a type="button" class="btn btn-warning btn-sm" href="{{ obj.file.url }}" target="_blank">
+                                        <span class="glyphicon glyphicon-file"></span> {{ obj.file.extension|upper }}</a>
+                            </td></tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3>{% trans "Documents" %}</h3>
+                    </div>
+                    <div class="col-lg-6">
+                        <table class="table table-striped table-bordered table-condensed">
+                            <tr><th>{% trans "Created" %}</th><th>{% trans "Plant" %}</th><th>{% trans "Approval" %}</th></tr>
+                            {% for obj in chemical.get_approval_documents.all %}
+                            <tr><td>{{ obj.created }}</td><td>{{ obj.plant }}</td><td>
+                                    <a type="button" class="btn btn-warning btn-sm" href="{{ obj.file.url }}" target="_blank">
+                                        <span class="glyphicon glyphicon-file"></span> {{ obj.file.extension|upper }}</a>
+                            </td></tr>
+                            {% endfor %}
+                        </table>
+
+                    </div>
+                    <div class="col-lg-6">
+                        <table class="table table-striped table-bordered table-condensed">
+                            <tr><th>{% trans "Created" %}</th><th>{% trans "Info" %}</th></tr>
+                            {% for obj in chemical.get_info_documents.all %}
+                            <tr><td>{{ obj.created }}</td><td>
+                                    <a type="button" class="btn btn-warning btn-sm" href="{{ obj.file.url }}" target="_blank">
+                                        <span class="glyphicon glyphicon-file"></span> {{ obj.file.extension|upper }}</a>
+                            </td></tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="reach">
+                <br>
+                <div class="row">
+                    <div class="col-lg-9">
+                        <p><b>{% trans "Registration Number" %}:</b> {{ chemical.registration_number }}</p>
+                        <b>{% trans "Info" %}</b>
+                        <div class="well well-sm">
+                            {{ chemical.comment }}
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <table class="table table-striped table-bordered table-condensed">
+                            <tr><th>{% trans "Language" %}</th><th>{% trans "Document" %}</th></tr>
+                            {% for obj in chemical.reachdocument_set.all %}
+                            <tr><td>{{ obj.country_code }}</td><td><a type="button" class="btn btn-warning btn-sm" href="{{ obj.file.url }}" target="_blank">
+                                        <span class="glyphicon glyphicon-file"></span> {{ obj.file.extension|upper }}</a>
+                            </td></tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="checklist">
+            </div>
+        </div>
+    </p>
+{% endblock %}

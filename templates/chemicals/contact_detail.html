@@ -1,0 +1,34 @@
+{% extends "chemicals/base.html" %}
+{% load menu_tags cms_tags i18n %}
+{% load render_table from django_tables2 %}
+
+{% block chemical_content %}
+    {% if contact.producer %}
+        <span class="label label-info">{% trans "Producer" %}</span>
+    {% endif %}
+    <h1>{{ contact.name }}</h1>
+    <div class="col-lg-3 with-linebreaks">{{ contact.address }}<br>{{ contact.country }}</div>
+    <div class="col-lg-3">
+        <table>
+            <tr>
+                <th style="width:80px;">{% trans "Phone" %}</th>
+                <td>{{ contact.phone }}</td>
+            </tr><tr>
+                <th>{% trans "Fax" %}</th>
+                <td>{{ contact.fax|default_if_none:"" }}</td>
+            </tr><tr>
+                <th>{% trans "Email" %}</th>
+                <td>{{ contact.email|default_if_none:"" }}</td>
+            </tr><tr>
+                <th>{% trans "Web" %}</th>
+                <td>{{ contact.web|default_if_none:"" }}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-lg-6">
+        <b>{% trans "Info" %}</b><br>
+        <div class="well well-sm with-linebreaks">
+            {{ contact.info|default_if_none:"" }}
+        </div>
+    </div>
+{% endblock %}

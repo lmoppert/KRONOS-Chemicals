@@ -1,0 +1,18 @@
+DELETE FROM `intranet`.`chemicals_signal`;
+ALTER TABLE `intranet`.`chemicals_signal` AUTO_INCREMENT = 1;
+DELETE FROM `intranet`.`chemicals_pictogram`;
+ALTER TABLE `intranet`.`chemicals_pictogram` AUTO_INCREMENT = 1;
+DELETE FROM `intranet`.`chemicals_extendedsafetydatasheet`;
+ALTER TABLE `intranet`.`chemicals_extendedsafetydatasheet` AUTO_INCREMENT = 1;
+DELETE FROM `intranet`.`chemicals_safetydatasheet`;
+ALTER TABLE `intranet`.`chemicals_safetydatasheet` AUTO_INCREMENT = 1;
+DELETE FROM `intranet`.`chemicals_document`;
+ALTER TABLE `intranet`.`chemicals_document` AUTO_INCREMENT = 1;
+DELETE FROM `intranet`.`chemicals_reachdocument`;
+ALTER TABLE `intranet`.`chemicals_reachdocument` AUTO_INCREMENT = 1;
+DELETE FROM `intranet`.`chemicals_sevesodocument`;
+ALTER TABLE `intranet`.`chemicals_sevesodocument` AUTO_INCREMENT = 1;
+DELETE FROM `intranet`.`filer_image` WHERE `file_ptr_id` > 99;
+ALTER TABLE `intranet`.`filer_image` AUTO_INCREMENT = 100;
+DELETE FROM `intranet`.`filer_file` WHERE `id` > 99;
+ALTER TABLE `intranet`.`filer_file` AUTO_INCREMENT = 100;
