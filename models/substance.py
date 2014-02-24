@@ -280,6 +280,7 @@ class Document(models.Model):
     chemical = models.ForeignKey(Chemical)
     file = FilerFileField(null=True, blank=True)
     doctype = models.CharField(max_length=100)
+    created = models.DateField(auto_now_add=True)
 
     class Meta:
         app_label = "chemicals"
@@ -292,6 +293,7 @@ class ReachDocument(models.Model):
     chemical = models.ForeignKey(Chemical)
     file = FilerFileField(null=True, blank=True)
     country_code = models.CharField(max_length=2, choices=settings.LANGUAGES)
+    created = models.DateField(auto_now_add=True)
 
     class Meta:
         app_label = "chemicals"
@@ -309,6 +311,7 @@ class SevesoDocument(models.Model):
     chemical = models.ForeignKey(Chemical)
     file = FilerFileField(null=True, blank=True)
     country_code = models.CharField(max_length=2, choices=settings.LANGUAGES)
+    created = models.DateField(auto_now_add=True)
 
     class Meta:
         app_label = "chemicals"
@@ -324,6 +327,7 @@ class SafetyDataSheet(models.Model):
     instruction = models.BooleanField(default=False)
     issue_date = models.DateField(null=True, blank=True)
     country_code = models.CharField(max_length=2, choices=settings.LANGUAGES)
+    created = models.DateField(auto_now_add=True)
 
     class Meta:
         app_label = "chemicals"
@@ -339,6 +343,7 @@ class ExtendedSafetyDataSheet(models.Model):
     instruction = models.BooleanField(default=False)
     issue_date = models.DateField(null=True, blank=True)
     country_code = models.CharField(max_length=2, choices=settings.LANGUAGES)
+    created = models.DateField(auto_now_add=True)
 
     class Meta:
         app_label = "chemicals"

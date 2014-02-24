@@ -671,6 +671,7 @@ def create_document():
             chemical=Chemical.objects.get(id=obj.chemical.chemical_id),
             file=get_file_handle(obj.path),
             doctype=obj.doctype,
+            created=obj.createddate,
         )
     print "%s Documents migrated" % count
 
@@ -686,6 +687,7 @@ def create_reach_document():
             chemical=Chemical.objects.get(id=obj.chemical.chemical_id),
             file=get_file_handle(obj.reachdoc_path),
             country_code=get_language(obj.countrycode),
+            created=obj.createddate,
         )
     print "%s REACH Documents migrated" % count
 
@@ -701,6 +703,7 @@ def create_seveso_document():
             chemical=Chemical.objects.get(id=obj.chemical.chemical_id),
             file=get_file_handle(obj.doc_path),
             country_code=get_language(obj.countrycode),
+            created=obj.createddate,
         )
     print "%s Seveso Documents migrated" % count
 
@@ -721,6 +724,7 @@ def create_sdb():
             instruction=obj.instruction or False,
             issue_date=obj.issuedate,
             country_code=get_language(obj.countrycode),
+            created=obj.createddate,
         )
     print "%s SDS migrated" % count
 
@@ -739,6 +743,7 @@ def create_esdb():
             instruction=obj.instruction or False,
             issue_date=obj.issuedate,
             country_code=get_language(obj.countrycode),
+            created=obj.createddate,
         )
     print "%s eSDS migrated" % count
 
