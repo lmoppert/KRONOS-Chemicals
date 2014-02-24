@@ -713,7 +713,7 @@ def create_sdb():
     print "Found %s SDS, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
-        if count % 100 == 0:
+        if count % 500 == 0:
             print "    ...%s SDS have been processed" % count
         SafetyDataSheet.objects.create(
             supplier=Contact.objects.get(id=obj.supplier.contact_id),
@@ -750,40 +750,40 @@ def create_esdb():
 # Main method
 ##############################################################################
 def run():
-    ## Independent Tables
-    #create_users()
-    #create_riskindications()
-    #create_wgks()
-    #create_storage_classes()
-    #create_seveso_categories()
-    #create_rphrases()
-    #create_pphrases()
-    #create_hphrases()
-    #create_persons()
-    #create_plants()
+    # Independent Tables
+    create_users()
+    create_riskindications()
+    create_wgks()
+    create_storage_classes()
+    create_seveso_categories()
+    create_rphrases()
+    create_pphrases()
+    create_hphrases()
+    create_persons()
+    create_plants()
 
-    ## Tables, that have relations to others
-    #count = 0
-    #chemicals = StoffeChemical.objects.using('legacy').all()
-    #print "Found %s Chemicals, processing migrattion..." % chemicals.count()
-    #for chemical in chemicals:
-    #    count += 1
-    #    create_chemicals(chemical)
-    #print "%s Chemicals migrated" % count
-    #create_contacts()
-    #create_departments()
-    #create_locations()
-    #create_stocks()
-    #create_suppliers()
-    #create_producers()
+    # Tables, that have relations to others
+    count = 0
+    chemicals = StoffeChemical.objects.using('legacy').all()
+    print "Found %s Chemicals, processing migrattion..." % chemicals.count()
+    for chemical in chemicals:
+        count += 1
+        create_chemicals(chemical)
+    print "%s Chemicals migrated" % count
+    create_contacts()
+    create_departments()
+    create_locations()
+    create_stocks()
+    create_suppliers()
+    create_producers()
 
-    ## Tables that contain media files
-    #create_pictograms()
+    # Tables that contain media files
+    create_pictograms()
     create_document()
-    #create_reach_document()
-    #create_seveso_document()
-    #create_sdb()
-    #create_esdb()
+    create_reach_document()
+    create_seveso_document()
+    create_sdb()
+    create_esdb()
 
     # We are done!
     print "All objecst migrated - please do not forget to manually " \
