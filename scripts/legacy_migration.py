@@ -71,11 +71,17 @@ def get_file_handle(s):
         leg_file = LegacyFiles.objects.using('legacy').get(fileid=int(s[7:]))
     except:
         return None
-    fid = 9  # The ID of the "Stoffe-Portal" folder
+    fid = 6  # The ID of the "Stoff-Portal" folder
     for fname in leg_file.folder[:-1].split("/"):
         fobj = Folder.objects.get(parent_id=fid, name=fname)
         fid = fobj.id
-    return File.objects.get(original_filename=leg_file.filename, folder_id=fid)
+    try:
+        handle = File.objects.get(original_filename=leg_file.filename,
+                                  folder_id=fid)
+    except:
+        print "File not found: %s" % s
+        return
+    return handle
 
 
 def make_unit(s):
@@ -392,6 +398,8 @@ def create_stocks():
     for obj in objs:
         count += 1
         oid = obj.location_id
+        if oid % 100 == 0:
+            print "Processing Contact above %s" % oid
         location = Location.objects.get(id=oid)
         chemical = Chemical.objects.get(id=obj.chemical_id)
         Stock.objects.create(
@@ -412,6 +420,8 @@ def create_suppliers():
     print "Found %s Suppliers, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
+        if count % 100 == 0:
+            print "    ...%s Suppliers have been processed" % count
         chemical = Chemical.objects.get(id=obj.chemical.chemical_id)
         contact = Contact.objects.get(id=obj.contact.contact_id)
         department = Department.objects.get(id=obj.department.department_id)
@@ -445,47 +455,39 @@ def create_simple_relations(oid, chemical):
     # Storage Class
     count = 0
     objs = StoffeChemStorageclass.objects.using('legacy').filter(chemical=oid)
-    print "Found %s Relations, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
         chemical.storage_classes.add(
             StorageClass.objects.get(id=obj.storageclassid.storageclassid)
         )
-    print "%s Storage Class Relation migrated" % count
     ####################
     # Seveso Categorie
     count = 0
     objs = StoffeChemSevesoKategorie.objects.using('legacy').filter(
         chemical=oid)
-    print "Found %s Relations, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
         chemical.seveso_categories.add(
             SevesoCategory.objects.get(name=obj.seveso_kategorie)
         )
-    print "%s Seveso Category Relation migrated" % count
     ####################
     # R-Phrase
     count = 0
     objs = StoffeChemRphrase.objects.using('legacy').filter(chemical=oid)
-    print "Found %s Relations, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
         chemical.rphrases.add(
             RPhrase.objects.get(name=obj.rphrase)
         )
-    print "%s R-Phrase Relation migrated" % count
     ####################
     # P-Phrase
     count = 0
     objs = StoffeChemPphrase.objects.using('legacy').filter(chemical=oid)
-    print "Found %s Relations, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
         chemical.pphrases.add(
             PPhrase.objects.get(name=obj.pphrase)
         )
-    print "%s P-Phrase Relation migrated" % count
     ####################
 
 
@@ -495,7 +497,6 @@ def create_complex_relations(oid, chemical):
     count = 0
     objs = StoffeChemRisk.objects.using('legacy').filter(
         chemical=oid, countrycode='en-en')
-    print "Found %s Relations, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
         roid = obj.riskindication.riskindication_id
@@ -512,13 +513,11 @@ def create_complex_relations(oid, chemical):
         except:
             pass
         chemical.risk_set.add(robj)
-    print "%s Risk Relation migrated" % count
     ####################
     # H-Phrase
     count = 0
     objs = StoffeChemHphrase.objects.using('legacy').filter(
         chemical=oid, countrycode='en-en')
-    print "Found %s Relations, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
         roid = obj.hphrase
@@ -535,7 +534,6 @@ def create_complex_relations(oid, chemical):
         except:
             pass
         chemical.hphraserelation_set.add(robj)
-    print "%s H-Phrase Relation migrated" % count
     ####################
 
 
@@ -563,7 +561,7 @@ def create_chemicals(chemical):
         article=chemical.article,
         registration_number=chemical.regno,
         cas=chemical.cas_no,
-        oinecs=chemical.einecs,
+        einecs=chemical.einecs,
         cmr=chemical.cmr,
         needed=chemical.needed,
         preparation=chemical.preparation,
@@ -747,7 +745,7 @@ def create_esdb():
 # Main method
 ##############################################################################
 def run():
-    # Independent Tables
+    ## Independent Tables
     #create_users()
     #create_riskindications()
     #create_wgks()
@@ -759,10 +757,10 @@ def run():
     #create_persons()
     #create_plants()
 
-    # Tables, that have relations to others
+    ## Tables, that have relations to others
     #count = 0
-    chemicals = StoffeChemical.objects.using('legacy').all()
-    print "Found %s Chemicals, processing migrattion..." % chemicals.count()
+    #chemicals = StoffeChemical.objects.using('legacy').all()
+    #print "Found %s Chemicals, processing migrattion..." % chemicals.count()
     #for chemical in chemicals:
     #    count += 1
     #    create_chemicals(chemical)
@@ -774,13 +772,13 @@ def run():
     #create_suppliers()
     #create_producers()
 
-    # Tables that contain media files
+    ## Tables that contain media files
     #create_pictograms()
-    #create_document()
+    create_document()
     #create_reach_document()
     #create_seveso_document()
-    create_sdb()
-    create_esdb()
+    #create_sdb()
+    #create_esdb()
 
     # We are done!
     print "All objecst migrated - please do not forget to manually " \
