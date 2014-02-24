@@ -5,10 +5,10 @@
 {% block chemical_content %}
     <h1>{{ chemical.name }}</h1>
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-8">
             <table>
                 <tr>
-                    <th style="width: 180px;">{% trans "Article Number" %}</th>
+                    <th>{% trans "Article Number" %}</th>
                     <td>{{ chemical.article }}</td>
                 </tr><tr>
                     <th>{% trans "Registration Number" %}</th>
@@ -21,24 +21,39 @@
                     <td>{{ chemical.einecs }}</td>
                 </tr>
             </table>
-        </div>
-        <div class="col-lg-8">
-            <b>{% trans "Comment" %}</b>
             <div class="well well-sm">
+                <b>{% trans "Comment" %}</b>
                 {{ chemical.comment }}
             </div>
         </div>
+        <div class="col-lg-4">
+            <div class="checkbox"><label>
+                <input type="checkbox" disabled{{ chemical.preparation|yesno:" checked," }}> {% trans "Preparation" %}
+            </label></div>
+            <div class="checkbox"><label>
+                <input type="checkbox" disabled{{ chemical.needed|yesno:" checked," }}> {% trans "Always needed" %}
+            </label></div>
+            <div class="checkbox"><label>
+                <input type="checkbox" disabled{{ chemical.components_registered|yesno:" checked," }}> {% trans "Components registered" %}
+            </label></div>
+            <div class="checkbox"><label>
+                <input type="checkbox" disabled{{ chemical.archive|yesno:" checked," }}> {% trans "Archived" %}
+            </label></div>
+            <div class="checkbox"><label>
+                <input type="checkbox" disabled{{ chemical.cmr|yesno:" checked," }}> {% trans "CMR" %}
+            </label></div>
+            <div class="checkbox"><label>
+                <input type="checkbox" disabled{{ chemical.reach_vo|yesno:" checked," }}> {% trans "Listed in Appendix XIV, REACH-VO" %}
+            </label></div>
+            <div class="checkbox"><label>
+                <input type="checkbox" disabled{{ chemical.hazardous|yesno:" checked," }}> {% trans "Hazardous" %}
+            </label></div>
+            <div class="checkbox"><label>
+                <input type="checkbox" disabled{{ chemical.instruction|yesno:" checked," }}> {% trans "Instruction" %}
+            </label></div>
+        </div>
     </div>
     <p>
-    <span class="label {{ chemical.cmr|yesno:"label-info,label-default" }}">{% trans "CMR" %}</span>
-    <span class="label {{ chemical.needed|yesno:"label-info,label-default" }}">{% trans "Always needed" %}</span>
-    <span class="label {{ chemical.preparation|yesno:"label-info,label-default" }}">{% trans "Preparation" %}</span>
-    <span class="label {{ chemical.archive|yesno:"label-info,label-default" }}">{% trans "Archived" %}</span>
-    <span class="label {{ chemical.instruction|yesno:"label-info,label-default" }}">{% trans "Instruction" %}</span>
-    <span class="label {{ chemical.hazardous|yesno:"label-danger,label-default" }}">{% trans "Hazardous" %}</span>
-    <span class="label {{ chemical.reach_vo|yesno:"label-info,label-default" }}">{% trans "REACH-VO" %}</span>
-    <span class="label {{ chemical.components_registered|yesno:"label-info,label-default" }}">{% trans "components_registered" %}</span>
-    </p><p>
         <ul class="nav nav-tabs">
             <li class="active"><a href="#classification" data-toggle="tab">{% trans "Classification" %}</a></li>
             <li><a href="#department" data-toggle="tab">{% trans "Department / Supplier" %}</a></li>
@@ -128,9 +143,9 @@
                         <table class="table table-striped table-bordered table-condensed">
                             <tr><th>{% trans "Published" %}</th><th>{% trans "Supplier" %}</th><th>{% trans "Language" %}</th><th>{% trans "SDS" %}</th></tr>
                             {% for obj in chemical.safetydatasheet_set.all %}
-                            <tr><td>{{ obj.issue_date }}</td><td>{{ obj.supplier.name }}</td><td>{{ obj.country_code }}</td><td>
-                                    <a type="button" class="btn btn-warning btn-sm" href="{{ obj.file.url }}" target="_blank">
-                                        <span class="glyphicon glyphicon-file"></span> {{ obj.file.extension|upper }}</a>
+                            <tr><td>{{ obj.issue_date }}</td><td>{{ obj.supplier.name }}</td><td>{{ obj.country_code|language_name_local }}</td><td>
+                                    <a href="{{ obj.file.url }}" target="_blank">
+                                        <span class="glyphicon glyphicon-file"></span> {{ obj.file.name }}</a>
                             </td></tr>
                             {% endfor %}
                         </table>
@@ -140,9 +155,9 @@
                         <table class="table table-striped table-bordered table-condensed">
                             <tr><th>{% trans "Published" %}</th><th>{% trans "Supplier" %}</th><th>{% trans "Language" %}</th><th>{% trans "eSDS" %}</th></tr>
                             {% for obj in chemical.extendedsafetydatasheet_set.all %}
-                            <tr><td>{{ obj.issue_date }}</td><td>{{ obj.supplier.name }}</td><td>{{ obj.country_code }}</td><td>
-                                    <a type="button" class="btn btn-warning btn-sm" href="{{ obj.file.url }}" target="_blank">
-                                        <span class="glyphicon glyphicon-file"></span> {{ obj.file.extension|upper }}</a>
+                            <tr><td>{{ obj.issue_date }}</td><td>{{ obj.supplier.name }}</td><td>{{ obj.country_code|language_name_local }}</td><td>
+                                    <a href="{{ obj.file.url }}" target="_blank">
+                                        <span class="glyphicon glyphicon-file"></span> {{ obj.file.name }}</a>
                             </td></tr>
                             {% endfor %}
                         </table>
@@ -157,8 +172,8 @@
                             <tr><th>{% trans "Created" %}</th><th>{% trans "Plant" %}</th><th>{% trans "Approval" %}</th></tr>
                             {% for obj in chemical.get_approval_documents.all %}
                             <tr><td>{{ obj.created }}</td><td>{{ obj.plant }}</td><td>
-                                    <a type="button" class="btn btn-warning btn-sm" href="{{ obj.file.url }}" target="_blank">
-                                        <span class="glyphicon glyphicon-file"></span> {{ obj.file.extension|upper }}</a>
+                                    <a href="{{ obj.file.url }}" target="_blank">
+                                        <span class="glyphicon glyphicon-file"></span> {{ obj.file.name }}</a>
                             </td></tr>
                             {% endfor %}
                         </table>
@@ -169,8 +184,8 @@
                             <tr><th>{% trans "Created" %}</th><th>{% trans "Info" %}</th></tr>
                             {% for obj in chemical.get_info_documents.all %}
                             <tr><td>{{ obj.created }}</td><td>
-                                    <a type="button" class="btn btn-warning btn-sm" href="{{ obj.file.url }}" target="_blank">
-                                        <span class="glyphicon glyphicon-file"></span> {{ obj.file.extension|upper }}</a>
+                                    <a href="{{ obj.file.url }}" target="_blank">
+                                        <span class="glyphicon glyphicon-file"></span> {{ obj.file.name }}</a>
                             </td></tr>
                             {% endfor %}
                         </table>
@@ -191,7 +206,7 @@
                         <table class="table table-striped table-bordered table-condensed">
                             <tr><th>{% trans "Language" %}</th><th>{% trans "Document" %}</th></tr>
                             {% for obj in chemical.reachdocument_set.all %}
-                            <tr><td>{{ obj.country_code }}</td><td><a type="button" class="btn btn-warning btn-sm" href="{{ obj.file.url }}" target="_blank">
+                            <tr><td>{{ obj.country_code|language_name_local }}</td><td><a type="button" class="btn btn-warning btn-sm" href="{{ obj.file.url }}" target="_blank">
                                         <span class="glyphicon glyphicon-file"></span> {{ obj.file.extension|upper }}</a>
                             </td></tr>
                             {% endfor %}
