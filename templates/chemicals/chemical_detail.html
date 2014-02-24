@@ -6,22 +6,31 @@
     <h1>{{ chemical.name }}</h1>
     <div class="row">
         <div class="col-lg-8">
-            <table>
-                <tr>
-                    <th>{% trans "Article Number" %}</th>
-                    <td>{{ chemical.article }}</td>
-                </tr><tr>
-                    <th>{% trans "Registration Number" %}</th>
-                    <td>{{ chemical.registration_number }}</td>
-                </tr><tr>
-                    <th>{% trans "CAS" %}</th>
-                    <td>{{ chemical.cas }}</td>
-                </tr><tr>
-                    <th>{% trans "EINECS" %}</th>
-                    <td>{{ chemical.einecs }}</td>
-                </tr>
-            </table><br>
-            <b>{% trans "Comment" %}</b>
+            <div class="row">
+                <div class="col-lg-6">
+                    <table style="width:100%;">
+                        <tr>
+                            <th>{% trans "Article Number" %}</th>
+                            <td>{{ chemical.article }}</td>
+                        </tr><tr>
+                            <th>{% trans "Registration Number" %}</th>
+                            <td>{{ chemical.registration_number }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-lg-6">
+                    <table style="width:100%;">
+                        <tr>
+                            <th>{% trans "CAS" %}</th>
+                            <td>{{ chemical.cas }}</td>
+                        </tr><tr>
+                            <th>{% trans "EINECS" %}</th>
+                            <td>{{ chemical.einecs }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br><b>{% trans "Comment" %}</b>
             <div class="well well-sm">
                 {{ chemical.comment }}
             </div>
