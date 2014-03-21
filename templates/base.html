@@ -1,0 +1,66 @@
+{% load sekizai_tags i18n %}
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <!--[if lt IE 9]>
+        <script type="text/javascript" src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta charset="utf-8">
+    <meta name="description" content="KRONOS Intranet">
+    <meta name="author" content="Lutz Moppert">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KRONOS {% trans "Intranet" %}</title>
+    <link rel="shortcut icon" type="image/ico" href="{% static "intranet/img/favicon.ico" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "intranet/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "intranet/css/yamm.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "intranet/css/base.css" %}">
+    {% block extra_head %}{% endblock %}
+    {% render_block "css" %}
+</head>
+<body>
+    <div id="header" class="navbar navbar-static-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://she-intra.eu.nli.net/">
+                    <img width="85%" height="85%" src="{% static "intranet/img/kronoslogo.png" %}">
+                    {% block app_name %}{% endblock %}
+                </a>
+            </div>
+            <div class="nav-collapse navbar-responsive-collapse">
+                {% block top_menu %}{% endblock %}
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div class="container">
+            {% block base_content %}{% endblock %}
+        </div>
+    </div>
+    <div id="footer">
+        <div class="container">
+            <div class="col-lg-1" id="footerlogo">
+                <img src="{% static "intranet/img/footerlogo.png" %}">
+            </div>
+            <div class="col-lg-11" id="footercontent">
+                {% block footer_content %}
+                <address>
+                    © {% now "Y" %} KRONOS Worldwide, Inc. | 5430 LBJ Freeway, Suite 1700 | Dallas, TX, 75240 | United States<br>
+                    Phone: (972) 233-1700 | Fax: (972) 448-1445 | <a href="mailto:kronos.marketing@kronosww.com">kronos.marketing@kronosww.com</a>
+                </address>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    {% render_block "js" %}
+    <script type="text/javascript" src="{% static "intranet/js/jquery.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "intranet/js/bootstrap.min.js" %}"></script>
+</body>
+</html>
