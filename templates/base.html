@@ -14,27 +14,26 @@
     <title>KRONOS {% trans "Intranet" %}</title>
     <link rel="shortcut icon" type="image/ico" href="{% static "chemicals/img/favicon.ico" %}">
     <link rel="stylesheet" type="text/css" href="{% static "chemicals/css/bootstrap.min.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "chemicals/css/yamm.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "chemicals/css/base.css" %}">
     {% block extra_head %}{% endblock %}
     {% render_block "css" %}
 </head>
 <body>
-    <div id="header" class="navbar navbar-static-top" role="navigation">
+    <div id="header" class="navbar navbar-default navbar-static-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://she-intra.eu.nli.net/">
+                <a class="navbar-brand" href="#">
                     <img width="85%" height="85%" src="{% static "chemicals/img/kronoslogo.png" %}">
                     {% block app_name %}{% endblock %}
                 </a>
             </div>
-            <div class="nav-collapse navbar-responsive-collapse">
+            <div class="navbar-collapse collapse" id="navbar-collapse-1">
                 {% block top_menu %}{% endblock %}
             </div>
         </div>
@@ -62,5 +61,6 @@
     {% render_block "js" %}
     <script type="text/javascript" src="{% static "chemicals/js/jquery.min.js" %}"></script>
     <script type="text/javascript" src="{% static "chemicals/js/bootstrap.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "chemicals/js/respond.min.js" %}"></script>
 </body>
 </html>

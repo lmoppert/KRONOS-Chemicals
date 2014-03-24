@@ -25,9 +25,6 @@ html body #header {height:51px;}
 #header .navbar-nav li a:focus.navbar-button, #header .navbar-nav li a:hover.navbar-button {color:#fff; background:#0E509C;}
 #header .navbar-header {padding:0;}
 #header a.navbar-brand {padding-top:7px; padding-bottom:0;}
-#header .navbar-nav .yamm-content ul {list-style:none;padding:0;}
-#header .navbar-nav .yamm-content ul li a {color:#0E509C;}
-
 
 
 /*******************************
