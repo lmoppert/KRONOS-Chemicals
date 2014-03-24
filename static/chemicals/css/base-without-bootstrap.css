@@ -1,0 +1,76 @@
+/*******************************
+ * Base Tags
+ *******************************/
+a {color:#0e509c; text-decoration:none;}
+a:hover {color:#8dc73f}
+p {padding:8px 0; margin:0}
+h1 {color:#0E509C; font-weight:300; font-size:30px; background:url(../img/titlebg.png) bottom left repeat-x; padding:0 0 5px; width:100%; display:inline-block; margin-bottom:20px;}
+h2 {color:#0E509C; font-weight:bold; font-size:14px; background:url(../img/titlebg.png) bottom left repeat-x; padding:0 0 5px; width:100%;}
+td a {padding: 0 5px;display:block;}
+
+
+/*******************************
+ * Layout
+ *******************************/
+#page {background:#E3E6EA; color:#000; font-size:14px !important; font-family: Helvetica, Arial, sans-serif; height:100%; text-align:center; margin:0; padding:0; line-height:1.5; width:100%; position:absolute; display:block; min-width:1200px;}
+#overall {margin:0 auto; text-align:left; width:1000px;}
+#header {background:#04397d url(../img/headerbg.jpg) top center no-repeat; height:83px; width:100%; margin:0 0 -10px; padding:0; display:inline-block; position:relative; clear:both; border-bottom:1px solid #07284e; z-index:10;} 
+#main {width:100%; margin:0; padding:0 0 150px; display:inline-block; position:relative; clear:both; background:#FFFFFF !important;}
+#footer {width:100%; margin:-10px 0 0; padding:0; display:iblock; position:relative; clear:both; background:#E3E6EA; width:100%; border-top:1px solid #a8b4c1; z-index:0}
+
+
+/*******************************
+ * HEADER
+ *******************************/
+#header #logo {width:235px; padding:18px 0 25px; margin:0; display:block; position:relative; float:left;}
+#header #slogan {padding:20px 0 15px 30px; margin:0; display:block; position:relative; top: -2px;float:left; width:auto; color:#FFFFFF; font-style:italic; font-size:27px; text-shadow:1px 1px 2px #000000;}
+
+
+/*******************************
+ * Left Menu
+ *******************************/
+#main #left_menu {float:left; display:inline-block; width:235px; margin:25px 0; z-index:10000; background-color:transparent; background-image:none; border-top:0 none; font-weight:bold; font-size:13px;}
+#main #left_menu ul {list-style: none; padding-left:0;}
+#main #left_menu li {padding:7px 0;}
+#main #left_menu ul li ul {padding:7px 0 0 20px;}
+
+
+/*******************************
+ * Breadcrumbs
+ *******************************/
+#breadcrumbs {width:100%; display:inline-block; position:relative; text-align:right; font-size:12px; color:#0E509C;}
+#breadcrumbs ul {list-style:none; margin:0;}
+#breadcrumbs li {display:inline;}
+
+
+/*******************************
+ * Conent
+ *******************************/
+#content {background:url(../img/contentbg.png) top left no-repeat !important; margin:0 0 0 -2px; padding:10px 0 0 30px; max-width:735px; position:relative; display:inline-block; float:left; min-height:400px; font-size:14px !important;}
+#content object {padding:0; margin:0 10px 10px 0;}
+#content span.file img {width:12px; height:12px;} 
+
+
+/*******************************
+ * Right Column
+ *******************************/
+#right_column {width:220px; float:right; position:relative; display:inline-block; font-size:12px; margin: 10px;}
+#right_column h3 {width:100%; float:right; position:relative; display:inline-block; color:#0E509C; padding:0 5px; border-bottom:1px solid #A8B4C1; font-weight:bold; margin:10px 0 3px; font-size:14px !important; background-position:top left;}
+
+
+/*******************************
+ * FOOTER
+ *******************************/
+#footer #overall {width:900px !important; min-height:100px; background:url(../img/footerlogo.png) top left no-repeat; margin:15px auto; padding:30px 0 50px 100px; font-size:12px; color:#3f4f61; position:relative; display:block; right:-50px;}
+#footer p {padding:0;}
+#footer ul li {float:left; list-style-image:none; list-style-position:inside; list-style-type:none; border-left:1px solid #0E509C;}
+#footer ul li:first-child {border-left:0 none;}
+#footer ul li a {padding:0 5px; text-decoration:underline; display:block; position:relative;}
+#footer ul li:first-child a {padding:0 5px 0 0;}
+#footer ul li:last-child a {padding:0 0 0 5px;}
+#footer table tr, #footer table td {padding:0; margin:0;line-height:1.2;}
+
+/*******************************
+ * Special Stylings
+ *******************************/
+span.django-cms-logo {position:relative; top:5px; padding-left:3px;}
