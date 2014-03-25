@@ -13,6 +13,7 @@ h4 {display:block; font-weight:500; font-size:17px;}
 h5 {display:block; font-weight:bold; font-size:14px;}
 td a {padding: 0 5px;display:block;}
 img {max-width:100%;}
+img.flag {margin:0 3px 2px 0;}
 .with-linebreaks {white-space: pre-wrap;}
 
 

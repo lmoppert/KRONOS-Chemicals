@@ -35,6 +35,24 @@
             </div>
             <div class="navbar-collapse collapse" id="navbar-collapse-1">
                 {% block top_menu %}{% endblock %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a id="lang_dd" href="#" class="navbar-button" role="button" data-toggle="dropdown">
+                            {% trans "Language" %}
+                            <span class="caret"></span>
+                        </a>
+                        <ul id="lang_menu" class="dropdown-menu" role="menu" aria-labelledby="lang_dd">
+                            {% for lang in LANGUAGES %}
+                            <li role="presentation">
+                            <a role="menuitem" href="/{{ lang.0}}{{ request.path|slice:'3:' }}">
+                                    <img class="flag" src="{% static 'chemicals/img/flag-' %}{{ lang.0 }}.png" alt="{{ lang.0 }}">
+                                    {{ lang.1 }}
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
