@@ -41,6 +41,7 @@ class ChemicalMenu(CMSAttachMenu):
         nodes.append(NavigationNode(_('Seveso-View Listed Substances'), "/seveso/listed/", 205, 12))
         nodes.append(NavigationNode(_('Checklists'), "/checklists/", 206, 12))
         nodes.append(NavigationNode(_('Tox Oekotox'), "/tox/", 207, 12))
+        nodes.append(NavigationNode(_('Substance numbers'), "/subnumber/", 208, 12))
         # Entries for the Stock View
         nodes.append(NavigationNode(_('Departments'), "/stock/departments/", 301, 13))
         nodes.append(NavigationNode(_('Location'), "/stock/location/", 302, 13))
