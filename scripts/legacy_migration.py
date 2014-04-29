@@ -658,7 +658,7 @@ def create_document():
     count = 0
     print "Processing Documents"
     objs = StoffeDocument.objects.using('legacy').all()
-    print "Found %s Documents, processing migrattion..." % objs.count()
+    print "Found %s Documents, processing migration..." % objs.count()
     for obj in objs:
         count += 1
         trans = get_translations(
