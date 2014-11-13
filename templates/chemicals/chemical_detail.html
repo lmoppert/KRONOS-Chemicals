@@ -173,8 +173,11 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <h3>{% trans "Documents" %}</h3>
+                    </div>
+                    <div class="col-lg-6">
+                        <h3>{% trans "General documents" %}</h3>
                     </div>
                     <div class="col-lg-6">
                         <table class="table table-striped table-bordered table-condensed">
@@ -208,7 +211,7 @@
                         <p><b>{% trans "Registration Number" %}:</b> {{ chemical.registration_number }}</p>
                         <b>{% trans "Info" %}</b>
                         <div class="well well-sm">
-                            {{ chemical.comment }}
+                            {{ chemical.reachinformation_set.first.description }}
                         </div>
                     </div>
                     <div class="col-lg-3">

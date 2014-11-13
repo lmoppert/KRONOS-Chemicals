@@ -89,6 +89,27 @@ class CMRSubstanceTable(tables.Table):
         fields = ('name', 'supplier_set')
 
 
+class CMRTable(tables.Table):
+    """Table listing all CMR chemicals."""
+    contact = tables.LinkColumn('contact_detail',
+                                accessor='contact.name',
+                                args=[A('contact.pk')],
+                                verbose_name=_('Supplier'))
+    chemical = tables.LinkColumn('chemical_detail',
+                                 accessor='chemical.name',
+                                 args=[A('chemical.pk')],
+                                 verbose_name=_('Chemical'))
+    department = tables.Column(accessor='department.name',
+                               verbose_name=_('Department'))
+
+    class Meta:
+        model = Supplier
+        attrs = {'class': "table table-bordered table-striped table-condensed"}
+        order_by = ('contact', 'chemical')
+        fields = ('chemical', 'department', 'contact',)
+        #fields = ('chemical', 'CMR category', 'department', 'contact',)
+
+
 class SupplierTable(tables.Table):
     """Table listing all suppliers."""
     contact = tables.LinkColumn('contact_detail',
