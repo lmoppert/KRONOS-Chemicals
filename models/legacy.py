@@ -192,7 +192,7 @@ class KronosChecklistStatus(models.Model):
 class KronosCheckAnwendung(models.Model):
     anwendungid = models.ForeignKey(KronosChecklistAnwendung, db_column='AnwendungID')
     checklistid = models.ForeignKey(KronosChecklist, db_column='CheckListID')
-    countrycode = models.ForeignKey(KronosChecklistAnwendung, db_column='countrycode')
+    countrycode = models.ForeignKey(KronosChecklistAnwendung, db_column='countrycode', related_name='cc')
 
     class Meta:
         managed = False
@@ -479,7 +479,7 @@ class StoffeChemGroup(models.Model):
 
 
 class StoffeChemHphrase(models.Model):
-    hphrase = models.CharField('StoffeHphrase', db_column='hphrase_ID')
+    hphrase = models.CharField('StoffeHphrase', db_column='hphrase_ID', max_length=100)
     chemical = models.ForeignKey('StoffeChemical', db_column='chemical_ID')
     info = models.TextField(blank=True)
     countrycode = models.CharField(max_length=24)
@@ -490,7 +490,7 @@ class StoffeChemHphrase(models.Model):
 
 
 class StoffeChemPphrase(models.Model):
-    pphrase = models.CharField('StoffePphrase', db_column='pphrase_ID')
+    pphrase = models.CharField('StoffePphrase', db_column='pphrase_ID', max_length=100)
     chemical = models.ForeignKey('StoffeChemical', db_column='chemical_ID')
 
     class Meta:
@@ -509,7 +509,7 @@ class StoffeChemPictogramm(models.Model):
 
 
 class StoffeChemRphrase(models.Model):
-    rphrase = models.CharField('StoffeRphrase', db_column='rphrase_ID')
+    rphrase = models.CharField('StoffeRphrase', db_column='rphrase_ID', max_length=100)
     chemical = models.ForeignKey('StoffeChemical', db_column='chemical_ID')
 
     class Meta:
@@ -518,7 +518,7 @@ class StoffeChemRphrase(models.Model):
 
 
 class StoffeChemSevesoKategorie(models.Model):
-    seveso_kategorie = models.CharField('StoffeSevesoKategorie', db_column='seveso_kategorie_ID')
+    seveso_kategorie = models.CharField('StoffeSevesoKategorie', db_column='seveso_kategorie_ID', max_length=100)
     chemical = models.ForeignKey('StoffeChemical', db_column='chemical_ID')
 
     class Meta:
@@ -538,7 +538,7 @@ class StoffeChemStorageclass(models.Model):
 class StoffeChemSynonym(models.Model):
     synonym = models.ForeignKey('StoffeSynonym', db_column='synonym_ID')
     chemical = models.ForeignKey('StoffeChemical', db_column='chemical_ID')
-    countrycode = models.CharField('StoffeSynonym', db_column='countrycode')
+    countrycode = models.CharField('StoffeSynonym', db_column='countrycode', max_length=24)
 
     class Meta:
         managed = False
@@ -558,7 +558,7 @@ class StoffeChemTranslation(models.Model):
 
 
 class StoffeChemWgk(models.Model):
-    wgk = models.CharField('StoffeWgk', db_column='wgk_ID')
+    wgk = models.CharField('StoffeWgk', db_column='wgk_ID', max_length=100)
     chemical = models.ForeignKey('StoffeChemical', db_column='chemical_ID')
 
     class Meta:
@@ -1173,7 +1173,7 @@ class LegacyFiles(models.Model):
     height = models.IntegerField(db_column='Height', blank=True, null=True)
     contenttype = models.CharField(db_column='ContentType', max_length=400)
     folder = models.CharField(db_column='Folder', max_length=400, blank=True)
-    folderid = models.ForeignKey('Folders', db_column='FolderID')
+    # folderid = models.ForeignKey('Folders', db_column='FolderID')
     content = models.TextField(db_column='Content', blank=True)
 
     class Meta:
