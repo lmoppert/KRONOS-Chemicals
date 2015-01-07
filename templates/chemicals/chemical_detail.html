@@ -3,7 +3,13 @@
 {% load render_table from django_tables2 %}
 
 {% block chemical_content %}
-    <h1>{{ chemical.name }}</h1>
+    <h1>
+        {{ chemical.name }}
+        <a role="button" class="close" aria-label="Edit"
+            href="{% url 'admin:chemicals_chemical_change' chemical.id %}">
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+        </a>
+    </h1>
     <div class="row">
         <div class="col-lg-8">
             <div class="row">
