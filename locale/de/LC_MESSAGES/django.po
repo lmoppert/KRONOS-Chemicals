@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KRONOS Intranet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-08 16:33+0100\n"
+"POT-Creation-Date: 2015-01-08 17:03+0100\n"
 "PO-Revision-Date: 2014-02-11 09:52+0100\n"
 "Last-Translator: Lutz Moppert <lutz.moppert@kronosww.com>\n"
 "Language: Deutsch\n"
@@ -15,6 +15,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:130
+msgid "Comments"
+msgstr "Kommentare"
+
+#: admin.py:133
+msgid "Values"
+msgstr "Parameter"
+
+#: admin.py:136
+msgid "Flags"
+msgstr "Indikatoren"
+
+#: admin.py:140
+msgid "Relations"
+msgstr "Klassifizierungen"
 
 #: cms_app.py:10 menu.py:23
 msgid "Substance Portal"

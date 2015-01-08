@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-08 16:33+0100\n"
+"POT-Creation-Date: 2015-01-08 17:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:130
+msgid "Comments"
+msgstr ""
+
+#: admin.py:133
+msgid "Values"
+msgstr ""
+
+#: admin.py:136
+msgid "Flags"
+msgstr ""
+
+#: admin.py:140
+msgid "Relations"
+msgstr ""
 
 #: cms_app.py:10 menu.py:23
 msgid "Substance Portal"

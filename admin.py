@@ -15,6 +15,7 @@ from chemicals.models import (Chemical, Document, ReachDocument,
                               )
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin, TranslationTabularInline
+from django.utils.translation import ugettext_lazy as _
 
 
 ##############################################################################
@@ -122,6 +123,25 @@ class ChemicalAdmin(TranslationAdmin):
     """Admin view for the chemicals."""
 
     list_display = ('name', 'registration_number', 'article', 'comment')
+    fieldsets = (
+        (None, {
+            'fields': ('name',)
+        }),
+        (_('Comments'), {
+            'fields': ('comment',)
+        }),
+        (_('Values'), {
+            'fields': ('article','registration_number','cas','einecs')
+        }),
+        (_('Flags'), {
+            'fields': ('cmr','needed','preparation','archive','instruction',
+                       'hazardous','reach_vo','components_registered')
+        }),
+        (_('Relations'), {
+            'fields': ('replaced','wgk','synonyms','storage_classes',
+                       'seveso_categories','rphrases','pphrases','producer')
+        }),
+    )
     inlines = [
         DocumentInline,
         ReachDocumentInline,
