@@ -175,7 +175,7 @@ class Chemical(models.Model):
     def __unicode__(self):
         return self.name
 
-    def get_absolut_url(self):
+    def get_absolute_url(self):
         return reverse('chemical_detail', kwargs={'pk': self.pk})
 
     class Meta:

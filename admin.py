@@ -1,6 +1,6 @@
 """Admin configuration for the chemicals application."""
 
-#pep257: disable C0110
+# pep257: disable C0110
 
 from chemicals.models import (Chemical, Document, ReachDocument,
                               ReachInformation, SafetyDataSheet,
@@ -14,7 +14,6 @@ from chemicals.models import (Chemical, Document, ReachDocument,
                               HPhrase
                               )
 from django.contrib import admin
-from django.contrib.sites.models import Site
 from modeltranslation.admin import TranslationAdmin, TranslationTabularInline
 
 
@@ -248,7 +247,7 @@ class CheckListAdmin(admin.ModelAdmin):
     ]
 
 
-#class UserProfileInline(admin.StackedInline):
+# class UserProfileInline(admin.StackedInline):
 #
 #    """Inline view for the user profile."""
 #
