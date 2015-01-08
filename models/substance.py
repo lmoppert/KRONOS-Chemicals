@@ -21,6 +21,7 @@ class HPhrase(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("H Phrase")
+        verbose_name_plural = _("H Phrases")
 
 
 class PPhrase(models.Model):
@@ -35,6 +36,7 @@ class PPhrase(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("P Phrase")
+        verbose_name_plural = _("P Phrases")
 
 
 class RPhrase(models.Model):
@@ -49,6 +51,7 @@ class RPhrase(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("R Phrase")
+        verbose_name_plural = _("R Phrases")
 
 
 class SevesoCategory(models.Model):
@@ -63,6 +66,7 @@ class SevesoCategory(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Seveso Category")
+        verbose_name_plural = _("Seveso Categories")
 
 
 class StorageClass(models.Model):
@@ -77,6 +81,7 @@ class StorageClass(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Storage Class")
+        verbose_name_plural = _("Storage Classes")
 
 
 class Synonym(models.Model):
@@ -90,6 +95,7 @@ class Synonym(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Chemical Synonym")
+        verbose_name_plural = _("Chemical Synonyms")
 
 
 class WGK(models.Model):
@@ -104,6 +110,7 @@ class WGK(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("WGK")
+        verbose_name_plural = _("WGKs")
 
 
 class RiskIndication(models.Model):
@@ -117,6 +124,7 @@ class RiskIndication(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Risk Indication")
+        verbose_name_plural = _("Risk Indications")
 
 
 class Chemical(models.Model):
@@ -181,6 +189,7 @@ class Chemical(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Chemical")
+        verbose_name_plural = _("Chemicals")
 
 
 class ReachInformation(models.Model):
@@ -195,6 +204,7 @@ class ReachInformation(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Reach Information")
+        verbose_name_plural = _("Reach Information")
 
 
 class SevesoInformation(models.Model):
@@ -209,6 +219,7 @@ class SevesoInformation(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Seveso Information")
+        verbose_name_plural = _("Seveso Information")
 
 
 class Risk(models.Model):
@@ -224,6 +235,7 @@ class Risk(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Risk")
+        verbose_name_plural = _("Risks")
 
 
 class HPhraseRelation(models.Model):
@@ -239,6 +251,7 @@ class HPhraseRelation(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("H Phrase Relation")
+        verbose_name_plural = _("H Phrase Relations")
 
 
 #############################################################################
@@ -257,6 +270,7 @@ class Pictogram(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Pictogram")
+        verbose_name_plural = _("Pictograms")
 
 
 class Signal(models.Model):
@@ -271,6 +285,7 @@ class Signal(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Singal")
+        verbose_name_plural = _("Singals")
 
 
 class Document(models.Model):
@@ -285,6 +300,7 @@ class Document(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Document")
+        verbose_name_plural = _("Documents")
 
 
 class ReachDocument(models.Model):
@@ -298,6 +314,7 @@ class ReachDocument(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Reach Document")
+        verbose_name_plural = _("Reach Documents")
 
 
 class SevesoDocument(models.Model):
@@ -316,6 +333,7 @@ class SevesoDocument(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Seveso Document")
+        verbose_name_plural = _("Seveso Documents")
 
 
 class SafetyDataSheet(models.Model):
@@ -332,6 +350,7 @@ class SafetyDataSheet(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Safety Data Sheet")
+        verbose_name_plural = _("Safety Data Sheets")
 
 
 class ExtendedSafetyDataSheet(models.Model):
@@ -348,3 +367,4 @@ class ExtendedSafetyDataSheet(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Extended Safety Data Sheet")
+        verbose_name_plural = _("Extended Safety Data Sheets")

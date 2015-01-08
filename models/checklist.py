@@ -17,6 +17,7 @@ class CheckUsage(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Check List Usage")
+        verbose_name_plural = _("Check List Usages")
 
 
 class CheckList(models.Model):
@@ -37,6 +38,7 @@ class CheckList(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Check List")
+        verbose_name_plural = _("Check Lists")
 
 
 class CheckSection(models.Model):
@@ -53,6 +55,7 @@ class CheckSection(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Check List Section")
+        verbose_name_plural = _("Check List Sections")
 
 
 class PPE(models.Model):
@@ -64,6 +67,7 @@ class PPE(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Personal Protective Equipment (PPE)")
+        verbose_name_plural = _("Personal Protective Equipments (PPE)")
 
 
 class HPhraseCheck(models.Model):
@@ -80,6 +84,7 @@ class HPhraseCheck(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("H Phrase")
+        verbose_name_plural = _("H Phrases")
 
 
 class PPhraseCheck(models.Model):
@@ -96,6 +101,7 @@ class PPhraseCheck(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("P Phrase")
+        verbose_name_plural = _("P Phrases")
 
 
 class WGKCheck(models.Model):
@@ -112,6 +118,7 @@ class WGKCheck(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("WGK")
+        verbose_name_plural = _("WGKs")
 
 
 class PictogramCheck(models.Model):
@@ -128,6 +135,7 @@ class PictogramCheck(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Pictogram Check")
+        verbose_name_plural = _("Pictogram Checks")
 
 
 class StorageClassCheck(models.Model):
@@ -144,6 +152,7 @@ class StorageClassCheck(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Storage Class Check")
+        verbose_name_plural = _("Storage Class Checks")
 
 
 class PPECheck(models.Model):
@@ -160,3 +169,4 @@ class PPECheck(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("PPE Check")
+        verbose_name_plural = _("PPE Checks")

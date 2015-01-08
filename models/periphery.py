@@ -26,6 +26,7 @@ class Person(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Person")
+        verbose_name_plural = _("Persons")
 
 
 class Contact(models.Model):
@@ -51,6 +52,7 @@ class Contact(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Contact")
+        verbose_name_plural = _("Contacts")
 
 
 class Role(models.Model):
@@ -66,6 +68,7 @@ class Role(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Role")
+        verbose_name_plural = _("Roles")
 
 
 class Plant(models.Model):
@@ -83,6 +86,7 @@ class Plant(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Plant")
+        verbose_name_plural = _("Plants")
 
 
 class Department(models.Model):
@@ -97,6 +101,7 @@ class Department(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Department")
+        verbose_name_plural = _("Departments")
         ordering = ['name']
 
 
@@ -115,14 +120,17 @@ class Location(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Location")
+        verbose_name_plural = _("Locations")
 
 
 class Stock(models.Model):
     """Class adding volume informatino for a chemical to a location."""
 
-    UNITS = (('t', _('tons')), ('k', _('kilogram')), ('g', _('gram')),
-            ('c', _('cubic meter')), ('l', _('liter')), ('m', _('mililiter')),
-            ('p', _('pieces')),)
+    UNITS = (
+        ('t', _('tons')), ('k', _('kilogram')), ('g', _('gram')),
+        ('c', _('cubic meter')), ('l', _('liter')), ('m', _('mililiter')),
+        ('p', _('pieces')),
+    )
 
     chemical = models.ForeignKey('Chemical')
     location = models.ForeignKey(Location)
@@ -138,6 +146,7 @@ class Stock(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Stock")
+        verbose_name_plural = _("Stocks")
 
 
 class Supplier(models.Model):
@@ -151,3 +160,4 @@ class Supplier(models.Model):
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Supplier")
+        verbose_name_plural = _("Suppliers")

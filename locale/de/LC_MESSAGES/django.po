@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KRONOS Intranet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-28 11:54+0200\n"
+"POT-Creation-Date: 2015-01-08 16:33+0100\n"
 "PO-Revision-Date: 2014-02-11 09:52+0100\n"
 "Last-Translator: Lutz Moppert <lutz.moppert@kronosww.com>\n"
 "Language: Deutsch\n"
@@ -32,30 +32,32 @@ msgstr "Stoffe Ansichten"
 msgid "SHE Views"
 msgstr "SHE Ansichten"
 
-#: menu.py:26 templates/chemicals/base.html:39
+#: menu.py:26 templates/chemicals/base.html:40
 msgid "Stock Views"
 msgstr "Chemikalienlager Ansichten"
 
-#: menu.py:28 menu.py:47 templates/chemicals/base.html:12
-#: templates/chemicals/base.html.py:45
+#: menu.py:28 menu.py:48 templates/chemicals/base.html:12
+#: templates/chemicals/base.html.py:46
 msgid "Substances"
 msgstr "Chemikalien"
 
-#: menu.py:29 views.py:118 templates/chemicals/base.html:13
+#: menu.py:29 models/periphery.py:163 templates/chemicals/base.html:13
+#: views.py:118
 msgid "Suppliers"
-msgstr "Lieferant"
+msgstr "Lieferanten"
 
-#: menu.py:30 views.py:139 templates/chemicals/base.html:14
+#: menu.py:30 templates/chemicals/base.html:14 views.py:139
 msgid "Producers"
 msgstr "Hersteller"
 
-#: menu.py:31 menu.py:45 tables.py:141 views.py:156 views.py:167 views.py:247
-#: templates/chemicals/base.html:15 templates/chemicals/base.html.py:43
+#: menu.py:31 menu.py:46 models/periphery.py:104 tables.py:162
+#: templates/chemicals/base.html:15 templates/chemicals/base.html.py:44
+#: views.py:156 views.py:167 views.py:247
 msgid "Departments"
 msgstr "Abteilungen"
 
 #: menu.py:32 templates/chemicals/base.html:16
-#: templates/chemicals/chemical_detail.html:52
+#: templates/chemicals/chemical_detail.html:58
 msgid "CMR"
 msgstr "CMR"
 
@@ -67,7 +69,7 @@ msgstr "Archiv"
 msgid "Safetydatasheets"
 msgstr "Sicherheitsdatenblatt"
 
-#: menu.py:35 views.py:231 templates/chemicals/base.html:19
+#: menu.py:35 templates/chemicals/base.html:19 views.py:231
 msgid "Approval Documents"
 msgstr "Freigabedokument"
 
@@ -91,8 +93,8 @@ msgstr "Seveso Ansicht"
 msgid "Seveso-View Listed Substances"
 msgstr "Seveso Ansicht - Gelistete Stoffe"
 
-#: menu.py:42 menu.py:48 templates/chemicals/base.html:33
-#: templates/chemicals/base.html.py:46
+#: menu.py:42 menu.py:49 templates/chemicals/base.html:33
+#: templates/chemicals/base.html.py:47
 msgid "Checklists"
 msgstr "Checklisten"
 
@@ -100,439 +102,536 @@ msgstr "Checklisten"
 msgid "Tox Oekotox"
 msgstr "Tox Oekotox"
 
-#: menu.py:46 tables.py:217 models/periphery.py:117
-#: templates/chemicals/base.html:44
+#: menu.py:44
+msgid "Substance numbers"
+msgstr "Stoff Nummern"
+
+#: menu.py:47 models/periphery.py:122 tables.py:238
+#: templates/chemicals/base.html:45
 msgid "Location"
 msgstr "Standort"
 
-#: tables.py:27 models/checklist.py:114 models/substance.py:98
-#: models/substance.py:106 templates/chemicals/chemical_detail.html:111
+#: models/checklist.py:19
+msgid "Check List Usage"
+msgstr "Checklisten Anwendung"
+
+#: models/checklist.py:20
+msgid "Check List Usages"
+msgstr "Checklisten Anwendungen"
+
+#: models/checklist.py:26
+msgid "open"
+msgstr "offen"
+
+#: models/checklist.py:26
+msgid "active"
+msgstr "aktiv"
+
+#: models/checklist.py:26
+msgid "closed"
+msgstr "geschlossen"
+
+#: models/checklist.py:40
+msgid "Check List"
+msgstr "Checkliste"
+
+#: models/checklist.py:41
+msgid "Check Lists"
+msgstr "Checklisten"
+
+#: models/checklist.py:57
+msgid "Check List Section"
+msgstr "Checklisten Kapitel"
+
+#: models/checklist.py:58
+msgid "Check List Sections"
+msgstr "Checklisten Kapitel"
+
+#: models/checklist.py:69
+msgid "Personal Protective Equipment (PPE)"
+msgstr "Persönliche Schutz-Ausrüstung (PSA)"
+
+#: models/checklist.py:70
+msgid "Personal Protective Equipments (PPE)"
+msgstr "Persönliche Schutz-Ausrüstungen (PSA)"
+
+#: models/checklist.py:86 models/substance.py:23
+msgid "H Phrase"
+msgstr "H-Satz"
+
+#: models/checklist.py:87 models/substance.py:24
+msgid "H Phrases"
+msgstr "H-Sätze"
+
+#: models/checklist.py:103 models/substance.py:38
+msgid "P Phrase"
+msgstr "P-Satz"
+
+#: models/checklist.py:104 models/substance.py:39
+msgid "P Phrases"
+msgstr "P-Sätze"
+
+#: models/checklist.py:120 models/substance.py:104 models/substance.py:112
+#: tables.py:27 templates/chemicals/chemical_detail.html:117
 msgid "WGK"
 msgstr "WGK"
+
+#: models/checklist.py:121 models/substance.py:113
+msgid "WGKs"
+msgstr "WGKs"
+
+#: models/checklist.py:137
+msgid "Pictogram Check"
+msgstr "Piktogramm Check"
+
+#: models/checklist.py:138
+msgid "Pictogram Checks"
+msgstr "Piktogramm Checks"
+
+#: models/checklist.py:154
+msgid "Storage Class Check"
+msgstr "Lagerklassen Check"
+
+#: models/checklist.py:155
+msgid "Storage Class Checks"
+msgstr "Lagerklassen Checks"
+
+#: models/checklist.py:171
+msgid "PPE Check"
+msgstr "PPE Check"
+
+#: models/checklist.py:172
+msgid "PPE Checks"
+msgstr "PPE Checks"
+
+#: models/periphery.py:28
+msgid "Person"
+msgstr "Person"
+
+#: models/periphery.py:29
+msgid "Persons"
+msgstr "Personen"
+
+#: models/periphery.py:54
+msgid "Contact"
+msgstr "Kontakt"
+
+#: models/periphery.py:55
+msgid "Contacts"
+msgstr "Kontakte"
+
+#: models/periphery.py:61 models/substance.py:133 models/substance.py:191
+#: tables.py:101 tables.py:122 tables.py:137 tables.py:160 tables.py:204
+#: tables.py:232
+msgid "Chemical"
+msgstr "Chemikalie"
+
+#: models/periphery.py:70
+msgid "Role"
+msgstr "Rolle"
+
+#: models/periphery.py:71
+msgid "Roles"
+msgstr "Rollen"
+
+#: models/periphery.py:88 templates/chemicals/chemical_detail.html:190
+msgid "Plant"
+msgstr "Standort"
+
+#: models/periphery.py:89
+msgid "Plants"
+msgstr "Standorte"
+
+#: models/periphery.py:103 tables.py:103 tables.py:124
+#: templates/chemicals/chemical_detail.html:136
+#: templates/chemicals/chemical_detail.html:138
+msgid "Department"
+msgstr "Abteilung"
+
+#: models/periphery.py:123
+msgid "Locations"
+msgstr "Standorte"
+
+#: models/periphery.py:130
+msgid "tons"
+msgstr "Tonnen"
+
+#: models/periphery.py:130
+msgid "kilogram"
+msgstr "Kilogramm"
+
+#: models/periphery.py:130
+msgid "gram"
+msgstr "Gramm"
+
+#: models/periphery.py:131
+msgid "cubic meter"
+msgstr "Kubikmeter"
+
+#: models/periphery.py:131
+msgid "liter"
+msgstr "Liter"
+
+#: models/periphery.py:131
+msgid "mililiter"
+msgstr "Mililiter"
+
+#: models/periphery.py:132
+msgid "pieces"
+msgstr "Stück"
+
+#: models/periphery.py:138
+msgid "Volume"
+msgstr "Menge"
+
+#: models/periphery.py:140 models/periphery.py:144
+msgid "Unit"
+msgstr "Einheit"
+
+#: models/periphery.py:142
+msgid "Year Volume"
+msgstr "Jahresmenge"
+
+#: models/periphery.py:148
+msgid "Stock"
+msgstr "Bestand"
+
+#: models/periphery.py:149 views.py:259
+msgid "Stocks"
+msgstr "Bestände"
+
+#: models/periphery.py:162 tables.py:30 tables.py:77 tables.py:97
+#: tables.py:118 tables.py:168 templates/chemicals/chemical_detail.html:138
+#: templates/chemicals/chemical_detail.html:159
+#: templates/chemicals/chemical_detail.html:171
+msgid "Supplier"
+msgstr "Lieferant"
+
+#: models/substance.py:14 templates/chemicals/chemical_detail.html:121
+msgid "H-Phrase"
+msgstr "H-Satz"
+
+#: models/substance.py:30 templates/chemicals/chemical_detail.html:127
+msgid "P-Phrase"
+msgstr "P-Satz"
+
+#: models/substance.py:45 templates/chemicals/chemical_detail.html:94
+msgid "R-Phrase"
+msgstr "R-Satz"
+
+#: models/substance.py:53
+msgid "R Phrase"
+msgstr "R-Satz"
+
+#: models/substance.py:54
+msgid "R Phrases"
+msgstr "R-Sätze"
+
+#: models/substance.py:60 models/substance.py:68
+msgid "Seveso Category"
+msgstr "Seveso Kategorie"
+
+#: models/substance.py:69
+msgid "Seveso Categories"
+msgstr "Seveso Kategorien"
+
+#: models/substance.py:75 models/substance.py:83
+#: templates/chemicals/chemical_detail.html:112
+msgid "Storage Class"
+msgstr "Lagerklasse"
+
+#: models/substance.py:84 models/substance.py:158
+msgid "Storage Classes"
+msgstr "Lagerklassen"
+
+#: models/substance.py:90
+msgid "Synonym"
+msgstr "Chemisches Synonym"
+
+#: models/substance.py:97
+msgid "Chemical Synonym"
+msgstr "Chemisches Synonym"
+
+#: models/substance.py:98
+msgid "Chemical Synonyms"
+msgstr "Chemische Synonyme"
+
+#: models/substance.py:119 models/substance.py:237
+#: templates/chemicals/chemical_detail.html:86
+msgid "Risk"
+msgstr "Gefahrstoffbezeichung"
+
+#: models/substance.py:126 models/substance.py:167
+msgid "Risk Indication"
+msgstr "Gefahrenbezeichnung"
+
+#: models/substance.py:127
+msgid "Risk Indications"
+msgstr "Gefahrenbezeichnungen"
+
+#: models/substance.py:173 models/substance.py:264 models/substance.py:272
+#: templates/chemicals/chemical_detail.html:105
+msgid "Pictogram"
+msgstr "Piktogramm"
+
+#: models/substance.py:192 views.py:76
+msgid "Chemicals"
+msgstr "Chemikalien"
+
+#: models/substance.py:206 models/substance.py:207
+msgid "Reach Information"
+msgstr "REACH Information"
+
+#: models/substance.py:221 models/substance.py:222
+msgid "Seveso Information"
+msgstr "Seveso Information"
+
+#: models/substance.py:238 tables.py:164 tables.py:234
+msgid "Risks"
+msgstr "Gefahrstoffbezeichungen"
+
+#: models/substance.py:253
+msgid "H Phrase Relation"
+msgstr "H-Satz Relation"
+
+#: models/substance.py:254
+msgid "H Phrase Relations"
+msgstr "H-Satz Relationen"
+
+#: models/substance.py:273 tables.py:166 tables.py:236
+msgid "Pictograms"
+msgstr "Piktogramme"
+
+#: models/substance.py:279
+msgid "danger"
+msgstr "Gefahr"
+
+#: models/substance.py:279
+msgid "warning"
+msgstr "Warnung"
+
+#: models/substance.py:279
+msgid "no signal"
+msgstr "Kein Signal"
+
+#: models/substance.py:287
+msgid "Singal"
+msgstr "Signal"
+
+#: models/substance.py:288
+msgid "Singals"
+msgstr "Signale"
+
+#: models/substance.py:302 templates/chemicals/chemical_detail.html:225
+msgid "Document"
+msgstr "Dokument"
+
+#: models/substance.py:303 templates/chemicals/chemical_detail.html:183
+msgid "Documents"
+msgstr "Freigabedokumente"
+
+#: models/substance.py:316
+msgid "Reach Document"
+msgstr "Reach Dokument"
+
+#: models/substance.py:317
+msgid "Reach Documents"
+msgstr "Reach Dokumente"
+
+#: models/substance.py:335
+msgid "Seveso Document"
+msgstr "Seveso Dokument"
+
+#: models/substance.py:336
+msgid "Seveso Documents"
+msgstr "Seveso Dokumente"
+
+#: models/substance.py:352
+msgid "Safety Data Sheet"
+msgstr "Sicherheits-Daten-Blatt"
+
+#: models/substance.py:353 templates/chemicals/chemical_detail.html:155
+#: views.py:185 views.py:195 views.py:205 views.py:220
+msgid "Safety Data Sheets"
+msgstr "Sicherheitsdatenblätter"
+
+#: models/substance.py:369
+msgid "Extended Safety Data Sheet"
+msgstr "Erweitertes Sicherheits-Daten-Blatt"
+
+#: models/substance.py:370
+msgid "Extended Safety Data Sheets"
+msgstr "Erweiterte Sicherheits-Daten-Blätter"
 
 #. Translators: This is an abbreviation for Storage Classes
 #: tables.py:29
 msgid "SC"
 msgstr "LGK"
 
-#: tables.py:30 tables.py:77 tables.py:97 tables.py:147
-#: models/periphery.py:153 templates/chemicals/chemical_detail.html:132
-#: templates/chemicals/chemical_detail.html:153
-#: templates/chemicals/chemical_detail.html:165
-msgid "Supplier"
-msgstr "Lieferant"
-
-#: tables.py:101 tables.py:116 tables.py:139 tables.py:183 tables.py:211
-#: models/periphery.py:59 models/substance.py:125 models/substance.py:183
-msgid "Chemical"
-msgstr "Chemikalie"
-
-#: tables.py:103 models/periphery.py:99
-#: templates/chemicals/chemical_detail.html:130
-#: templates/chemicals/chemical_detail.html:132
-msgid "Department"
-msgstr "Abteilung"
-
-#: tables.py:115 templates/chemicals/chemical_detail.html:137
+#: tables.py:136 templates/chemicals/chemical_detail.html:143
 #: templates/chemicals/contact_detail.html:7
 msgid "Producer"
 msgstr "Hersteller"
 
-#: tables.py:133 templates/chemicals/chemical_detail.html:153
+#: tables.py:154 templates/chemicals/chemical_detail.html:159
 msgid "SDS"
 msgstr "SDB"
 
-#: tables.py:134 templates/chemicals/chemical_detail.html:165
+#: tables.py:155 templates/chemicals/chemical_detail.html:171
 msgid "eSDS"
 msgstr "eSDB"
 
-#: tables.py:136 templates/base.html:41
-#: templates/chemicals/chemical_detail.html:153
-#: templates/chemicals/chemical_detail.html:165
-#: templates/chemicals/chemical_detail.html:219
+#: tables.py:157 templates/base.html:41
+#: templates/chemicals/chemical_detail.html:159
+#: templates/chemicals/chemical_detail.html:171
+#: templates/chemicals/chemical_detail.html:225
 msgid "Language"
 msgstr "Sprache"
 
-#: tables.py:143 tables.py:213
-msgid "Risks"
-msgstr "Gefahrstoffbezeichungen"
-
-#: tables.py:145 tables.py:215
-msgid "Pictograms"
-msgstr "Piktogramme"
-
-#: tables.py:180 templates/chemicals/chemical_detail.html:184
+#: tables.py:201 templates/chemicals/chemical_detail.html:190
 msgid "Approval"
 msgstr "Freigabedokument"
-
-#: urls.py:19
-msgid "Archived chemicals"
-msgstr "Archivierte Chemikalien"
-
-#: views.py:76
-msgid "Chemicals"
-msgstr "Chemikalien"
-
-#: views.py:185 views.py:195 views.py:205 views.py:220
-#: templates/chemicals/chemical_detail.html:149
-msgid "Safety Data Sheets"
-msgstr "Sicherheitsdatenblätter"
-
-#: views.py:259
-msgid "Stocks"
-msgstr "Bestände"
-
-#: models/checklist.py:19
-msgid "Check List Usage"
-msgstr "Checklisten Anwendung"
-
-#: models/checklist.py:25
-msgid "open"
-msgstr "offen"
-
-#: models/checklist.py:25
-msgid "active"
-msgstr "aktiv"
-
-#: models/checklist.py:25
-msgid "closed"
-msgstr "geschlossen"
-
-#: models/checklist.py:39
-msgid "Check List"
-msgstr "Checkliste"
-
-#: models/checklist.py:55
-msgid "Check List Section"
-msgstr "Checklisten Kapitel"
-
-#: models/checklist.py:66
-msgid "Personal Protective Equipment (PPE)"
-msgstr "Persönliche Schutz-Ausrüstung (PSA)"
-
-#: models/checklist.py:82 models/substance.py:23
-msgid "H Phrase"
-msgstr "H-Satz"
-
-#: models/checklist.py:98 models/substance.py:37
-msgid "P Phrase"
-msgstr "P-Satz"
-
-#: models/checklist.py:130
-msgid "Pictogram Check"
-msgstr "Piktogramm Check"
-
-#: models/checklist.py:146
-msgid "Storage Class Check"
-msgstr "Lagerklassen Check"
-
-#: models/checklist.py:162
-msgid "PPE Check"
-msgstr "PPE Check"
-
-#: models/periphery.py:28
-msgid "Person"
-msgstr "Person"
-
-#: models/periphery.py:53
-msgid "Contact"
-msgstr "Kontakt"
-
-#: models/periphery.py:68
-msgid "Role"
-msgstr "Rolle"
-
-#: models/periphery.py:85 templates/chemicals/chemical_detail.html:184
-msgid "Plant"
-msgstr "Standort"
-
-#: models/periphery.py:123
-msgid "tons"
-msgstr "Tonnen"
-
-#: models/periphery.py:123
-msgid "kilogram"
-msgstr "Kilogramm"
-
-#: models/periphery.py:123
-msgid "gram"
-msgstr "Gramm"
-
-#: models/periphery.py:124
-msgid "cubic meter"
-msgstr "Kubikmeter"
-
-#: models/periphery.py:124
-msgid "liter"
-msgstr "Liter"
-
-#: models/periphery.py:124
-msgid "mililiter"
-msgstr "Mililiter"
-
-#: models/periphery.py:125
-msgid "pieces"
-msgstr "Stück"
-
-#: models/periphery.py:130
-msgid "Volume"
-msgstr "Menge"
-
-#: models/periphery.py:132 models/periphery.py:136
-msgid "Unit"
-msgstr "Einheit"
-
-#: models/periphery.py:134
-msgid "Year Volume"
-msgstr "Jahresmenge"
-
-#: models/periphery.py:140
-msgid "Stock"
-msgstr "Bestand"
-
-#: models/substance.py:14 templates/chemicals/chemical_detail.html:115
-msgid "H-Phrase"
-msgstr "H-Satz"
-
-#: models/substance.py:29 templates/chemicals/chemical_detail.html:121
-msgid "P-Phrase"
-msgstr "P-Satz"
-
-#: models/substance.py:43 templates/chemicals/chemical_detail.html:88
-msgid "R-Phrase"
-msgstr "R-Satz"
-
-#: models/substance.py:51
-msgid "R Phrase"
-msgstr "R-Satz"
-
-#: models/substance.py:57 models/substance.py:65
-msgid "Seveso Category"
-msgstr "Seveso Kategorie"
-
-#: models/substance.py:71 models/substance.py:79
-#: templates/chemicals/chemical_detail.html:106
-msgid "Storage Class"
-msgstr "Lagerklasse"
-
-#: models/substance.py:85
-msgid "Synonym"
-msgstr "Chemisches Synonym"
-
-#: models/substance.py:92
-msgid "Chemical Synonym"
-msgstr "Chemisches Synonym"
-
-#: models/substance.py:112 models/substance.py:226
-#: templates/chemicals/chemical_detail.html:80
-msgid "Risk"
-msgstr "Gefahrstoffbezeichung"
-
-#: models/substance.py:119 models/substance.py:159
-msgid "Risk Indication"
-msgstr "Gefahrenbezeichnung"
-
-#: models/substance.py:150
-msgid "Storage Classes"
-msgstr "Lagerklassen"
-
-#: models/substance.py:165 models/substance.py:251 models/substance.py:259
-#: templates/chemicals/chemical_detail.html:99
-msgid "Pictogram"
-msgstr "Piktogramm"
-
-#: models/substance.py:197
-msgid "Reach Information"
-msgstr "REACH Information"
-
-#: models/substance.py:211
-msgid "Seveso Information"
-msgstr "Seveso Information"
-
-#: models/substance.py:241
-msgid "H Phrase Relation"
-msgstr "H-Satz Relation"
-
-#: models/substance.py:265
-msgid "danger"
-msgstr "Gefahr"
-
-#: models/substance.py:265
-msgid "warning"
-msgstr "Warnung"
-
-#: models/substance.py:265
-msgid "no signal"
-msgstr "Kein Signal"
-
-#: models/substance.py:273
-msgid "Singal"
-msgstr "Signal"
-
-#: models/substance.py:287 templates/chemicals/chemical_detail.html:219
-msgid "Document"
-msgstr "Dokument"
-
-#: models/substance.py:300
-msgid "Reach Document"
-msgstr "Reach Dokument"
-
-#: models/substance.py:318
-msgid "Seveso Document"
-msgstr "Seveso Dokument"
-
-#: models/substance.py:334
-msgid "Safety Data Sheet"
-msgstr "Sicherheits-Daten-Blatt"
-
-#: models/substance.py:350
-msgid "Extended Safety Data Sheet"
-msgstr "Erweitertes Sicherheits-Daten-Blatt"
-
-#: templates/base.html:14
-msgid "Intranet"
-msgstr ""
 
 #: templates/chemicals/base.html:32
 msgid "Seveso-View Listed Substance"
 msgstr "Seveso Ansicht - Gelistete Stoffe"
 
-#: templates/chemicals/chemical_detail.html:13
+#: templates/chemicals/base.html:35
+msgid "Substance Numbers"
+msgstr "Stoff Nummern"
+
+#: templates/chemicals/chemical_detail.html:19
 msgid "Article Number"
 msgstr "Artikel Nummer"
 
-#: templates/chemicals/chemical_detail.html:16
-#: templates/chemicals/chemical_detail.html:211
+#: templates/chemicals/chemical_detail.html:22
+#: templates/chemicals/chemical_detail.html:217
 msgid "Registration Number"
 msgstr "REACH Registrierungsnummer"
 
-#: templates/chemicals/chemical_detail.html:24
+#: templates/chemicals/chemical_detail.html:30
 msgid "CAS"
 msgstr "CAS"
 
-#: templates/chemicals/chemical_detail.html:27
+#: templates/chemicals/chemical_detail.html:33
 msgid "EINECS"
 msgstr "EINECS"
 
-#: templates/chemicals/chemical_detail.html:33
+#: templates/chemicals/chemical_detail.html:39
 msgid "Comment"
 msgstr "Kommentar"
 
-#: templates/chemicals/chemical_detail.html:40
+#: templates/chemicals/chemical_detail.html:46
 msgid "Preparation"
 msgstr "Gemisch"
 
-#: templates/chemicals/chemical_detail.html:43
+#: templates/chemicals/chemical_detail.html:49
 msgid "Always needed"
 msgstr "Ständig benötigt"
 
-#: templates/chemicals/chemical_detail.html:46
+#: templates/chemicals/chemical_detail.html:52
 msgid "Components registered"
 msgstr "Registrierung aller Komponenten"
 
-#: templates/chemicals/chemical_detail.html:49
+#: templates/chemicals/chemical_detail.html:55
 msgid "Archived"
 msgstr "Archiv"
 
-#: templates/chemicals/chemical_detail.html:55
+#: templates/chemicals/chemical_detail.html:61
 msgid "Listed in Appendix XIV, REACH-VO"
 msgstr "Gelistet in Anhang XIV, REACH-VO"
 
-#: templates/chemicals/chemical_detail.html:58
+#: templates/chemicals/chemical_detail.html:64
 msgid "Hazardous"
 msgstr "Störfallstoff"
 
-#: templates/chemicals/chemical_detail.html:61
+#: templates/chemicals/chemical_detail.html:67
 msgid "Instruction"
 msgstr "Anleitung"
 
-#: templates/chemicals/chemical_detail.html:67
+#: templates/chemicals/chemical_detail.html:73
 msgid "Classification"
 msgstr "Einstufung"
 
-#: templates/chemicals/chemical_detail.html:68
+#: templates/chemicals/chemical_detail.html:74
 msgid "Department / Supplier"
 msgstr "Abteilung / Lieferant"
 
-#: templates/chemicals/chemical_detail.html:69
+#: templates/chemicals/chemical_detail.html:75
 msgid "SDS / Document"
 msgstr "SDB / Dokument"
 
-#: templates/chemicals/chemical_detail.html:71
+#: templates/chemicals/chemical_detail.html:77
 msgid "Checklist"
 msgstr "Checklisten"
 
 # Dangerous substance/preparation directive
-#: templates/chemicals/chemical_detail.html:76
+#: templates/chemicals/chemical_detail.html:82
 msgid "Stoff Richtlinie"
 msgstr "Stoff- und Zubereitungsrichtlinie"
 
-#: templates/chemicals/chemical_detail.html:80
-#: templates/chemicals/chemical_detail.html:196
-#: templates/chemicals/chemical_detail.html:212
+#: templates/chemicals/chemical_detail.html:86
+#: templates/chemicals/chemical_detail.html:202
+#: templates/chemicals/chemical_detail.html:218
 #: templates/chemicals/contact_detail.html:29
 msgid "Info"
 msgstr "Information"
 
-#: templates/chemicals/chemical_detail.html:88
-#: templates/chemicals/chemical_detail.html:115
+#: templates/chemicals/chemical_detail.html:94
 #: templates/chemicals/chemical_detail.html:121
+#: templates/chemicals/chemical_detail.html:127
 msgid "ID"
 msgstr "ID"
 
-#: templates/chemicals/chemical_detail.html:95
+#: templates/chemicals/chemical_detail.html:101
 msgid "CLP"
 msgstr "CLP"
 
-#: templates/chemicals/chemical_detail.html:99
-#: templates/chemicals/chemical_detail.html:106
+#: templates/chemicals/chemical_detail.html:105
+#: templates/chemicals/chemical_detail.html:112
 msgid "Description"
 msgstr "Beschreibung"
 
-#: templates/chemicals/chemical_detail.html:104
+#: templates/chemicals/chemical_detail.html:110
 msgid "Signal"
 msgstr "Signal"
 
-#: templates/chemicals/chemical_detail.html:132
+#: templates/chemicals/chemical_detail.html:138
 msgid "Chemical Storage"
 msgstr "Chemikalienlager"
 
-#: templates/chemicals/chemical_detail.html:139
+#: templates/chemicals/chemical_detail.html:145
 msgid "Name"
 msgstr "Name"
 
-#: templates/chemicals/chemical_detail.html:139
+#: templates/chemicals/chemical_detail.html:145
 msgid "Address"
 msgstr "Adresse"
 
-#: templates/chemicals/chemical_detail.html:139
+#: templates/chemicals/chemical_detail.html:145
 msgid "Country"
 msgstr "Land"
 
-#: templates/chemicals/chemical_detail.html:139
+#: templates/chemicals/chemical_detail.html:145
 #: templates/chemicals/contact_detail.html:14
 msgid "Phone"
 msgstr "Telefon"
 
-#: templates/chemicals/chemical_detail.html:139
+#: templates/chemicals/chemical_detail.html:145
 msgid "E-Mail"
 msgstr "E-Mail"
 
-#: templates/chemicals/chemical_detail.html:153
-#: templates/chemicals/chemical_detail.html:165
+#: templates/chemicals/chemical_detail.html:159
+#: templates/chemicals/chemical_detail.html:171
 msgid "Published on"
 msgstr "Ausgabe"
 
-#: templates/chemicals/chemical_detail.html:177
-msgid "Documents"
-msgstr "Freigabedokumente"
-
-#: templates/chemicals/chemical_detail.html:180
+#: templates/chemicals/chemical_detail.html:186
 msgid "General documents"
 msgstr "Dokumente"
 
-#: templates/chemicals/chemical_detail.html:184
-#: templates/chemicals/chemical_detail.html:196
+#: templates/chemicals/chemical_detail.html:190
+#: templates/chemicals/chemical_detail.html:202
 msgid "Created on"
 msgstr "Erstellt am"
 
@@ -552,16 +651,16 @@ msgstr "Webseite"
 msgid "all"
 msgstr "Alle"
 
-#: templates/chemicals/table.html:39
+#: templates/chemicals/table.html:40
 msgid "Previous"
 msgstr "Zurück"
 
-#: templates/chemicals/table.html:41
+#: templates/chemicals/table.html:42
 #, python-format
 msgid "Page %(current)s of %(total)s"
 msgstr "Seite %(current)s von %(total)s"
 
-#: templates/chemicals/table.html:43
+#: templates/chemicals/table.html:44
 msgid "Next"
 msgstr "Nächste"
 
@@ -576,6 +675,10 @@ msgstr "Gefahr"
 #: templatetags/chemical_tags.py:16
 msgid "No Signal"
 msgstr "Kein Signal"
+
+#: urls.py:19
+msgid "Archived chemicals"
+msgstr "Archivierte Chemikalien"
 
 #~ msgid "REACH-VO"
 #~ msgstr "REACH-VO"
