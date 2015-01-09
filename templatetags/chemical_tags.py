@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django import template
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
@@ -25,4 +26,3 @@ def letter_filter(letter):
 @register.inclusion_tag('chemicals/department_filter.html')
 def department_filter(plants, target_name):
     return {'plants': plants, 'target_name': target_name}
-# coding: utf-8
