@@ -3,6 +3,7 @@
 from operator import attrgetter
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
+from django.utils.html import escape
 import django_tables2 as tables
 from django_tables2.utils import A  # alias for Accessor
 from .models import Chemical, Document, Supplier, Contact, Location, Stock
@@ -11,14 +12,28 @@ from .models import Chemical, Document, Supplier, Contact, Location, Stock
 def render_as_list(objs):
     out = ""
     for obj in sorted(objs, key=attrgetter('name')):
-        out += "%s<hr>" % obj.name
+        out += '%s<hr>' % (escape(obj.name))
     return mark_safe(out[:-4])
 
 
 def render_file_button(url, ext):
-    button = """<a type="button" class="btn btn-warning btn-sm" href="%s"
-    target="_blank"><span class="glyphicon glyphicon-file"></span> %s</a>"""
-    return mark_safe(button % (url, ext.upper()))
+    button = """<a type="button" class="btn btn-warning btn-sm" href="{}"
+    target="_blank"><span class="glyphicon glyphicon-file"></span> {}</a>"""
+    return mark_safe(button.format(url, ext.upper()))
+
+
+class RiskColumn(tables.Column):
+    empty_values = ()
+
+    def render(self, record):
+        return render_as_list(record.risks.all())
+
+
+class PictoColumn(tables.Column):
+    empty_values = ()
+
+    def render(self, record):
+        return render_as_list(record.pictograms.all())
 
 
 class SubstanceTable(tables.Table):
@@ -26,14 +41,10 @@ class SubstanceTable(tables.Table):
     name = tables.LinkColumn('chemical_detail', args=[A('pk')])
     wgk = tables.Column(accessor='wgk.name', verbose_name=_('WGK'))
     # Translators: This is an abbreviation for Storage Classes
-    storage_classes = tables.Column(verbose_name=_("SC"))
-    supplier_set = tables.Column(verbose_name=_("Supplier"))
-
-    def render_risks(self, record):
-        return render_as_list(record.risks.all())
-
-    def render_pictograms(self, record):
-        return render_as_list(record.pictograms.all())
+    storage_classes = tables.Column(empty_values=(), verbose_name=_("SC"))
+    supplier_set = tables.Column(empty_values=(), verbose_name=_("Supplier"))
+    risks = RiskColumn(verbose_name=_("Risk Indication"))
+    pictograms = PictoColumn(verbose_name=_("Pictogram"))
 
     def render_storage_classes(self, record):
         return render_as_list(record.storage_classes.all())
@@ -49,20 +60,14 @@ class SubstanceTable(tables.Table):
         attrs = {'class': "table table-bordered table-striped table-condensed"}
         order_by = ('name',)
         fields = ('name', 'risks', 'pictograms', 'storage_classes', 'wgk',
-                  'supplier_set')
+                  'supplier_set', )
 
 
 class DepartmentSubstanceTable(tables.Table):
     """Table for use in Department View"""
     name = tables.LinkColumn('chemical_detail', args=[A('pk')])
-    risks = tables.Column()
-    pictograms = tables.Column()
-
-    def render_risks(self, record):
-        return render_as_list(record.risks.all())
-
-    def render_pictograms(self, record):
-        return render_as_list(record.pictograms.all())
+    risks = RiskColumn(verbose_name=_("Risk Indication"))
+    pictograms = PictoColumn(verbose_name=_("Pictogram"))
 
     class Meta:
         model = Chemical
@@ -74,7 +79,7 @@ class DepartmentSubstanceTable(tables.Table):
 class CMRSubstanceTable(tables.Table):
     """Table for use in Department View"""
     name = tables.LinkColumn('chemical_detail', args=[A('pk')])
-    supplier_set = tables.Column(verbose_name=_("Supplier"))
+    supplier_set = tables.Column(empty_values=(), verbose_name=_("Supplier"))
 
     def render_supplier_set(self, record):
         contacts = []
@@ -107,7 +112,7 @@ class CMRTable(tables.Table):
         attrs = {'class': "table table-bordered table-striped table-condensed"}
         order_by = ('contact', 'chemical')
         fields = ('chemical', 'department', 'contact',)
-        #fields = ('chemical', 'CMR category', 'department', 'contact',)
+        # fields = ('chemical', 'CMR category', 'department', 'contact',)
 
 
 class SupplierTable(tables.Table):
@@ -134,7 +139,7 @@ class ProducerTable(tables.Table):
     """Table listing producers."""
     name = tables.LinkColumn('contact_detail', args=[A('pk')],
                              verbose_name=_("Producer"))
-    chemical_set = tables.Column(verbose_name=_("Chemical"))
+    chemical_set = tables.Column(empty_values=(), verbose_name=_("Chemical"))
 
     def render_chemical_set(self, record):
         chemicals = []
@@ -160,10 +165,9 @@ class SDSTable(tables.Table):
                                  verbose_name=_("Chemical"))
     departments = tables.Column(accessor='supplier',
                                 verbose_name=_("Departments"))
-    risks = tables.Column(accessor='chemical.risks',
-                          verbose_name=_("Risks"))
-    pictograms = tables.Column(accessor='chemical.pictograms',
-                               verbose_name=_("Pictograms"))
+    risks = RiskColumn(accessor='chemical.risks', verbose_name=_("Risks"))
+    pictograms = PictoColumn(accessor='chemical.pictograms',
+                             verbose_name=_("Pictograms"))
     supplier = tables.Column(accessor='supplier.name',
                              verbose_name=_("Supplier"))
 
@@ -226,13 +230,13 @@ class DepartmentTable(tables.Table):
 
 class DepartmentStockTable(tables.Table):
     """Table displaying Stocks of a Department."""
-    #department = tables.Column(
-    #    accessor='location.department.name', verbose_name=_("Department"))
+    # department = tables.Column(
+    #     accessor='location.department.name', verbose_name=_("Department"))
     chemical = tables.LinkColumn(
         'chemical_detail', args=[A('chemical.pk')], verbose_name=_("Chemical"))
-    risks = tables.Column(
+    risks = RiskColumn(
         accessor='chemical.risks', verbose_name=_("Risks"))
-    pictograms = tables.Column(
+    pictograms = PictoColumn(
         accessor='chemical.pictograms', verbose_name=_("Pictograms"))
     location = tables.Column(
         accessor='location.name', verbose_name=_("Location"))
