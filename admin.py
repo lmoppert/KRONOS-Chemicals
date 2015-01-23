@@ -26,6 +26,7 @@ class DocumentInline(admin.TabularInline):
 
     model = Document
     extra = 1
+    suit_classes = 'suit-tab suit-tab-sds'
 
 
 class ReachDocumentInline(admin.TabularInline):
@@ -33,6 +34,7 @@ class ReachDocumentInline(admin.TabularInline):
 
     model = ReachDocument
     extra = 1
+    suit_classes = 'suit-tab suit-tab-reach'
 
 
 class ReachInformationInline(TranslationTabularInline):
@@ -40,6 +42,7 @@ class ReachInformationInline(TranslationTabularInline):
 
     model = ReachInformation
     extra = 1
+    suit_classes = 'suit-tab suit-tab-reach'
 
 
 class SafetyDataSheetInline(admin.TabularInline):
@@ -47,6 +50,7 @@ class SafetyDataSheetInline(admin.TabularInline):
 
     model = SafetyDataSheet
     extra = 1
+    suit_classes = 'suit-tab suit-tab-sds'
 
 
 class ExtendedSafetyDataSheetInline(admin.TabularInline):
@@ -54,6 +58,7 @@ class ExtendedSafetyDataSheetInline(admin.TabularInline):
 
     model = ExtendedSafetyDataSheet
     extra = 1
+    suit_classes = 'suit-tab suit-tab-sds'
 
 
 class SevesoDocumentInline(admin.TabularInline):
@@ -61,6 +66,7 @@ class SevesoDocumentInline(admin.TabularInline):
 
     model = SevesoDocument
     extra = 1
+    suit_classes = 'suit-tab suit-tab-seveso'
 
 
 class SevesoInformationInline(TranslationTabularInline):
@@ -68,6 +74,7 @@ class SevesoInformationInline(TranslationTabularInline):
 
     model = SevesoInformation
     extra = 1
+    suit_classes = 'suit-tab suit-tab-seveso'
 
 
 class SignalInline(admin.TabularInline):
@@ -75,6 +82,7 @@ class SignalInline(admin.TabularInline):
 
     model = Signal
     extra = 1
+    suit_classes = 'suit-tab suit-tab-classification'
 
 
 class RiskIndicationAdmin(TranslationAdmin):
@@ -125,23 +133,38 @@ class ChemicalAdmin(TranslationAdmin):
     list_display = ('name', 'registration_number', 'article', 'comment')
     fieldsets = (
         (None, {
+            'classes': ('suit-tab', 'suit-tab-general',),
             'fields': ('name',)
         }),
         (_('Comments'), {
+            'classes': ('suit-tab', 'suit-tab-general',),
             'fields': ('comment',)
         }),
         (_('Values'), {
-            'fields': ('article','registration_number','cas','einecs')
+            'classes': ('suit-tab', 'suit-tab-general',),
+            'fields': ('article', 'registration_number', 'cas', 'einecs')
         }),
         (_('Flags'), {
-            'fields': ('cmr','needed','preparation','archive','instruction',
-                       'hazardous','reach_vo','components_registered')
+            'classes': ('suit-tab', 'suit-tab-general',),
+            'fields': ('cmr', 'needed', 'preparation', 'archive',
+                       'instruction', 'hazardous', 'reach_vo',
+                       'components_registered')
         }),
         (_('Relations'), {
-            'fields': ('replaced','wgk','synonyms','storage_classes',
-                       'seveso_categories','rphrases','pphrases','producer')
+            'classes': ('suit-tab', 'suit-tab-classification', ),
+            'fields': ('replaced', 'wgk', 'synonyms', 'storage_classes',
+                       'seveso_categories', 'rphrases', 'pphrases', 'producer')
         }),
     )
+
+    suit_form_tabs = (
+        ('general', _('Identification')),
+        ('classification', _('Classification')),
+        ('sds', _('SDS / Documents')),
+        ('reach', _('REACH')),
+        ('seveso', _('Seveso')),
+    )
+
     inlines = [
         DocumentInline,
         ReachDocumentInline,
