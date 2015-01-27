@@ -41,7 +41,7 @@ class ReachInformationInline(TranslationTabularInline):
     """Inline view for the risks."""
 
     model = ReachInformation
-    extra = 1
+    extra = 0
     suit_classes = 'suit-tab suit-tab-reach'
 
 
@@ -73,7 +73,7 @@ class SevesoInformationInline(TranslationTabularInline):
     """Inline view for the risks."""
 
     model = SevesoInformation
-    extra = 1
+    extra = 0
     suit_classes = 'suit-tab suit-tab-seveso'
 
 
@@ -134,7 +134,7 @@ class ChemicalAdmin(TranslationAdmin):
     fieldsets = (
         (None, {
             'classes': ('suit-tab', 'suit-tab-general',),
-            'fields': ('name',)
+            'fields': ('name', 'synonyms',)
         }),
         (_('Comments'), {
             'classes': ('suit-tab', 'suit-tab-general',),
@@ -142,7 +142,8 @@ class ChemicalAdmin(TranslationAdmin):
         }),
         (_('Values'), {
             'classes': ('suit-tab', 'suit-tab-general',),
-            'fields': ('article', 'registration_number', 'cas', 'einecs')
+            'fields': ('article', 'registration_number', 'cas',
+                       'einecs', 'replaced',)
         }),
         (_('Flags'), {
             'classes': ('suit-tab', 'suit-tab-general',),
@@ -152,8 +153,8 @@ class ChemicalAdmin(TranslationAdmin):
         }),
         (_('Relations'), {
             'classes': ('suit-tab', 'suit-tab-classification', ),
-            'fields': ('replaced', 'wgk', 'synonyms', 'storage_classes',
-                       'seveso_categories', 'rphrases', 'pphrases', 'producer')
+            'fields': ('wgk', 'storage_classes', 'seveso_categories',
+                       'rphrases', 'pphrases', 'producer')
         }),
     )
 
