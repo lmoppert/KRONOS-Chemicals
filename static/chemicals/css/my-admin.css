@@ -1,3 +1,9 @@
 .header #user-tools span.user-links {
     display:none;
 }
+#content select {
+    display: block;
+    width: auto;
+    min-width: 220px;
+}
+
