@@ -99,7 +99,7 @@ class Synonym(models.Model):
 
 
 class WGK(models.Model):
-    """Simple class for storing H phrases of a chemical."""
+    """Simple class for storing the WGK of a chemical."""
 
     name = models.CharField(max_length=20, verbose_name=_("WGK"))
     description = models.CharField(max_length=100, blank=True, null=True)
@@ -190,6 +190,23 @@ class Chemical(models.Model):
         app_label = "chemicals"
         verbose_name = _("Chemical")
         verbose_name_plural = _("Chemicals")
+
+
+class Toxdata(models.Model):
+    """Class for Tox / Oekotox information belonging to a chemical."""
+
+    chemical = models.ForeignKey(Chemical)
+    supplier = models.ForeignKey('Contact')
+    tox = models.BooleanField(default=False)
+    oekotox = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return self.supplier.name
+
+    class Meta:
+        app_label = "chemicals"
+        verbose_name = _("Tox Oekotox")
+        verbose_name_plural = _("Tox Oekotox")
 
 
 class ReachInformation(models.Model):

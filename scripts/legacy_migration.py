@@ -746,6 +746,22 @@ def create_esdb():
     print "%s eSDS migrated" % count
 
 
+def create_tox():
+    count = 0
+    print "Processing Toxdata"
+    objs = StoffeToxdata.objects.using('legacy').all()
+    print "Found %s Toxdata items, processing migration..." % objs.count()
+    for obj in objs:
+        count += 1
+        Toxdata.objects.create(
+            supplier=Contact.objects.get(id=obj.supplier_id),
+            chemical=Chemical.objects.get(id=obj.chemical_id),
+            tox=obj.toxdata
+            oekotox=obj.oekotoxdata
+        )
+    print "%s Toxddata items migrated" % count
+
+
 ##############################################################################
 # Main method
 ##############################################################################
@@ -784,6 +800,7 @@ def run():
     create_seveso_document()
     create_sdb()
     create_esdb()
+    create_tox()
 
     # We are done!
     print "All objecst migrated - please do not forget to manually " \
