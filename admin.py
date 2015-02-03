@@ -21,8 +21,16 @@ from django.utils.translation import ugettext_lazy as _
 ##############################################################################
 # Admin of Chemicals
 ##############################################################################
+class DepartmentInline(admin.TabularInline):
+    """Inline view for the departments."""
+
+    model = Chemical.departments.through
+    extra = 0
+    suit_classes = 'suit-tab suit-tab-department'
+
+
 class DocumentInline(admin.TabularInline):
-    """Inline view for the risks."""
+    """Inline view for the documents."""
 
     model = Document
     extra = 1
@@ -154,19 +162,26 @@ class ChemicalAdmin(TranslationAdmin):
         (_('Relations'), {
             'classes': ('suit-tab', 'suit-tab-classification', ),
             'fields': ('wgk', 'storage_classes', 'seveso_categories',
-                       'rphrases', 'pphrases', 'producer')
+                       'rphrases', 'pphrases')
+        }),
+        (_('Supplier'), {
+            'classes': ('suit-tab', 'suit-tab-department', ),
+            'fields': ('producer',)
         }),
     )
 
     suit_form_tabs = (
         ('general', _('Identification')),
         ('classification', _('Classification')),
+        ('department', _('Department / Supplier')),
         ('sds', _('SDS / Documents')),
         ('reach', _('REACH')),
+        ('checklist', _('Checklists')),
         ('seveso', _('Seveso')),
     )
 
     inlines = [
+        DepartmentInline,
         DocumentInline,
         ReachDocumentInline,
         ReachInformationInline,
