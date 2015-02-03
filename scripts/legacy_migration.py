@@ -1,9 +1,9 @@
 from django.contrib.auth.models import User
 from filer.models.filemodels import File
 from filer.models.foldermodels import Folder
-#from chemicals.models.checklist import (
-#    CheckList, CheckSection, CheckUsage, HPhraseCheck, PPE, PPECheck,
-#    PPhraseCheck, PictogramCheck, StorageClassCheck, WGKCheck)
+# from chemicals.models.checklist import (
+#     CheckList, CheckSection, CheckUsage, HPhraseCheck, PPE, PPECheck,
+#     PPhraseCheck, PictogramCheck, StorageClassCheck, WGKCheck)
 from chemicals.models.periphery import (
     Contact, Person, Role, Department, Plant, Location, Stock, Supplier)
 from chemicals.models.substance import (
@@ -442,6 +442,15 @@ def create_producers():
 ##############################################################################
 def create_simple_relations(oid, chemical):
     ####################
+    # WGK
+    count = 0
+    objs = StoffeChemWgk.objects.using('legacy').filter(chemical=oid)
+    for obj in objs:
+        count += 1
+        chemical.wgk.add(
+            WGK.objects.get(name=obj.wgk)
+        )
+    ####################
     # Storage Class
     count = 0
     objs = StoffeChemStorageclass.objects.using('legacy').filter(chemical=oid)
@@ -559,21 +568,16 @@ def create_chemicals(chemical):
         replaced=None,
 
         # Many to many relations to contact model
-        #producer=chemical.,
-        #departments=chemical.,  # relation through Supplier
-        #pictograms=chemical.,   # relation through Signal
-        #locations=chemical.,    # relation through Stock
+        # producer=chemical.,
+        # departments=chemical.,  # relation through Supplier
+        # pictograms=chemical.,   # relation through Signal
+        # locations=chemical.,    # relation through Stock
     )
     # Create Many to many relations
     create_simple_relations(oid, new_chemical)
     create_complex_relations(oid, new_chemical)
 
     # Create Many to one relations
-    try:
-        obj = StoffeChemWgk.objects.using('legacy').get(chemical=oid)
-        new_chemical.wgk = WGK.objects.get(name=obj.wgk)
-    except:
-        pass
     try:
         obj = StoffeReachInfo.objects.using('legacy').get(chemical=oid)
         trans = get_translations(StoffeReachInfoTranslation, obj.reach_infoid)
