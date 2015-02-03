@@ -192,8 +192,8 @@ class ChemicalAdmin(TranslationAdmin):
         SignalInline,
     ]
 
-    filter_horizontal = ('storage_classes', 'seveso_categories', 'rphrases',
-                         'pphrases', 'producer')
+    filter_horizontal = ('wgk', 'storage_classes', 'seveso_categories',
+                         'rphrases', 'pphrases', 'producer')
 
 
 ##############################################################################

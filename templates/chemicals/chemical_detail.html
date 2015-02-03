@@ -114,7 +114,12 @@
                             <tr><td>{{ obj.name }}</td><td>{{ obj.description }}</td></tr>
                             {% endfor %}
                         </table>
-                        <b>{% trans "WGK" %}:</b> {{ chemical.wgk }}
+                        <table class="table table-striped table-bordered table-condensed">
+                            <tr><th>{% trans "WGK" %}</th><th>{% trans "Description" %}</th></tr>
+                            {% for obj in chemical.wgk.all %}
+                            <tr><td>{{ obj.name }}</td><td>{{ obj.description }}</td></tr>
+                            {% endfor %}
+                        </table>
                     </div>
                     <div class="col-lg-6">
                         <table class="table table-striped table-bordered table-condensed">
