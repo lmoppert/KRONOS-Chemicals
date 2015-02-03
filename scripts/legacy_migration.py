@@ -7,7 +7,7 @@ from filer.models.foldermodels import Folder
 from chemicals.models.periphery import (
     Contact, Person, Role, Department, Plant, Location, Stock, Supplier)
 from chemicals.models.substance import (
-    Chemical, RiskIndication, StorageClass, SevesoCategory, HPhrase,
+    Chemical, RiskIndication, StorageClass, SevesoCategory, HPhrase, Toxdata,
     WGK, RPhrase, PPhrase, Risk, HPhraseRelation, Pictogram, Document, Signal,
     SevesoDocument, ReachDocument, SafetyDataSheet, ExtendedSafetyDataSheet)
 # Synonym
@@ -23,7 +23,7 @@ from chemicals.models.legacy import (
     StoffePerson, StoffeContact, StoffeContactPerson, StoffeMenufacturing,
     StoffeMenuTranslation, StoffeDepartment, StoffeLocation, StoffeStock,
     StoffeChemDepContact, StoffeChemContact, StoffePictoTranslation, Users,
-    StoffeChemPictogramm, StoffePictogramm, StoffeDocument,
+    StoffeChemPictogramm, StoffePictogramm, StoffeDocument, StoffeToxdata,
     StoffeReachDocument, StoffeSevesoDocument, StoffeEsafetydatasheet,
     StoffeSafetydatasheet, LegacyFiles, DummyTranslation)
 
@@ -756,8 +756,8 @@ def create_tox():
         Toxdata.objects.create(
             supplier=Contact.objects.get(id=obj.supplier_id),
             chemical=Chemical.objects.get(id=obj.chemical_id),
-            tox=obj.toxdata
-            oekotox=obj.oekotoxdata
+            tox=obj.toxdata,
+            oekotox=obj.oekotoxdata,
         )
     print "%s Toxddata items migrated" % count
 
