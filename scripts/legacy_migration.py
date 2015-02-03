@@ -27,7 +27,7 @@ from chemicals.models.legacy import (
     StoffeReachDocument, StoffeSevesoDocument, StoffeEsafetydatasheet,
     StoffeSafetydatasheet, LegacyFiles, DummyTranslation)
 
-CountryCodes = ('en-en', 'de-de', 'nl-be', 'nb-no')
+CountryCodes = ('en-en', 'de-de', 'nl-be')
 
 
 ##############################################################################
@@ -51,8 +51,6 @@ def get_language(s):
         return 'de'
     elif s == 'nl-BE' or s == 'nl-be' or s == 'be-be':
         return 'nl'
-    elif s == 'nb-NO' or s == 'nb-no':
-        return 'nb'
     else:
         return 'en'
 
@@ -153,7 +151,6 @@ def create_riskindications():
                 name_en=trans['en-en'].name,
                 name_de=trans['de-de'].name,
                 name_nl=trans['nl-be'].name,
-                name_nb=trans['nb-no'].name,
             )
     print "%s Risks migrated" % count
 
@@ -172,7 +169,6 @@ def create_wgks():
             description_en=trans['en-en'].name,
             description_de=trans['de-de'].name,
             description_nl=trans['nl-be'].name,
-            description_nb=trans['nb-no'].name,
         )
     print "%s WGKs migrated" % count
 
@@ -192,7 +188,6 @@ def create_storage_classes():
             description_en=trans['en-en'].description,
             description_de=trans['de-de'].description,
             description_nl=trans['nl-be'].description,
-            description_nb=trans['nb-no'].description,
         )
     print "%s Storage Classes migrated" % count
 
@@ -211,7 +206,6 @@ def create_seveso_categories():
             description_en=trans['en-en'].name,
             description_de=trans['de-de'].name,
             description_nl=trans['nl-be'].name,
-            description_nb=trans['nb-no'].name,
         )
     print "%s Seveso Categories migrated" % count
 
@@ -230,7 +224,6 @@ def create_hphrases():
             description_en=trans['en-en'].name,
             description_de=trans['de-de'].name,
             description_nl=trans['nl-be'].name,
-            description_nb=trans['nb-no'].name,
             seveso_relevant=obj.seveso_relevant,
         )
     print "%s H-Phrases migrated" % count
@@ -250,7 +243,6 @@ def create_pphrases():
             description_en=trans['en-en'].name,
             description_de=trans['de-de'].name,
             description_nl=trans['nl-be'].name,
-            description_nb=trans['nb-no'].name,
         )
     print "%s P-Phrases migrated" % count
 
@@ -269,7 +261,6 @@ def create_rphrases():
             description_en=trans['en-en'].name,
             description_de=trans['de-de'].name,
             description_nl=trans['nl-be'].name,
-            description_nb=trans['nb-no'].name,
         )
     print "%s R-Phrases migrated" % count
 
@@ -350,7 +341,6 @@ def create_plants():
             name_en=trans['en-en'].name,
             name_de=trans['de-de'].name,
             name_nl=trans['nl-be'].name,
-            name_nb=trans['nb-no'].name,
         )
     print "%s Plants migrated" % count
 
@@ -508,8 +498,6 @@ def create_complex_relations(oid, chemical):
                 chemical=oid, countrycode='de-de', riskindication=roid).info
             robj.info_nl = StoffeChemRisk.objects.using('legacy').get(
                 chemical=oid, countrycode='be-be', riskindication=roid).info
-            robj.info_nb = StoffeChemRisk.objects.using('legacy').get(
-                chemical=oid, countrycode='nb-no', riskindication=roid).info
         except:
             pass
         chemical.risk_set.add(robj)
@@ -529,8 +517,6 @@ def create_complex_relations(oid, chemical):
                 chemical=oid, countrycode='de-de', hphrase=roid).info
             robj.info_nl = StoffeChemHphrase.objects.using('legacy').get(
                 chemical=oid, countrycode='be-be', hphrase=roid).info
-            robj.info_nb = StoffeChemHphrase.objects.using('legacy').get(
-                chemical=oid, countrycode='nb-no', hphrase=roid).info
         except:
             pass
         chemical.hphraserelation_set.add(robj)
@@ -552,12 +538,10 @@ def create_chemicals(chemical):
         name_en=trans['en-en'].name,
         name_de=trans['de-de'].name,
         name_nl=trans['nl-be'].name,
-        name_nb=trans['nb-no'].name,
         comment=first_trans.comment,
         comment_en=trans['en-en'].comment,
         comment_de=trans['de-de'].comment,
         comment_nl=trans['nl-be'].comment,
-        comment_nb=trans['nb-no'].comment,
         article=chemical.article,
         registration_number=chemical.regno,
         cas=chemical.cas_no,
@@ -599,7 +583,6 @@ def create_chemicals(chemical):
             description_en=trans['en-en'].information,
             description_de=trans['de-de'].information,
             description_nl=trans['nl-be'].information,
-            description_nb=trans['nb-no'].information,
         )
     except:
         pass
@@ -613,7 +596,6 @@ def create_chemicals(chemical):
             description_en=trans['en-en'].information,
             description_de=trans['de-de'].information,
             description_nl=trans['nl-be'].information,
-            description_nb=trans['nb-no'].information,
         )
     except:
         pass
@@ -638,7 +620,6 @@ def create_pictograms():
             name_en=trans['en-en'].bezeichnung,
             name_de=trans['de-de'].bezeichnung,
             name_nl=trans['nl-be'].bezeichnung,
-            name_nb=trans['nb-no'].bezeichnung,
             image=get_file_handle(obj.path),
         )
         print "Pic created: %s" % new_pic.name

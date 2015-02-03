@@ -1,47 +1,47 @@
 /*#############################################################################
-# This script adds id columns to all tables, that hava a complex primary key.
-#
-# The following tables are ommitted, as they have a valid primary key that
-# can be used in the model definition.
-#
-# KRONOS_CheckList
-# KRONOS_CheckList_Anwendung
-# KRONOS_CheckList_Information
-# KRONOS_CheckList_Kapitel
-# KRONOS_CheckList_KapitelText
-# KRONOS_CheckList_PSA
-# KRONOS_CheckList_PSA_Artikel
-# KRONOS_CheckList_PSA_Img
-# KRONOS_CheckList_Status
-# Stoff_Historie
-# reach_Chem_Data
-# reach_Statement
-# reach_Status1
-# stoffe_Chemical
-# stoffe_Contact
-# stoffe_Department
-# stoffe_Document
-# stoffe_eSafetyDataSheet
-# stoffe_Group
-# stoffe_Location
-# stoffe_Menufacturing
-# stoffe_Person
-# stoffe_Pictogramm
-# stoffe_Reach_Document
-# stoffe_Reach_Info
-# stoffe_Riskindication
-# stoffe_SafetyDataSheet
-# stoffe_Seveso_Document
-# stoffe_Seveso_Info
-# stoffe_SevesoProductList
-# stoffe_Stock
-# stoffe_StorageClass
-# stoffe_Synonym
-#
-###############################################################################
-# For the translation tables the combined pk is copied to the id field and
-# that is defined as the primary_key in the model definition
-#*/
+ # This script adds id columns to all tables, that hava a complex primary key.
+ #
+ # The following tables are ommitted, as they have a valid primary key that
+ # can be used in the model definition.
+ #
+ # KRONOS_CheckList
+ # KRONOS_CheckList_Anwendung
+ # KRONOS_CheckList_Information
+ # KRONOS_CheckList_Kapitel
+ # KRONOS_CheckList_KapitelText
+ # KRONOS_CheckList_PSA
+ # KRONOS_CheckList_PSA_Artikel
+ # KRONOS_CheckList_PSA_Img
+ # KRONOS_CheckList_Status
+ # Stoff_Historie
+ # reach_Chem_Data
+ # reach_Statement
+ # reach_Status1
+ # stoffe_Chemical
+ # stoffe_Contact
+ # stoffe_Department
+ # stoffe_Document
+ # stoffe_eSafetyDataSheet
+ # stoffe_Group
+ # stoffe_Location
+ # stoffe_Menufacturing
+ # stoffe_Person
+ # stoffe_Pictogramm
+ # stoffe_Reach_Document
+ # stoffe_Reach_Info
+ # stoffe_Riskindication
+ # stoffe_SafetyDataSheet
+ # stoffe_Seveso_Document
+ # stoffe_Seveso_Info
+ # stoffe_SevesoProductList
+ # stoffe_Stock
+ # stoffe_StorageClass
+ # stoffe_Synonym
+ #
+ ###############################################################################
+ # For the translation tables the combined pk is copied to the id field and
+ # that is defined as the primary_key in the model definition
+*/
 ALTER TABLE `Substance_Portal`.`KRONOS_CheckList_Kapitel_Translation` ADD COLUMN `id` VARCHAR(45) NOT NULL FIRST;
 UPDATE `Substance_Portal`.`KRONOS_CheckList_Kapitel_Translation` SET `id` = concat(`KapitelID`, `CountryCode`);
 ALTER TABLE `Substance_Portal`.`KRONOS_CheckList_Masnahme_Translation` ADD COLUMN `id` VARCHAR(45) NOT NULL FIRST;
@@ -79,8 +79,8 @@ UPDATE `Substance_Portal`.`stoffe_StorageClass_Translation` SET `id` = concat(`s
 ALTER TABLE `Substance_Portal`.`stoffe_WGK_Translation` ADD COLUMN `id` VARCHAR(45) NOT NULL FIRST;
 UPDATE `Substance_Portal`.`stoffe_WGK_Translation` SET `id` = concat(`WGK_ID`, `CountryCode`);
 /*
-###############################################################################
-# All other tables get a simple autoincrement id column
+ ###############################################################################
+ # All other tables get a simple autoincrement id column
 */
 ALTER TABLE `Substance_Portal`.`KRONOS_Check_Anwendung` ADD COLUMN `id` INT(11) NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE INDEX `id_UNIQUE` (`id` ASC);
 ALTER TABLE `Substance_Portal`.`KRONOS_Check_HPhrase` ADD COLUMN `id` INT(11) NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE INDEX `id_UNIQUE` (`id` ASC);
@@ -121,8 +121,8 @@ ALTER TABLE `Substance_Portal`.`stoffe_Seveso_Kategorie` ADD COLUMN `id` INT(11)
 ALTER TABLE `Substance_Portal`.`stoffe_ToxData` ADD COLUMN `id` INT(11) NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE INDEX `id_UNIQUE` (`id` ASC);
 ALTER TABLE `Substance_Portal`.`stoffe_WGK` ADD COLUMN `id` INT(11) NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE INDEX `id_UNIQUE` (`id` ASC);
 /*
-###############################################################################
-# For missing translations migration we need a dummy table
+ ###############################################################################
+ # For missing translations migration we need a dummy table
 */
 CREATE TABLE `Substance_Portal`.`Dummy_Translation` (
   `id` INT NOT NULL AUTO_INCREMENT,
