@@ -33,7 +33,7 @@ class DocumentInline(admin.TabularInline):
     """Inline view for the documents."""
 
     model = Document
-    extra = 1
+    extra = 0
     suit_classes = 'suit-tab suit-tab-sds'
 
 
@@ -41,7 +41,7 @@ class ReachDocumentInline(admin.TabularInline):
     """Inline view for the risks."""
 
     model = ReachDocument
-    extra = 1
+    extra = 0
     suit_classes = 'suit-tab suit-tab-reach'
 
 
@@ -57,7 +57,7 @@ class SafetyDataSheetInline(admin.TabularInline):
     """Inline view for the risks."""
 
     model = SafetyDataSheet
-    extra = 1
+    extra = 0
     suit_classes = 'suit-tab suit-tab-sds'
 
 
@@ -65,7 +65,7 @@ class ExtendedSafetyDataSheetInline(admin.TabularInline):
     """Inline view for the risks."""
 
     model = ExtendedSafetyDataSheet
-    extra = 1
+    extra = 0
     suit_classes = 'suit-tab suit-tab-sds'
 
 
@@ -73,7 +73,7 @@ class SevesoDocumentInline(admin.TabularInline):
     """Inline view for the risks."""
 
     model = SevesoDocument
-    extra = 1
+    extra = 0
     suit_classes = 'suit-tab suit-tab-seveso'
 
 
@@ -89,7 +89,7 @@ class SignalInline(admin.TabularInline):
     """Inline view for the risks."""
 
     model = Signal
-    extra = 1
+    extra = 0
     suit_classes = 'suit-tab suit-tab-classification'
 
 
