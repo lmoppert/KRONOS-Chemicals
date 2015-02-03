@@ -1,4 +1,4 @@
-###############################################################################
+/*#############################################################################
 # This script adds id columns to all tables, that hava a complex primary key.
 #
 # The following tables are ommitted, as they have a valid primary key that
@@ -41,7 +41,7 @@
 ###############################################################################
 # For the translation tables the combined pk is copied to the id field and
 # that is defined as the primary_key in the model definition
-#
+#*/
 ALTER TABLE `Substance_Portal`.`KRONOS_CheckList_Kapitel_Translation` ADD COLUMN `id` VARCHAR(45) NOT NULL FIRST;
 UPDATE `Substance_Portal`.`KRONOS_CheckList_Kapitel_Translation` SET `id` = concat(`KapitelID`, `CountryCode`);
 ALTER TABLE `Substance_Portal`.`KRONOS_CheckList_Masnahme_Translation` ADD COLUMN `id` VARCHAR(45) NOT NULL FIRST;
@@ -78,10 +78,10 @@ ALTER TABLE `Substance_Portal`.`stoffe_StorageClass_Translation` ADD COLUMN `id`
 UPDATE `Substance_Portal`.`stoffe_StorageClass_Translation` SET `id` = concat(`storageclassID`, `CountryCode`);
 ALTER TABLE `Substance_Portal`.`stoffe_WGK_Translation` ADD COLUMN `id` VARCHAR(45) NOT NULL FIRST;
 UPDATE `Substance_Portal`.`stoffe_WGK_Translation` SET `id` = concat(`WGK_ID`, `CountryCode`);
-#
+/*
 ###############################################################################
 # All other tables get a simple autoincrement id column
-#
+*/
 ALTER TABLE `Substance_Portal`.`KRONOS_Check_Anwendung` ADD COLUMN `id` INT(11) NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE INDEX `id_UNIQUE` (`id` ASC);
 ALTER TABLE `Substance_Portal`.`KRONOS_Check_HPhrase` ADD COLUMN `id` INT(11) NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE INDEX `id_UNIQUE` (`id` ASC);
 ALTER TABLE `Substance_Portal`.`KRONOS_Check_KapitelText` ADD COLUMN `id` INT(11) NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE INDEX `id_UNIQUE` (`id` ASC);
@@ -120,10 +120,10 @@ ALTER TABLE `Substance_Portal`.`stoffe_RPhrase` ADD COLUMN `id` INT(11) NOT NULL
 ALTER TABLE `Substance_Portal`.`stoffe_Seveso_Kategorie` ADD COLUMN `id` INT(11) NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE INDEX `id_UNIQUE` (`id` ASC);
 ALTER TABLE `Substance_Portal`.`stoffe_ToxData` ADD COLUMN `id` INT(11) NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE INDEX `id_UNIQUE` (`id` ASC);
 ALTER TABLE `Substance_Portal`.`stoffe_WGK` ADD COLUMN `id` INT(11) NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE INDEX `id_UNIQUE` (`id` ASC);
-#
+/*
 ###############################################################################
 # For missing translations migration we need a dummy table
-#
+*/
 CREATE TABLE `Substance_Portal`.`Dummy_Translation` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NULL,
