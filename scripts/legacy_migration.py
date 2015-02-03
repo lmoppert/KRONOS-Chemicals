@@ -69,7 +69,7 @@ def get_file_handle(s):
         leg_file = LegacyFiles.objects.using('legacy').get(fileid=int(s[7:]))
     except:
         return None
-    fid = 6  # The ID of the "Stoff-Portal" folder
+    fid = 1  # The ID of the "Substances" folder
     for fname in leg_file.folder[:-1].split("/"):
         fobj = Folder.objects.get(parent_id=fid, name=fname)
         fid = fobj.id
