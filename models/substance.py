@@ -150,9 +150,9 @@ class Chemical(models.Model):
 
     # Many to one relations
     replaced = models.ForeignKey('self', blank=True, null=True)
-    wgk = models.ForeignKey(WGK, blank=True, null=True)
 
     # Many to many relations
+    wgk = models.ManyToManyField(WGK, blank=True)
     synonyms = models.ManyToManyField(Synonym, blank=True)
     storage_classes = models.ManyToManyField(
         StorageClass, blank=True, verbose_name=_("Storage Classes"))
