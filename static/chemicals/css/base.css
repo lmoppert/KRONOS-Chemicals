@@ -46,6 +46,16 @@ html body #header {height:51px;}
 #content table.videos tr td, #content table.videos tr th {padding: 10px 50px 10px 0;} 
 #content .extended {border-top:1px solid #A8B4C1;}
 #content table td hr {margin-top:3px; margin-bottom:3px;}
+#content table thead th.orderable > a {
+    background: url(../img/arrow-inactive-up.png) right center no-repeat;
+    padding-right: 20px;
+}
+#content table thead th.orderable.asc > a {
+    background-image: url(../img/arrow-active-up.png);
+}
+#content table thead th.orderable.desc > a {
+    background-image: url(../img/arrow-active-down.png);
+}
 
 
 /*******************************
