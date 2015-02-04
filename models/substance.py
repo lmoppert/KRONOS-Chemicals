@@ -148,9 +148,6 @@ class Chemical(models.Model):
     reach_vo = models.BooleanField(default=False)
     components_registered = models.BooleanField(default=False)
 
-    # Many to one relations
-    replaced = models.ForeignKey('self', blank=True, null=True)
-
     # Many to many relations
     wgk = models.ManyToManyField(WGK, blank=True)
     synonyms = models.ManyToManyField(Synonym, blank=True)

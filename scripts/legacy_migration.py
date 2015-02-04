@@ -563,9 +563,6 @@ def create_chemicals(chemical):
         hazardous=chemical.stoerfallstoff,
         reach_vo=chemical.reach_vo,
         components_registered=chemical.regkomponents,
-        # FK to another chemical, currently there are three occurences,
-        # where this field is filled. Will be migrated manually!
-        replaced=None,
 
         # Many to many relations to contact model
         # producer=chemical.,
@@ -786,7 +783,4 @@ def run():
     create_sdb()
     create_esdb()
     create_tox()
-
-    # We are done!
-    print "All objecst migrated - please do not forget to manually " \
-          "migrate the chemicals that have been replaced!"
+    print "All objecst migrated - Thanks for your patience!"
