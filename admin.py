@@ -151,7 +151,7 @@ class ChemicalAdmin(TranslationAdmin):
         (_('Values'), {
             'classes': ('suit-tab', 'suit-tab-general',),
             'fields': ('article', 'registration_number', 'cas',
-                       'einecs', 'replaced',)
+                       'einecs',)
         }),
         (_('Flags'), {
             'classes': ('suit-tab', 'suit-tab-general',),
