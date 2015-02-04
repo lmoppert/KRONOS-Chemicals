@@ -39,15 +39,36 @@ class PictoColumn(tables.Column):
 class SubstanceTable(tables.Table):
     """Table for the Substance View."""
     name = tables.LinkColumn('chemical_detail', args=[A('pk')])
-    wgk = tables.Column(accessor='wgk.name', verbose_name=_('WGK'))
+    wgk = tables.Column(
+        empty_values=(),
+        verbose_name=_('WGK'),
+        orderable=False,
+    )
     # Translators: This is an abbreviation for Storage Classes
-    storage_classes = tables.Column(empty_values=(), verbose_name=_("SC"))
-    supplier_set = tables.Column(empty_values=(), verbose_name=_("Supplier"))
-    risks = RiskColumn(verbose_name=_("Risk Indication"))
-    pictograms = PictoColumn(verbose_name=_("Pictogram"))
+    storage_classes = tables.Column(
+        empty_values=(),
+        verbose_name=_("SC"),
+        orderable=False,
+    )
+    supplier_set = tables.Column(
+        empty_values=(),
+        verbose_name=_("Supplier"),
+        orderable=False,
+    )
+    risks = RiskColumn(
+        verbose_name=_("Risk Indication"),
+        orderable=False,
+    )
+    pictograms = PictoColumn(
+        verbose_name=_("Pictogram"),
+        orderable=False,
+    )
 
     def render_storage_classes(self, record):
         return render_as_list(record.storage_classes.all())
+
+    def render_wgk(self, record):
+        return render_as_list(record.wgk.all())
 
     def render_supplier_set(self, record):
         contacts = []
@@ -58,7 +79,6 @@ class SubstanceTable(tables.Table):
     class Meta:
         model = Chemical
         attrs = {'class': "table table-bordered table-striped table-condensed"}
-        order_by = ('name',)
         fields = ('name', 'risks', 'pictograms', 'storage_classes', 'wgk',
                   'supplier_set', )
 
