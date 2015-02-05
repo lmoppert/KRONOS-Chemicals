@@ -50,8 +50,8 @@ class RPhrase(models.Model):
 
     class Meta:
         app_label = "chemicals"
-        verbose_name = _("R Phrase")
-        verbose_name_plural = _("R Phrases")
+        verbose_name = _("R-Phrase")
+        verbose_name_plural = _("R-Phrases")
 
 
 class SevesoCategory(models.Model):
@@ -264,8 +264,8 @@ class HPhraseRelation(models.Model):
 
     class Meta:
         app_label = "chemicals"
-        verbose_name = _("H Phrase Relation")
-        verbose_name_plural = _("H Phrase Relations")
+        verbose_name = _("H-Phrase Relation")
+        verbose_name_plural = _("H-Phrase Relations")
 
 
 #############################################################################
