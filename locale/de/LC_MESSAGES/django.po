@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KRONOS Intranet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-05 11:05+0100\n"
+"POT-Creation-Date: 2015-02-05 14:25+0100\n"
 "PO-Revision-Date: 2014-02-11 09:52+0100\n"
 "Last-Translator: Lutz Moppert <lutz.moppert@kronosww.com>\n"
 "Language: Deutsch\n"
@@ -280,8 +280,8 @@ msgstr "H-Satz"
 msgid "P-Phrase"
 msgstr "P-Satz"
 
-#: models/substance.py:45 templates/chemicals/chemical_detail.html:94
-#: models/substance.py:53
+#: models/substance.py:45 models/substance.py:53
+#: templates/chemicals/chemical_detail.html:94
 msgid "R-Phrase"
 msgstr "R-Satz"
 
@@ -608,7 +608,6 @@ msgid "Signal"
 msgstr "Signal"
 
 #: templates/chemicals/chemical_detail.html:118
-#| msgid "Classification"
 msgid "Water Hazard Classification"
 msgstr "Wassergefährdungsklasse"
 
@@ -671,9 +670,13 @@ msgstr "E-Mail"
 msgid "Web"
 msgstr "Webseite"
 
-#: templates/chemicals/letter_filter.html:46
+#: templates/chemicals/letter_filter.html:45
 msgid "all"
 msgstr "Alle"
+
+#: templates/chemicals/max_items.html:4
+msgid "Items per page"
+msgstr "Datensätze pro Seite"
 
 #: templates/chemicals/table.html:40
 msgid "Previous"

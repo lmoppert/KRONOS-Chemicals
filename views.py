@@ -23,8 +23,8 @@ class TableListMixin(SingleTableMixin):
     """Provides an extra attribute for ListViews."""
     table_heading = ''
     template_name = 'chemicals/table_list.html'
-    table_pagination = {'per_page': '100'}
-    filters = {'letter': True, 'department': False}
+    table_pagination = {'per_page': '25'}
+    filters = {'letter': True, 'department': False, 'items': True}
     target_name = "department_detail"
 
     def get_filter_values(self):
@@ -190,7 +190,7 @@ class SDSList(ListView):
         context = super(SDSList, self).get_context_data(**kwargs)
         table = SDSTable([])
         RequestConfig(
-            self.request, paginate={'per_page': '100'}).configure(table)
+            self.request, paginate={'per_page': '25'}).configure(table)
         context['table'] = table
         context['tableheading'] = _("Safety Data Sheets")
         context['show_filter'] = self.filters
@@ -215,7 +215,7 @@ class SDSDepartmentList(DetailView):
                 sds.append(sheet)
         table = SDSTable(sds)
         RequestConfig(
-            self.request, paginate={'per_page': '100'}).configure(table)
+            self.request, paginate={'per_page': '25'}).configure(table)
         context['table'] = table
         context['tableheading'] = _("Safety Data Sheets")
         context['show_filter'] = self.filters

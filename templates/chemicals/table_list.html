@@ -5,8 +5,11 @@
 {% block chemical_content %}
     <div class="row">
         <h1>{{ tableheading }}</h1>
+        <div class="filter-panel">
         {% if show_filter.department %}{% department_filter plants target_name %}{% endif %}
-        {% if show_filter.letter %}{% letter_filter letters %}{% else %}<br>{% endif %}
+        {% if show_filter.letter %}{% letter_filter letters %}{% endif %}
+        {% if show_filter.items %}{% max_items %}{% endif %}
+        </div>
         {% block table_content %}
         <div class="table-responsive">
             {% render_table table "chemicals/table.html" %}

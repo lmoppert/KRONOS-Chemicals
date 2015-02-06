@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-05 11:05+0100\n"
+"POT-Creation-Date: 2015-02-05 14:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -282,16 +282,13 @@ msgstr ""
 msgid "P-Phrase"
 msgstr ""
 
-#: models/substance.py:45 templates/chemicals/chemical_detail.html:94
+#: models/substance.py:45 models/substance.py:53
+#: templates/chemicals/chemical_detail.html:94
 msgid "R-Phrase"
 msgstr ""
 
-#: models/substance.py:53
-msgid "R Phrase"
-msgstr ""
-
 #: models/substance.py:54
-msgid "R Phrases"
+msgid "R-Phrases"
 msgstr ""
 
 #: models/substance.py:60 models/substance.py:68
@@ -363,11 +360,11 @@ msgid "Risks"
 msgstr ""
 
 #: models/substance.py:267
-msgid "H Phrase Relation"
+msgid "H-Phrase Relation"
 msgstr ""
 
 #: models/substance.py:268
-msgid "H Phrase Relations"
+msgid "H-Phrase Relations"
 msgstr ""
 
 #: models/substance.py:287 tables.py:190 tables.py:260
@@ -675,8 +672,12 @@ msgstr ""
 msgid "Web"
 msgstr ""
 
-#: templates/chemicals/letter_filter.html:46
+#: templates/chemicals/letter_filter.html:45
 msgid "all"
+msgstr ""
+
+#: templates/chemicals/max_items.html:4
+msgid "Items per page"
 msgstr ""
 
 #: templates/chemicals/table.html:40
