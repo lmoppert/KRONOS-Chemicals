@@ -9,7 +9,7 @@ import filer.fields.image
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('filer', '__first__'),
+        ('filer', '0001_initial'),
     ]
 
     operations = [
@@ -1502,6 +1502,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Check List',
+                'verbose_name_plural': 'Check Lists',
             },
             bases=(models.Model,),
         ),
@@ -1521,6 +1522,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Check List Section',
+                'verbose_name_plural': 'Check List Sections',
             },
             bases=(models.Model,),
         ),
@@ -1535,6 +1537,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Check List Usage',
+                'verbose_name_plural': 'Check List Usages',
             },
             bases=(models.Model,),
         ),
@@ -1554,6 +1557,7 @@ class Migration(migrations.Migration):
                 ('registration_number', models.CharField(max_length=100, null=True, blank=True)),
                 ('cas', models.CharField(max_length=100, null=True, blank=True)),
                 ('einecs', models.CharField(max_length=100, null=True, blank=True)),
+                ('signal', models.CharField(default=b'n', max_length=1, choices=[(b'd', 'danger'), (b'w', 'warning'), (b'n', 'no signal')])),
                 ('cmr', models.BooleanField(default=False)),
                 ('needed', models.BooleanField(default=False)),
                 ('preparation', models.BooleanField(default=False)),
@@ -1565,6 +1569,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Chemical',
+                'verbose_name_plural': 'Chemicals',
             },
             bases=(models.Model,),
         ),
@@ -1579,11 +1584,11 @@ class Migration(migrations.Migration):
                 ('fax', models.CharField(max_length=100, null=True, blank=True)),
                 ('email', models.CharField(max_length=100, null=True, blank=True)),
                 ('web', models.CharField(max_length=100, null=True, blank=True)),
-                ('producer', models.BooleanField(default=False)),
                 ('info', models.TextField(null=True, blank=True)),
             ],
             options={
                 'verbose_name': 'Contact',
+                'verbose_name_plural': 'Contacts',
             },
             bases=(models.Model,),
         ),
@@ -1596,6 +1601,7 @@ class Migration(migrations.Migration):
             options={
                 'ordering': ['name'],
                 'verbose_name': 'Department',
+                'verbose_name_plural': 'Departments',
             },
             bases=(models.Model,),
         ),
@@ -1610,6 +1616,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Document',
+                'verbose_name_plural': 'Documents',
             },
             bases=(models.Model,),
         ),
@@ -1646,6 +1653,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Extended Safety Data Sheet',
+                'verbose_name_plural': 'Extended Safety Data Sheets',
             },
             bases=(models.Model,),
         ),
@@ -1662,6 +1670,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'H Phrase',
+                'verbose_name_plural': 'H Phrases',
             },
             bases=(models.Model,),
         ),
@@ -1677,6 +1686,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'H Phrase',
+                'verbose_name_plural': 'H Phrases',
             },
             bases=(models.Model,),
         ),
@@ -1692,7 +1702,8 @@ class Migration(migrations.Migration):
                 ('hphrase', models.ForeignKey(to='chemicals.HPhrase')),
             ],
             options={
-                'verbose_name': 'H Phrase Relation',
+                'verbose_name': 'H-Phrase Relation',
+                'verbose_name_plural': 'H-Phrase Relations',
             },
             bases=(models.Model,),
         ),
@@ -1705,6 +1716,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Location',
+                'verbose_name_plural': 'Locations',
             },
             bases=(models.Model,),
         ),
@@ -1722,6 +1734,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Person',
+                'verbose_name_plural': 'Persons',
             },
             bases=(models.Model,),
         ),
@@ -1738,6 +1751,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Pictogram',
+                'verbose_name_plural': 'Pictograms',
             },
             bases=(models.Model,),
         ),
@@ -1755,6 +1769,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Pictogram Check',
+                'verbose_name_plural': 'Pictogram Checks',
             },
             bases=(models.Model,),
         ),
@@ -1769,6 +1784,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Plant',
+                'verbose_name_plural': 'Plants',
             },
             bases=(models.Model,),
         ),
@@ -1784,6 +1800,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Personal Protective Equipment (PPE)',
+                'verbose_name_plural': 'Personal Protective Equipments (PPE)',
             },
             bases=(models.Model,),
         ),
@@ -1801,6 +1818,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'PPE Check',
+                'verbose_name_plural': 'PPE Checks',
             },
             bases=(models.Model,),
         ),
@@ -1816,6 +1834,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'P Phrase',
+                'verbose_name_plural': 'P Phrases',
             },
             bases=(models.Model,),
         ),
@@ -1833,6 +1852,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'P Phrase',
+                'verbose_name_plural': 'P Phrases',
             },
             bases=(models.Model,),
         ),
@@ -1847,6 +1867,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Reach Document',
+                'verbose_name_plural': 'Reach Documents',
             },
             bases=(models.Model,),
         ),
@@ -1862,6 +1883,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Reach Information',
+                'verbose_name_plural': 'Reach Information',
             },
             bases=(models.Model,),
         ),
@@ -1877,6 +1899,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Risk',
+                'verbose_name_plural': 'Risks',
             },
             bases=(models.Model,),
         ),
@@ -1891,6 +1914,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Risk Indication',
+                'verbose_name_plural': 'Risk Indications',
             },
             bases=(models.Model,),
         ),
@@ -1904,6 +1928,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Role',
+                'verbose_name_plural': 'Roles',
             },
             bases=(models.Model,),
         ),
@@ -1918,7 +1943,8 @@ class Migration(migrations.Migration):
                 ('description_nl', models.CharField(max_length=400, null=True, blank=True)),
             ],
             options={
-                'verbose_name': 'R Phrase',
+                'verbose_name': 'R-Phrase',
+                'verbose_name_plural': 'R-Phrases',
             },
             bases=(models.Model,),
         ),
@@ -1936,6 +1962,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Safety Data Sheet',
+                'verbose_name_plural': 'Safety Data Sheets',
             },
             bases=(models.Model,),
         ),
@@ -1951,6 +1978,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Seveso Category',
+                'verbose_name_plural': 'Seveso Categories',
             },
             bases=(models.Model,),
         ),
@@ -1965,6 +1993,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Seveso Document',
+                'verbose_name_plural': 'Seveso Documents',
             },
             bases=(models.Model,),
         ),
@@ -1980,19 +2009,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Seveso Information',
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='Signal',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('term', models.CharField(max_length=1, choices=[(b'd', 'danger'), (b'w', 'warning'), (b'n', 'no signal')])),
-                ('chemical', models.ForeignKey(to='chemicals.Chemical')),
-                ('pictogram', models.ForeignKey(to='chemicals.Pictogram')),
-            ],
-            options={
-                'verbose_name': 'Singal',
+                'verbose_name_plural': 'Seveso Information',
             },
             bases=(models.Model,),
         ),
@@ -2009,6 +2026,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Stock',
+                'verbose_name_plural': 'Stocks',
             },
             bases=(models.Model,),
         ),
@@ -2024,6 +2042,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Storage Class',
+                'verbose_name_plural': 'Storage Classes',
             },
             bases=(models.Model,),
         ),
@@ -2041,6 +2060,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Storage Class Check',
+                'verbose_name_plural': 'Storage Class Checks',
             },
             bases=(models.Model,),
         ),
@@ -2055,6 +2075,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Supplier',
+                'verbose_name_plural': 'Suppliers',
             },
             bases=(models.Model,),
         ),
@@ -2069,6 +2090,22 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Chemical Synonym',
+                'verbose_name_plural': 'Chemical Synonyms',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Toxdata',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('tox', models.BooleanField(default=False)),
+                ('oekotox', models.BooleanField(default=False)),
+                ('chemical', models.ForeignKey(to='chemicals.Chemical')),
+                ('supplier', models.ForeignKey(to='chemicals.Contact')),
+            ],
+            options={
+                'verbose_name': 'Tox Oekotox',
+                'verbose_name_plural': 'Tox Oekotox',
             },
             bases=(models.Model,),
         ),
@@ -2084,6 +2121,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'WGK',
+                'verbose_name_plural': 'WGKs',
             },
             bases=(models.Model,),
         ),
@@ -2101,6 +2139,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'WGK',
+                'verbose_name_plural': 'WGKs',
             },
             bases=(models.Model,),
         ),
@@ -2161,25 +2200,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='chemical',
             name='pictograms',
-            field=models.ManyToManyField(to='chemicals.Pictogram', verbose_name='Pictogram', through='chemicals.Signal', blank=True),
+            field=models.ManyToManyField(to='chemicals.Pictogram', verbose_name='Pictogram', blank=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='chemical',
             name='pphrases',
             field=models.ManyToManyField(to='chemicals.PPhrase', blank=True),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='chemical',
-            name='producer',
-            field=models.ManyToManyField(to='chemicals.Contact', blank=True),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='chemical',
-            name='replaced',
-            field=models.ForeignKey(blank=True, to='chemicals.Chemical', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -2215,7 +2242,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='chemical',
             name='wgk',
-            field=models.ForeignKey(blank=True, to='chemicals.WGK', null=True),
+            field=models.ManyToManyField(to='chemicals.WGK', blank=True),
             preserve_default=True,
         ),
         migrations.AddField(
