@@ -110,7 +110,7 @@
                             <tr><td><img src="{{ obj.image.url }}" alt="{{ obj.name }}"></td><td>{{ obj.name }}</td></tr>
                             {% endfor %}
                         </table>
-                        <p><b>{% trans "Signal" %}:</b> {{ chemical.signal_set.first.term|show_signal }}</p><br>
+                        <p><b>{% trans "Signal" %}:</b> {{ chemical.signal|show_signal }}</p><br>
                         <table class="table table-striped table-bordered table-condensed">
                             <tr><th>{% trans "Storage Class" %}</th><th>{% trans "Description" %}</th></tr>
                             {% for obj in chemical.storage_classes.all %}

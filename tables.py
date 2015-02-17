@@ -64,6 +64,16 @@ class SubstanceTable(tables.Table):
         orderable=False,
     )
 
+    def render_signal(self, record):
+        s = record.signal
+        if s == 'w':
+            r = u'<span class="label label-warning">%s</span>' % _("Warning")
+        elif s == 'd':
+            r = u'<span class="label label-danger">%s</span>' % _("Danger")
+        else:
+            r = u'<span class="label label-default">%s</span>' % _("No Signal")
+        return mark_safe(r)
+
     def render_storage_classes(self, record):
         return render_as_list(record.storage_classes.all())
 
@@ -79,8 +89,8 @@ class SubstanceTable(tables.Table):
     class Meta:
         model = Chemical
         attrs = {'class': "table table-bordered table-striped table-condensed"}
-        fields = ('name', 'risks', 'pictograms', 'storage_classes', 'wgk',
-                  'supplier_set', )
+        fields = ('name', 'risks', 'pictograms', 'signal', 'storage_classes',
+                  'wgk', 'supplier_set', )
 
 
 class DepartmentSubstanceTable(tables.Table):
