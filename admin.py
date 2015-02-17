@@ -5,13 +5,12 @@
 from chemicals.models import (Chemical, Document, ReachDocument,
                               ReachInformation, SafetyDataSheet,
                               ExtendedSafetyDataSheet, SevesoDocument,
-                              SevesoInformation, Signal, CheckList,
-                              CheckSection, HPhraseCheck, PPhraseCheck,
-                              WGKCheck, PictogramCheck, StorageClassCheck,
-                              PPECheck, Contact, Role, Person, Supplier,
-                              Department, Plant, RiskIndication, WGK,
-                              StorageClass, SevesoCategory, RPhrase, PPhrase,
-                              HPhrase
+                              SevesoInformation, CheckList, CheckSection,
+                              HPhraseCheck, PPhraseCheck, WGKCheck,
+                              PictogramCheck, StorageClassCheck, PPECheck,
+                              Contact, Role, Person, Supplier, Department,
+                              Plant, RiskIndication, WGK, StorageClass,
+                              SevesoCategory, RPhrase, PPhrase, HPhrase
                               )
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin, TranslationTabularInline
@@ -85,14 +84,6 @@ class SevesoInformationInline(TranslationTabularInline):
     suit_classes = 'suit-tab suit-tab-seveso'
 
 
-class SignalInline(admin.TabularInline):
-    """Inline view for the risks."""
-
-    model = Signal
-    extra = 0
-    suit_classes = 'suit-tab suit-tab-classification'
-
-
 class RiskIndicationAdmin(TranslationAdmin):
     """Admin view for Risk Indications."""
 
@@ -162,7 +153,7 @@ class ChemicalAdmin(TranslationAdmin):
         (_('Relations'), {
             'classes': ('suit-tab', 'suit-tab-classification', ),
             'fields': ('wgk', 'storage_classes', 'seveso_categories',
-                       'rphrases', 'pphrases')
+                       'rphrases', 'pphrases', 'signal')
         }),
     )
 
@@ -185,7 +176,6 @@ class ChemicalAdmin(TranslationAdmin):
         ExtendedSafetyDataSheetInline,
         SevesoDocumentInline,
         SevesoInformationInline,
-        SignalInline,
     ]
 
     filter_horizontal = ('wgk', 'storage_classes', 'seveso_categories',
