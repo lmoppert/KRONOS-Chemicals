@@ -11,7 +11,7 @@ from .models import (
     Stock, Location
 )
 from .tables import (
-    SubstanceTable, SupplierTable, ProducerTable, SDSTable, ApprovalTable,
+    SubstanceTable, SupplierTable, SDSTable, ApprovalTable,
     DepartmentStockTable, DepartmentSubstanceTable
 )
 
@@ -130,18 +130,6 @@ class SupplierList(TableListView):
                 Supplier, chemical__archive=False,
                 contact__name__istartswith=letter
             )
-
-
-class ProducerList(TableListView):
-    """Returns a list of all Producers."""
-    model = Contact
-    table_class = ProducerTable
-    table_heading = _("Producers")
-
-    def get_table_data(self):
-        letter = self.get_filter_values()["letter"]
-        return self.get_data_or_dict(Contact, name__istartswith=letter,
-                                     producer=True)
 
 
 class ContactDetail(DetailView):

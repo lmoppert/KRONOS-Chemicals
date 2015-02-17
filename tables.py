@@ -6,7 +6,7 @@ from django.utils.safestring import mark_safe
 from django.utils.html import escape
 import django_tables2 as tables
 from django_tables2.utils import A  # alias for Accessor
-from .models import Chemical, Document, Supplier, Contact, Location, Stock
+from .models import Chemical, Document, Supplier, Location, Stock
 
 
 def render_as_list(objs):
@@ -153,25 +153,6 @@ class SupplierTable(tables.Table):
         attrs = {'class': "table table-bordered table-striped table-condensed"}
         order_by = ('contact', 'chemical')
         fields = ('contact', 'chemical', 'department',)
-
-
-class ProducerTable(tables.Table):
-    """Table listing producers."""
-    name = tables.LinkColumn('contact_detail', args=[A('pk')],
-                             verbose_name=_("Producer"))
-    chemical_set = tables.Column(empty_values=(), verbose_name=_("Chemical"))
-
-    def render_chemical_set(self, record):
-        chemicals = []
-        for chemical in record.chemical_set.filter(archive=False):
-            chemicals.append(chemical)
-        return render_as_list(set(chemicals))
-
-    class Meta:
-        model = Contact
-        attrs = {'class': "table table-bordered table-striped table-condensed"}
-        order_by = ('name',)
-        fields = ('name',)
 
 
 class SDSTable(tables.Table):

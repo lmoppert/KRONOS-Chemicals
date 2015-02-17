@@ -164,10 +164,6 @@ class ChemicalAdmin(TranslationAdmin):
             'fields': ('wgk', 'storage_classes', 'seveso_categories',
                        'rphrases', 'pphrases')
         }),
-        (_('Supplier'), {
-            'classes': ('suit-tab', 'suit-tab-department', ),
-            'fields': ('producer',)
-        }),
     )
 
     suit_form_tabs = (
@@ -193,7 +189,7 @@ class ChemicalAdmin(TranslationAdmin):
     ]
 
     filter_horizontal = ('wgk', 'storage_classes', 'seveso_categories',
-                         'rphrases', 'pphrases', 'producer')
+                         'rphrases', 'pphrases')
 
 
 ##############################################################################
