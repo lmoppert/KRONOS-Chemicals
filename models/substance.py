@@ -156,7 +156,6 @@ class Chemical(models.Model):
     seveso_categories = models.ManyToManyField(SevesoCategory, blank=True)
     rphrases = models.ManyToManyField(RPhrase, blank=True)
     pphrases = models.ManyToManyField(PPhrase, blank=True)
-    producer = models.ManyToManyField('Contact', blank=True)
 
     # Many to many relations with dedicated relation table
     risks = models.ManyToManyField(

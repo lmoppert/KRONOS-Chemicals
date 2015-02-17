@@ -40,7 +40,6 @@ class Contact(models.Model):
     fax = models.CharField(max_length=100, blank=True, null=True)
     email = models.CharField(max_length=100, blank=True, null=True)
     web = models.CharField(max_length=100, blank=True, null=True)
-    producer = models.BooleanField(default=False, null=False)
     info = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
