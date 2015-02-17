@@ -22,7 +22,7 @@ from chemicals.models.legacy import (
     StoffeChemSevesoKategorie, StoffeChemRphrase, StoffeChemPphrase,
     StoffePerson, StoffeContact, StoffeContactPerson, StoffeMenufacturing,
     StoffeMenuTranslation, StoffeDepartment, StoffeLocation, StoffeStock,
-    StoffeChemDepContact, StoffeChemContact, StoffePictoTranslation, Users,
+    StoffeChemDepContact, StoffePictoTranslation, Users,
     StoffeChemPictogramm, StoffePictogramm, StoffeDocument, StoffeToxdata,
     StoffeReachDocument, StoffeSevesoDocument, StoffeEsafetydatasheet,
     StoffeSafetydatasheet, LegacyFiles, DummyTranslation)
@@ -306,7 +306,6 @@ def create_contacts():
             fax=obj.fax,
             email=obj.mail,
             web=obj.www,
-            producer=obj.typ,
             info=obj.contactinfo,
         )
         scps = StoffeContactPerson.objects.using('legacy').filter(
@@ -421,20 +420,6 @@ def create_suppliers():
             department=department
         )
     print "%s Suppliers migrated" % count
-
-
-def create_producers():
-    count = 0
-    print "Processing producesr"
-    objs = StoffeChemContact.objects.using('legacy').all()
-    print "Found %s Producers, processing migrattion..." % objs.count()
-    for obj in objs:
-        count += 1
-        chemical = Chemical.objects.get(id=obj.chemical.chemical_id)
-        contact = Contact.objects.get(id=obj.contact.contact_id)
-        chemical.producer.add(contact)
-        chemical.save()
-    print "%s Producers migrated" % count
 
 
 ##############################################################################
@@ -565,7 +550,6 @@ def create_chemicals(chemical):
         components_registered=chemical.regkomponents,
 
         # Many to many relations to contact model
-        # producer=chemical.,
         # departments=chemical.,  # relation through Supplier
         # pictograms=chemical.,   # relation through Signal
         # locations=chemical.,    # relation through Stock
@@ -773,7 +757,6 @@ def run():
     create_locations()
     create_stocks()
     create_suppliers()
-    create_producers()
 
     # Tables that contain media files
     create_pictograms()
