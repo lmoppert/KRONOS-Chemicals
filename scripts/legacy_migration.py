@@ -8,7 +8,7 @@ from chemicals.models.periphery import (
     Contact, Person, Role, Department, Plant, Location, Stock, Supplier)
 from chemicals.models.substance import (
     Chemical, RiskIndication, StorageClass, SevesoCategory, HPhrase, Toxdata,
-    WGK, RPhrase, PPhrase, Risk, HPhraseRelation, Pictogram, Document, Signal,
+    WGK, RPhrase, PPhrase, Risk, HPhraseRelation, Pictogram, Document,
     SevesoDocument, ReachDocument, SafetyDataSheet, ExtendedSafetyDataSheet)
 # Synonym
 from chemicals.models.legacy import (
@@ -551,7 +551,6 @@ def create_chemicals(chemical):
 
         # Many to many relations to contact model
         # departments=chemical.,  # relation through Supplier
-        # pictograms=chemical.,   # relation through Signal
         # locations=chemical.,    # relation through Stock
     )
     # Create Many to many relations
@@ -612,11 +611,9 @@ def create_pictograms():
             pictogramm=obj.pictogramm_id)
         for s in signals:
             chemical = Chemical.objects.get(id=s.chemical.chemical_id)
-            Signal.objects.create(
-                chemical=chemical,
-                pictogram=new_pic,
-                term=get_term(s.signal),
-            )
+            chemical.pictograms.add(new_pic)
+            chemical.signal = get_term(s.signal)
+            chemical.save()
     print "%s Pictograms migrated" % count
 
 
