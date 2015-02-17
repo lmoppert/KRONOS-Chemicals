@@ -129,6 +129,7 @@ class RiskIndication(models.Model):
 
 class Chemical(models.Model):
     """ The Chemical is the heart of this application."""
+    SIGNALS = (('d', _('danger')), ('w', _('warning')), ('n', _('no signal')),)
 
     name = models.CharField(max_length=200, verbose_name=_("Chemical"))
     comment = models.CharField(max_length=800, blank=True, null=True)
@@ -137,6 +138,7 @@ class Chemical(models.Model):
         max_length=100, blank=True, null=True)
     cas = models.CharField(max_length=100, blank=True, null=True)
     einecs = models.CharField(max_length=100, blank=True, null=True)
+    signal = models.CharField(max_length=1, choices=SIGNALS, default='n')
 
     # Boolean switches
     cmr = models.BooleanField(default=False)
@@ -156,6 +158,8 @@ class Chemical(models.Model):
     seveso_categories = models.ManyToManyField(SevesoCategory, blank=True)
     rphrases = models.ManyToManyField(RPhrase, blank=True)
     pphrases = models.ManyToManyField(PPhrase, blank=True)
+    pictograms = models.ManyToManyField(
+        'Pictogram', blank=True, verbose_name=_("Pictogram"))
 
     # Many to many relations with dedicated relation table
     risks = models.ManyToManyField(
@@ -165,8 +169,6 @@ class Chemical(models.Model):
         HPhrase, through='HPhraseRelation', blank=True)
     departments = models.ManyToManyField(
         'Department', through='Supplier', blank=True)
-    pictograms = models.ManyToManyField(
-        'Pictogram', through='Signal', blank=True, verbose_name=_("Pictogram"))
     locations = models.ManyToManyField(
         'Location', through='Stock', blank=True)
 
@@ -284,21 +286,6 @@ class Pictogram(models.Model):
         app_label = "chemicals"
         verbose_name = _("Pictogram")
         verbose_name_plural = _("Pictograms")
-
-
-class Signal(models.Model):
-    """Class mapping chemicals and pictograms and adding a signal words."""
-
-    TERMS = (('d', _('danger')), ('w', _('warning')), ('n', _('no signal')),)
-
-    chemical = models.ForeignKey(Chemical)
-    pictogram = models.ForeignKey(Pictogram)
-    term = models.CharField(max_length=1, choices=TERMS)
-
-    class Meta:
-        app_label = "chemicals"
-        verbose_name = _("Singal")
-        verbose_name_plural = _("Singals")
 
 
 class Document(models.Model):
