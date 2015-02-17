@@ -58,7 +58,10 @@
                 <input type="checkbox" disabled{{ chemical.cmr|yesno:" checked," }}> {% trans "CMR" %}
             </label></div>
             <div class="checkbox"><label>
-                <input type="checkbox" disabled{{ chemical.reach_vo|yesno:" checked," }}> {% trans "Listed in Appendix XIV, REACH-VO" %}
+                <input type="checkbox" disabled{{ chemical.reach_vo|yesno:" checked," }}>
+                <span {% if chemical.preparation %} class="text-muted"{% endif %}>
+                {% trans "Listed in Appendix XIV, REACH-VO" %}
+                </span>
             </label></div>
             <div class="checkbox"><label>
                 <input type="checkbox" disabled{{ chemical.hazardous|yesno:" checked," }}> {% trans "Hazardous" %}
@@ -143,14 +146,6 @@
                     <tr><th>{% trans "Chemical Storage" %}</th><th>{% trans "Department" %}</th><th>{% trans "Supplier" %}</th></tr>
                     {% for obj in locations %}
                     <tr><td><a href="%{{ obj.url }}">{{ obj.name }}</a></td><td>{{ obj.department }}</td><td>{{ obj.supplier }}</td></tr>
-                    {% endfor %}
-                </table>
-                <h3>{% trans "Producer" %}</h3>
-                <table class="table table-striped table-bordered table-condensed">
-                    <tr><th>{% trans "Name" %}</th><th>{% trans "Address" %}</th><th>{% trans "Country" %}</th><th>{% trans "Phone" %}</th><th>{% trans "E-Mail" %}</th></tr>
-                    {% for obj in chemical.producer.all %}
-                    <tr><td><a href="{{ obj.get_absolut_url }}">{{ obj.name }}</a></td><td class="with-linebreaks">{{ obj.address }}</td><td>{{ obj.country }}</td>
-                        <td>{{ obj.phone }}</td><td>{{ obj.email }}</td></tr>
                     {% endfor %}
                 </table>
             </div>

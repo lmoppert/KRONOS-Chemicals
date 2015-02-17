@@ -3,9 +3,6 @@
 {% load render_table from django_tables2 %}
 
 {% block chemical_content %}
-    {% if contact.producer %}
-        <span class="label label-info">{% trans "Producer" %}</span>
-    {% endif %}
     <h1>{{ contact.name }}</h1>
     <div class="col-lg-3 with-linebreaks">{{ contact.address }}<br>{{ contact.country }}</div>
     <div class="col-lg-3">
