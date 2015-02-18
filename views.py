@@ -11,7 +11,7 @@ from .models import (
     Stock, Location
 )
 from .tables import (
-    SubstanceTable, SupplierTable, SDSTable, ApprovalTable,
+    SubstanceTable, SupplierTable, CMRTable, SDSTable, ApprovalTable,
     DepartmentStockTable, DepartmentSubstanceTable
 )
 
@@ -110,20 +110,26 @@ class SupplierList(TableListView):
     model = Supplier
     table_class = SupplierTable
     table_heading = _("Suppliers")
-    cmr = False
 
     def get_table_data(self):
         letter = self.get_filter_values()["letter"]
-        if self.cmr:
-            return self.get_data_or_dict(
-                Supplier, chemical__cmr=True, chemical__archive=False,
-                contact__name__istartswith=letter
-            )
-        else:
-            return self.get_data_or_dict(
-                Supplier, chemical__archive=False,
-                contact__name__istartswith=letter
-            )
+        return self.get_data_or_dict(
+            Supplier, chemical__archive=False,
+            contact__name__istartswith=letter
+        )
+
+
+class CMRList(SupplierList):
+    """Returns a list of Suppliers for CMR Chemicals."""
+    table_class = CMRTable
+    table_heading = _("Suppliers (CMR)")
+
+    def get_table_data(self):
+        letter = self.get_filter_values()["letter"]
+        return self.get_data_or_dict(
+            Supplier, chemical__cmr=True, chemical__archive=False,
+            chemical__name__istartswith=letter
+        )
 
 
 class ContactDetail(DetailView):

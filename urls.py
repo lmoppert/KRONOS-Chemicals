@@ -4,10 +4,10 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import RedirectView
 from django.conf.urls import patterns, url
-from .views import (ChemicalList, ChemicalDetail, SupplierList, StockList,
-                    ContactDetail, DepartmentList, DepartmentView, SDSList,
-                    SDSDepartmentList, ApprovalDocumentList, LocationView,
-                    StockDepartmentList)
+from .views import (ChemicalList, ChemicalDetail, SupplierList, CMRList,
+                    StockList, ContactDetail, DepartmentList, DepartmentView,
+                    SDSList, SDSDepartmentList, ApprovalDocumentList,
+                    LocationView, StockDepartmentList)
 
 
 urlpatterns = patterns(
@@ -23,7 +23,7 @@ urlpatterns = patterns(
         name='department_detail'),
     url(r'^departments/$', DepartmentList.as_view(), name='department_list'),
     url(r'^suppliers/$', SupplierList.as_view(), name='supplier_list'),
-    url(r'^cmr/$', SupplierList.as_view(cmr=True), name='cmr_list'),
+    url(r'^cmr/$', CMRList.as_view(), name='cmr_list'),
     #
     url(r'^sds/department/(?P<pk>\d+)$', SDSDepartmentList.as_view(),
         name='sds_department_list'),
