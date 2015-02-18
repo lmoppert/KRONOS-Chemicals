@@ -1,7 +1,7 @@
-DELETE FROM `she`.`chemicals_signal`;
-ALTER TABLE `she`.`chemicals_signal` AUTO_INCREMENT = 1;
 DELETE FROM `she`.`chemicals_pictogram`;
 ALTER TABLE `she`.`chemicals_pictogram` AUTO_INCREMENT = 1;
+DELETE FROM `she`.`chemicals_chemical_pictograms`;
+ALTER TABLE `she`.`chemicals_chemical_pictograms` AUTO_INCREMENT = 1;
 DELETE FROM `she`.`chemicals_extendedsafetydatasheet`;
 ALTER TABLE `she`.`chemicals_extendedsafetydatasheet` AUTO_INCREMENT = 1;
 DELETE FROM `she`.`chemicals_safetydatasheet`;

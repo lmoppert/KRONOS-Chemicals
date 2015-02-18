@@ -422,6 +422,22 @@ def create_suppliers():
     print "%s Suppliers migrated" % count
 
 
+def create_tox():
+    count = 0
+    print "Processing Toxdata"
+    objs = StoffeToxdata.objects.using('legacy').all()
+    print "Found %s Toxdata items, processing migration..." % objs.count()
+    for obj in objs:
+        count += 1
+        Toxdata.objects.create(
+            supplier=Contact.objects.get(id=obj.supplier_id),
+            chemical=Chemical.objects.get(id=obj.chemical_id),
+            tox=obj.toxdata,
+            oekotox=obj.oekotoxdata,
+        )
+    print "%s Toxddata items migrated" % count
+
+
 ##############################################################################
 # Create methods chemicals
 ##############################################################################
@@ -627,13 +643,14 @@ def create_document():
         trans = get_translations(
             StoffeMenuTranslation, obj.menufacturing.menufacturing_id)
         plant = Plant.objects.get(name=trans.itervalues().next().name)
-        Document.objects.create(
+        new = Document.objects.create(
             plant=plant,
             chemical=Chemical.objects.get(id=obj.chemical.chemical_id),
             file=get_file_handle(obj.path),
             doctype=obj.doctype,
-            created=obj.createddate,
         )
+        new.created = obj.createddate
+        new.save()
     print "%s Documents migrated" % count
 
 
@@ -644,12 +661,13 @@ def create_reach_document():
     print "Found %s REACH Documents, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
-        ReachDocument.objects.create(
+        new = ReachDocument.objects.create(
             chemical=Chemical.objects.get(id=obj.chemical.chemical_id),
             file=get_file_handle(obj.reachdoc_path),
             country_code=get_language(obj.countrycode),
-            created=obj.createddate,
         )
+        new.created = obj.createddate
+        new.save()
     print "%s REACH Documents migrated" % count
 
 
@@ -660,12 +678,13 @@ def create_seveso_document():
     print "Found %s Seveso Documents, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
-        SevesoDocument.objects.create(
+        new = SevesoDocument.objects.create(
             chemical=Chemical.objects.get(id=obj.chemical.chemical_id),
             file=get_file_handle(obj.doc_path),
             country_code=get_language(obj.countrycode),
-            created=obj.createddate,
         )
+        new.created = obj.createddate
+        new.save()
     print "%s Seveso Documents migrated" % count
 
 
@@ -678,15 +697,16 @@ def create_sdb():
         count += 1
         if count % 500 == 0:
             print "    ...%s SDS have been processed" % count
-        SafetyDataSheet.objects.create(
+        new = SafetyDataSheet.objects.create(
             supplier=Contact.objects.get(id=obj.supplier.contact_id),
             chemical=Chemical.objects.get(id=obj.chemical.chemical_id),
             file=get_file_handle(obj.path),
             instruction=obj.instruction or False,
             issue_date=obj.issuedate,
             country_code=get_language(obj.countrycode),
-            created=obj.createddate,
         )
+        new.created = obj.createddate
+        new.save()
     print "%s SDS migrated" % count
 
 
@@ -697,32 +717,17 @@ def create_esdb():
     print "Found %s eSDS, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
-        ExtendedSafetyDataSheet.objects.create(
+        new = ExtendedSafetyDataSheet.objects.create(
             supplier=Contact.objects.get(id=obj.supplier.contact_id),
             chemical=Chemical.objects.get(id=obj.chemical.chemical_id),
             file=get_file_handle(obj.path),
             instruction=obj.instruction or False,
             issue_date=obj.issuedate,
             country_code=get_language(obj.countrycode),
-            created=obj.createddate,
         )
+        new.created = obj.createddate
+        new.save()
     print "%s eSDS migrated" % count
-
-
-def create_tox():
-    count = 0
-    print "Processing Toxdata"
-    objs = StoffeToxdata.objects.using('legacy').all()
-    print "Found %s Toxdata items, processing migration..." % objs.count()
-    for obj in objs:
-        count += 1
-        Toxdata.objects.create(
-            supplier=Contact.objects.get(id=obj.supplier_id),
-            chemical=Chemical.objects.get(id=obj.chemical_id),
-            tox=obj.toxdata,
-            oekotox=obj.oekotoxdata,
-        )
-    print "%s Toxddata items migrated" % count
 
 
 ##############################################################################
@@ -754,6 +759,7 @@ def run():
     create_locations()
     create_stocks()
     create_suppliers()
+    create_tox()
 
     # Tables that contain media files
     create_pictograms()
@@ -762,5 +768,4 @@ def run():
     create_seveso_document()
     create_sdb()
     create_esdb()
-    create_tox()
     print "All objecst migrated - Thanks for your patience!"
