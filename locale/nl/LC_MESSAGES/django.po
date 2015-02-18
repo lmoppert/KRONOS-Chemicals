@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-18 13:59+0100\n"
+"POT-Creation-Date: 2015-02-18 14:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -185,7 +185,7 @@ msgstr ""
 msgid "Roles"
 msgstr ""
 
-#: models/periphery.py:87 templates/chemicals/chemical_detail.html:195
+#: models/periphery.py:87 templates/chemicals/chemical_detail.html:203
 msgid "Plant"
 msgstr ""
 
@@ -195,7 +195,7 @@ msgstr ""
 
 #: models/periphery.py:102 tables.py:139 tables.py:160
 #: templates/chemicals/chemical_detail.html:144
-#: templates/chemicals/chemical_detail.html:146
+#: templates/chemicals/chemical_detail.html:147
 msgid "Department"
 msgstr ""
 
@@ -261,14 +261,14 @@ msgid "Stocks"
 msgstr ""
 
 #: models/periphery.py:161 tables.py:56 tables.py:113 tables.py:133
-#: tables.py:154 tables.py:184 templates/chemicals/chemical_detail.html:146
-#: templates/chemicals/chemical_detail.html:159
-#: templates/chemicals/chemical_detail.html:168
+#: tables.py:154 tables.py:184 templates/chemicals/chemical_detail.html:148
+#: templates/chemicals/chemical_detail.html:167
 #: templates/chemicals/chemical_detail.html:176
+#: templates/chemicals/chemical_detail.html:184
 msgid "Supplier"
 msgstr ""
 
-#: models/periphery.py:162 templates/chemicals/base.html:16 views.py:118
+#: models/periphery.py:162 templates/chemicals/base.html:16 views.py:112
 msgid "Suppliers"
 msgstr ""
 
@@ -382,11 +382,11 @@ msgstr ""
 msgid "Pictograms"
 msgstr ""
 
-#: models/substance.py:302 templates/chemicals/chemical_detail.html:230
+#: models/substance.py:302 templates/chemicals/chemical_detail.html:238
 msgid "Document"
 msgstr ""
 
-#: models/substance.py:303 templates/chemicals/chemical_detail.html:188
+#: models/substance.py:303 templates/chemicals/chemical_detail.html:196
 msgid "Documents"
 msgstr ""
 
@@ -410,7 +410,7 @@ msgstr ""
 msgid "Safety Data Sheet"
 msgstr ""
 
-#: models/substance.py:353 templates/chemicals/chemical_detail.html:155
+#: models/substance.py:353 templates/chemicals/chemical_detail.html:163
 #: views.py:173 views.py:183 views.py:193 views.py:208
 msgid "Safety Data Sheets"
 msgstr ""
@@ -439,22 +439,22 @@ msgstr ""
 msgid "No Signal"
 msgstr ""
 
-#: tables.py:171 templates/chemicals/chemical_detail.html:159
+#: tables.py:171 templates/chemicals/chemical_detail.html:167
 msgid "SDS"
 msgstr ""
 
-#: tables.py:172 templates/chemicals/chemical_detail.html:176
+#: tables.py:172 templates/chemicals/chemical_detail.html:184
 msgid "eSDS"
 msgstr ""
 
 #: tables.py:174 templates/base.html:41
-#: templates/chemicals/chemical_detail.html:159
-#: templates/chemicals/chemical_detail.html:176
-#: templates/chemicals/chemical_detail.html:230
+#: templates/chemicals/chemical_detail.html:167
+#: templates/chemicals/chemical_detail.html:184
+#: templates/chemicals/chemical_detail.html:238
 msgid "Language"
 msgstr ""
 
-#: tables.py:217 templates/chemicals/chemical_detail.html:195
+#: tables.py:217 templates/chemicals/chemical_detail.html:203
 msgid "Approval"
 msgstr ""
 
@@ -516,7 +516,7 @@ msgid "Article Number"
 msgstr ""
 
 #: templates/chemicals/chemical_detail.html:22
-#: templates/chemicals/chemical_detail.html:222
+#: templates/chemicals/chemical_detail.html:230
 msgid "Registration Number"
 msgstr ""
 
@@ -573,8 +573,8 @@ msgid "Substance Directive"
 msgstr ""
 
 #: templates/chemicals/chemical_detail.html:89
-#: templates/chemicals/chemical_detail.html:207
-#: templates/chemicals/chemical_detail.html:223
+#: templates/chemicals/chemical_detail.html:215
+#: templates/chemicals/chemical_detail.html:231
 #: templates/chemicals/contact_detail.html:26
 msgid "Info"
 msgstr ""
@@ -603,29 +603,29 @@ msgstr ""
 msgid "Water Hazard Classification"
 msgstr ""
 
-#: templates/chemicals/chemical_detail.html:146
+#: templates/chemicals/chemical_detail.html:149
 msgid "Chemical Storage"
 msgstr ""
 
-#: templates/chemicals/chemical_detail.html:159
-#: templates/chemicals/chemical_detail.html:176
+#: templates/chemicals/chemical_detail.html:167
+#: templates/chemicals/chemical_detail.html:184
 msgid "Published on"
 msgstr ""
 
-#: templates/chemicals/chemical_detail.html:168
+#: templates/chemicals/chemical_detail.html:176
 msgid "Tox"
 msgstr ""
 
-#: templates/chemicals/chemical_detail.html:168
+#: templates/chemicals/chemical_detail.html:176
 msgid "Oekotox"
 msgstr ""
 
-#: templates/chemicals/chemical_detail.html:191
+#: templates/chemicals/chemical_detail.html:199
 msgid "General documents"
 msgstr ""
 
-#: templates/chemicals/chemical_detail.html:195
-#: templates/chemicals/chemical_detail.html:207
+#: templates/chemicals/chemical_detail.html:203
+#: templates/chemicals/chemical_detail.html:215
 msgid "Created on"
 msgstr ""
 
@@ -668,4 +668,8 @@ msgstr ""
 
 #: urls.py:19
 msgid "Archived chemicals"
+msgstr ""
+
+#: views.py:125
+msgid "Suppliers (CMR)"
 msgstr ""
