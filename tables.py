@@ -12,7 +12,8 @@ from .models import Chemical, Document, Supplier, Location, Stock
 def render_as_list(objs):
     out = ""
     for obj in sorted(objs, key=attrgetter('name')):
-        out += '%s<hr>' % (escape(obj.name))
+        out += u'<span style="white-space: nowrap">{}</span><hr>'.format(
+            escape(obj.name))
     return mark_safe(out[:-4])
 
 
