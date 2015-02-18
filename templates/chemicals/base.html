@@ -3,27 +3,23 @@
 
 {% block top_menu %}
     <ul class="nav navbar-nav">
+        <li><a class="navbar-button" href="{% url "sds_list" %}">{% trans "MSDS" %}</a></li>
+        <li><a class="navbar-button" href="{% url "chemical_list" %}">{% trans "Chemicals" %}</a></li>
+        <li class="disabled"><a class="navbar-button" href="{% url "chemical_list" %}">{% trans "Chemical Stock" %}</a></li>
         <li class="dropdown">
             <a id="chem_dd1" class="navbar-button" role="button" data-toggle="dropdown" href="#">
-                {% trans "Substance Views" %}
+                {% trans "More Views" %}
                 <span class="caret"></span>
             </a>
             <ul id="chem_menu1" class="dropdown-menu" role="menu" aria-labelledby="chem_dd1">
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Substances" %}</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Chemicals" %}</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "supplier_list" %}/?lid=1">{% trans "Suppliers" %}</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "department_list" %}">{% trans "Departments" %}</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "cmr_list" %}">{% trans "CMR" %}</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "archived_chemicals" %}">{% trans "Archive" %}</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "sds_list" %}">{% trans "Safetydatasheets" %}</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "sds_list" %}">{% trans "MSDS" %}</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "approval_list" %}">{% trans "Approval Documents" %}</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a id="chem_dd3" class="navbar-button" role="button" class="dropdown-toggle" data-toggle="dropdown" href="#">
-                {% trans "SHE Views" %}
-                <b class="caret"></b>
-            </a>
-            <ul id="chem_menu3" class="dropdown-menu" role="menu" aria-labelledby="chem_dd2">
+                <li><hr></li>
                 <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "H-Phrases" %}</a></li>
                 <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Substances without SDS" %}</a></li>
                 <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Seveso-View Departments" %}</a></li>
@@ -32,14 +28,7 @@
                 <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Checklists" %}</a></li>
                 <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Tox Oekotox" %}</a></li>
                 <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Substance Numbers" %}</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a id="chem_dd2" class="navbar-button" role="button" data-toggle="dropdown" href="#">
-                {% trans "Stock Views" %}
-                <span class="caret"></span>
-            </a>
-            <ul id="chem_menu2" class="dropdown-menu" role="menu" aria-labelledby="chem_dd3">
+                <li><hr></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "stock_list" %}">{% trans "Departments" %}</a></li>
                 <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Location" %}</a></li>
                 <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Substances" %}</a></li>
