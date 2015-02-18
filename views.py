@@ -92,18 +92,12 @@ class ChemicalDetail(DetailView):
         chemical = context["chemical"]
         locations = []
         for supplier in chemical.supplier_set.all():
-            location = supplier.department.location_set.filter(
-                stock__in=chemical.stock_set.all()).first()
-            if location:
+            locs = supplier.department.location_set.filter(
+                stock__in=chemical.stock_set.all())
+            for location in locs:
                 locations.append({
                     'url': location.get_absolut_url(),
                     'name': location.name,
-                    'department': supplier.department.name,
-                    'supplier': supplier.contact.name
-                })
-            else:
-                locations.append({
-                    'url': '', 'name': '',
                     'department': supplier.department.name,
                     'supplier': supplier.contact.name
                 })
