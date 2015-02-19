@@ -67,9 +67,9 @@ class SubstanceTable(tables.Table):
 
     def render_signal(self, record):
         s = record.signal
-        if s == 'w':
+        if s == 'w' or s == u'w':
             r = u'<span class="label label-warning">%s</span>' % _("Warning")
-        elif s == 'd':
+        elif s == 'd' or s == u'd':
             r = u'<span class="label label-danger">%s</span>' % _("Danger")
         else:
             r = u'<span class="label label-default">%s</span>' % _("No Signal")
