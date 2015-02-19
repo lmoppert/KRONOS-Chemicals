@@ -7,6 +7,20 @@ register = template.Library()
 
 
 @register.filter
+def show_unit(value):
+    """Show the word representation of a unit"""
+    UNITS = {
+        't': _('tons'), 'k': _('kilogram'), 'g': _('gram'),
+        'c': _('cubic meter'), 'l': _('liter'), 'm': _('mililiter'),
+        'p': _('pieces'),
+    }
+    if value in UNITS:
+        return UNITS[value]
+    else:
+        return ''
+
+
+@register.filter
 def show_signal(value):
     """Show the word representation of a signal"""
     if value == 'w' or value == u'w':

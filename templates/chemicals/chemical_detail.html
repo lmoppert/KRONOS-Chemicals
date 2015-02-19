@@ -150,9 +150,9 @@
                     </tr>
                     {% for obj in locations %}
                     <tr>
-                        <td>{{ obj.department }}</td>
+                        <td><a href="{{ obj.url }}">{{ obj.department }}</a></td>
                         <td>{{ obj.supplier }}</td>
-                        <td><a href="%{{ obj.url }}">{{ obj.name }}</a></td>
+                        <td>{{ obj.name }}</td>
                     </tr>
                     {% endfor %}
                 </table>

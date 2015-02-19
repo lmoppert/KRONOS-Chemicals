@@ -124,7 +124,6 @@ class Location(models.Model):
 
 class Stock(models.Model):
     """Class adding volume informatino for a chemical to a location."""
-
     UNITS = (
         ('t', _('tons')), ('k', _('kilogram')), ('g', _('gram')),
         ('c', _('cubic meter')), ('l', _('liter')), ('m', _('mililiter')),

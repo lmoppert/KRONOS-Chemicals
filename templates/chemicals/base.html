@@ -5,7 +5,7 @@
     <ul class="nav navbar-nav">
         <li><a class="navbar-button" href="{% url "sds_list" %}">{% trans "MSDS" %}</a></li>
         <li><a class="navbar-button" href="{% url "chemical_list" %}">{% trans "Chemicals" %}</a></li>
-        <li class="disabled"><a class="navbar-button" href="{% url "chemical_list" %}">{% trans "Chemical Stock" %}</a></li>
+        <li><a class="navbar-button" href="{% url "stock_list" %}">{% trans "Chemical Stock" %}</a></li>
         <li class="dropdown">
             <a id="chem_dd1" class="navbar-button" role="button" data-toggle="dropdown" href="#">
                 {% trans "More Views" %}

@@ -3,17 +3,16 @@
 
 from django.shortcuts import _get_queryset, get_list_or_404
 from django.core.exceptions import ImproperlyConfigured
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DetailView, ListView
 from django_tables2 import SingleTableMixin, RequestConfig
 from .models import (
     Chemical, Contact, Supplier, Department, Plant, SafetyDataSheet, Document,
-    Stock, Location
-)
+    Stock, Location)
 from .tables import (
     SubstanceTable, SupplierTable, CMRTable, SDSTable, ApprovalTable,
-    DepartmentStockTable, DepartmentSubstanceTable
-)
+    DepartmentStockTable, DepartmentSubstanceTable)
 
 
 ###############################################################################
@@ -96,7 +95,9 @@ class ChemicalDetail(DetailView):
                 stock__in=chemical.stock_set.all())
             for location in locs:
                 locations.append({
-                    'url': location.get_absolut_url(),
+                    'url': reverse('chemical_department', kwargs={
+                        'pk': chemical.id,
+                        'dep_id': supplier.department.id, }),
                     'name': location.name,
                     'department': supplier.department.name,
                     'supplier': supplier.contact.name
@@ -261,6 +262,20 @@ class StockDepartmentList(TableListMixin, DetailView):
         return context
 
 
-class LocationView(DetailView):
-    """Returns details about a stock."""
+class LocationList(ListView):
+    """Returns a list of chemicals for a location."""
     model = Location
+
+
+class ChemicalDepartment(DetailView):
+    """Returns details about a stock."""
+    model = Chemical
+    template_name = "chemicals/chemical_department.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ChemicalDepartment, self).get_context_data(**kwargs)
+        department = Department.objects.get(pk=self.kwargs["dep_id"])
+        context["department"] = department
+        context["stocks"] = context["chemical"].stock_set.filter(
+            location__department=department)
+        return context

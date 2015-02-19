@@ -245,7 +245,9 @@ class DepartmentStockTable(tables.Table):
     # department = tables.Column(
     #     accessor='location.department.name', verbose_name=_("Department"))
     chemical = tables.LinkColumn(
-        'chemical_detail', args=[A('chemical.pk')], verbose_name=_("Chemical"))
+        'chemical_department',
+        args=[A('chemical.pk'), A('location.department.pk')],
+        verbose_name=_("Chemical"))
     risks = RiskColumn(
         accessor='chemical.risks', verbose_name=_("Risks"))
     pictograms = PictoColumn(
