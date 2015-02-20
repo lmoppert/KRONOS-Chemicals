@@ -1,12 +1,11 @@
 {% load i18n %}
 <span class="dropdown pull-right">
     {% trans "Items per page" %}
-    <button class="btn btn-xs btn-default dropdown-toggle" type="button"
+    <button class="btn btn btn-default btn-xs dropdown-toggle" type="button"
         id="items" aria-expanded="true" data-toggle="dropdown">
         {{ per_page }} <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu" role="menu"
-        aria-labelledby="items">
+    <ul class="dropdown-menu" role="menu" aria-labelledby="items">
         {% for i in choices %}
         <li role="presentation" >
         <a role="menuitem" tabindex="-1" href="?per_page={{ i }}{{ params }}">

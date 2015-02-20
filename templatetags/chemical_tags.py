@@ -1,9 +1,29 @@
 # -*- coding: utf-8 -*-
 from django import template
+from django.utils.datastructures import SortedDict
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 register = template.Library()
+
+
+@register.filter
+def sort_list(value):
+    """Return the given list sorted"""
+    if isinstance(value, dict):
+        new_dict = SortedDict()
+        key_list = value.keys()
+        key_list.sort()
+        for key in key_list:
+            new_dict[key] = value[key]
+        return new_dict
+    elif isinstance(value, list):
+        new_list = list(value)
+        new_list.sort()
+        return new_list
+    else:
+        return value
+sort_list.is_safe = True
 
 
 @register.filter
@@ -44,6 +64,11 @@ def letter_filter(context, letter):
 @register.inclusion_tag('chemicals/department_filter.html')
 def department_filter(plants, target_name):
     return {'plants': plants, 'target_name': target_name}
+
+
+@register.inclusion_tag('chemicals/location_filter.html', takes_context=True)
+def location_filter(context):
+    return {'locations': context["locations"], }
 
 
 @register.inclusion_tag('chemicals/max_items.html', takes_context=True)

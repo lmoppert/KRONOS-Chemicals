@@ -6,7 +6,7 @@ from django.utils.safestring import mark_safe
 from django.utils.html import escape
 import django_tables2 as tables
 from django_tables2.utils import A  # alias for Accessor
-from .models import Chemical, Document, Supplier, Location, Stock
+from . import models
 
 
 def render_as_list(objs):
@@ -88,7 +88,7 @@ class SubstanceTable(tables.Table):
         return render_as_list(set(contacts))
 
     class Meta:
-        model = Chemical
+        model = models.Chemical
         attrs = {'class': "table table-bordered table-striped table-condensed"}
         fields = ('name', 'risks', 'pictograms', 'signal', 'storage_classes',
                   'wgk', 'supplier_set', )
@@ -101,7 +101,7 @@ class DepartmentSubstanceTable(tables.Table):
     pictograms = PictoColumn(verbose_name=_("Pictogram"))
 
     class Meta:
-        model = Chemical
+        model = models.Chemical
         attrs = {'class': "table table-bordered table-striped table-condensed"}
         order_by = ('name',)
         fields = ('name', 'risks', 'pictograms')
@@ -119,7 +119,7 @@ class CMRSubstanceTable(tables.Table):
         return render_as_list(set(contacts))
 
     class Meta:
-        model = Chemical
+        model = models.Chemical
         attrs = {'class': "table table-bordered table-striped table-condensed"}
         order_by = ('name',)
         fields = ('name', 'supplier_set')
@@ -139,7 +139,7 @@ class CMRTable(tables.Table):
                                verbose_name=_('Department'))
 
     class Meta:
-        model = Supplier
+        model = models.Supplier
         attrs = {'class': "table table-bordered table-striped table-condensed"}
         order_by = ('contact', 'chemical')
         fields = ('chemical', 'department', 'contact',)
@@ -160,7 +160,7 @@ class SupplierTable(tables.Table):
                                verbose_name=_('Department'))
 
     class Meta:
-        model = Supplier
+        model = models.Supplier
         attrs = {'class': "table table-bordered table-striped table-condensed"}
         order_by = ('contact', 'chemical')
         fields = ('contact', 'chemical', 'department',)
@@ -224,7 +224,7 @@ class ApprovalTable(tables.Table):
 
     class Meta:
         attrs = {'class': "table table-bordered table-striped table-condensed"}
-        model = Document
+        model = models.Document
         order_by = ('name',)
         fields = ('document', 'chemical', 'plant')
 
@@ -233,7 +233,7 @@ class DepartmentTable(tables.Table):
     """Table displaying a Department."""
 
     class Meta:
-        model = Location
+        model = models.Location
         attrs = {'class': "table table-bordered table-striped table-condensed"}
         order_by = ('name',)
         fields = ('department', 'chemical', 'risks', 'pictograms', 'stock',
@@ -262,8 +262,56 @@ class DepartmentStockTable(tables.Table):
         return render_as_list(record.chemical.pictograms.all())
 
     class Meta:
-        model = Stock
+        model = models.Stock
         attrs = {'class': "table table-bordered table-striped table-condensed"}
         order_by = ('location.name',)
         fields = ('chemical', 'risks', 'pictograms',
                   'location', 'max_volume', 'max_unit')
+
+
+class StockLocationTable(tables.Table):
+    """Table for the Location List."""
+    chemical = tables.LinkColumn(
+        'chemical_department',
+        args=[A('chemical.pk'), A('location.department.pk')],
+        verbose_name=_("Chemical"))
+    wgk = tables.Column(
+        empty_values=(),
+        verbose_name=_('WGK'),
+        orderable=False,
+    )
+    # Translators: This is an abbreviation for Storage Classes
+    storage_classes = tables.Column(
+        empty_values=(),
+        verbose_name=_("SC"),
+        orderable=False,
+    )
+    risks = RiskColumn(
+        verbose_name=_("Risk Indication"),
+        orderable=False,
+    )
+    pictograms = PictoColumn(
+        verbose_name=_("Pictogram"),
+        orderable=False,
+    )
+
+    def render_signal(self, record):
+        s = record.signal
+        if s == 'w' or s == u'w':
+            r = u'<span class="label label-warning">%s</span>' % _("Warning")
+        elif s == 'd' or s == u'd':
+            r = u'<span class="label label-danger">%s</span>' % _("Danger")
+        else:
+            r = u'<span class="label label-default">%s</span>' % _("No Signal")
+        return mark_safe(r)
+
+    def render_storage_classes(self, record):
+        return render_as_list(record.storage_classes.all())
+
+    def render_wgk(self, record):
+        return render_as_list(record.wgk.all())
+
+    class Meta:
+        model = models.Chemical
+        attrs = {'class': "table table-bordered table-striped table-condensed"}
+        fields = ('chemical', 'storage_classes', 'wgk', 'risks', 'pictograms', )

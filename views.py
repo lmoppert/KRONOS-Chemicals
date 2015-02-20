@@ -7,12 +7,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DetailView, ListView
 from django_tables2 import SingleTableMixin, RequestConfig
-from .models import (
-    Chemical, Contact, Supplier, Department, Plant, SafetyDataSheet, Document,
-    Stock, Location)
-from .tables import (
-    SubstanceTable, SupplierTable, CMRTable, SDSTable, ApprovalTable,
-    DepartmentStockTable, DepartmentSubstanceTable)
+from . import tables, models
 
 
 ###############################################################################
@@ -39,6 +34,13 @@ class TableListMixin(SingleTableMixin):
         val['letters'] = letters
         return val
 
+    def get_location_list(self):
+        locations = {}
+        for plant in get_list_or_404(models.Plant):
+            locations[plant.name] = models.Location.objects.filter(
+                department__plant=plant.id)
+        return locations
+
     def get_table_heading(self):
         if self.table_heading == '':
             raise ImproperlyConfigured(
@@ -55,7 +57,8 @@ class TableListMixin(SingleTableMixin):
             context = super(TableListMixin, self).get_context_data(**kwargs)
             context['show_filter'] = self.filters
             context['letters'] = self.get_filter_values()['letters']
-            context['plants'] = get_list_or_404(Plant)
+            context['plants'] = sorted(
+                get_list_or_404(models.Plant), key=lambda x: x.name)
             context['target_name'] = self.target_name
             context['tableheading'] = self.get_table_heading()
             return context
@@ -70,21 +73,21 @@ class TableListView(TableListMixin, ListView):
 ###############################################################################
 class ChemicalList(TableListView):
     """Returns a list of all Substances that are not archived."""
-    model = Chemical
-    table_class = SubstanceTable
+    model = models.Chemical
+    table_class = tables.SubstanceTable
     table_heading = _("Chemicals")
     archive = False
 
     def get_table_data(self):
         letter = self.get_filter_values()["letter"]
         return self.get_data_or_dict(
-            Chemical, name__istartswith=letter, archive=self.archive,
+            models.Chemical, name__istartswith=letter, archive=self.archive,
         )
 
 
 class ChemicalDetail(DetailView):
     """Returns details about a specific chemical."""
-    model = Chemical
+    model = models.Chemical
 
     def get_context_data(self, **kwargs):
         context = super(ChemicalDetail, self).get_context_data(**kwargs)
@@ -108,40 +111,40 @@ class ChemicalDetail(DetailView):
 
 class SupplierList(TableListView):
     """Returns a list of all Suppliers."""
-    model = Supplier
-    table_class = SupplierTable
+    model = models.Supplier
+    table_class = tables.SupplierTable
     table_heading = _("Suppliers")
 
     def get_table_data(self):
         letter = self.get_filter_values()["letter"]
         return self.get_data_or_dict(
-            Supplier, chemical__archive=False,
+            models.Supplier, chemical__archive=False,
             contact__name__istartswith=letter
         )
 
 
 class CMRList(SupplierList):
     """Returns a list of Suppliers for CMR Chemicals."""
-    table_class = CMRTable
+    table_class = tables.CMRTable
     table_heading = _("Suppliers (CMR)")
 
     def get_table_data(self):
         letter = self.get_filter_values()["letter"]
         return self.get_data_or_dict(
-            Supplier, chemical__cmr=True, chemical__archive=False,
+            models.Supplier, chemical__cmr=True, chemical__archive=False,
             chemical__name__istartswith=letter
         )
 
 
 class ContactDetail(DetailView):
     """Returns details about a specific contact."""
-    model = Contact
+    model = models.Contact
 
 
 class DepartmentList(TableListView):
     """Returns the list of departments."""
-    model = Department
-    table_class = DepartmentSubstanceTable
+    model = models.Department
+    table_class = tables.DepartmentSubstanceTable
     table_heading = _("Departments")
     filters = {'letter': False, 'department': True}
 
@@ -151,8 +154,8 @@ class DepartmentList(TableListView):
 
 class DepartmentView(TableListMixin, DetailView):
     """Returns the list of chemicals used in a specific department."""
-    model = Department
-    table_class = DepartmentSubstanceTable
+    model = models.Department
+    table_class = tables.DepartmentSubstanceTable
     table_heading = _("Departments")
     filters = {'letter': True, 'department': True}
 
@@ -170,27 +173,28 @@ class DepartmentView(TableListMixin, DetailView):
 
 class SDSList(ListView):
     """Returns a list of safety data sheets."""
-    model = SafetyDataSheet
+    model = models.SafetyDataSheet
     table_heading = _("Safety Data Sheets")
     template_name = 'chemicals/sds_list.html'
     filters = {'letter': False, 'department': True}
 
     def get_context_data(self, **kwargs):
         context = super(SDSList, self).get_context_data(**kwargs)
-        table = SDSTable([])
+        table = tables.SDSTable([])
         RequestConfig(
             self.request, paginate={'per_page': '25'}).configure(table)
         context['table'] = table
         context['tableheading'] = _("Safety Data Sheets")
         context['show_filter'] = self.filters
-        context['plants'] = get_list_or_404(Plant)
+        context['plants'] = sorted(
+            get_list_or_404(models.Plant), key=lambda x: x.name)
         context['target_name'] = "department_detail"
         return context
 
 
 class SDSDepartmentList(DetailView):
     """Returns a list of safety data sheets belonging to a department."""
-    model = Department
+    model = models.Department
     table_heading = _("Safety Data Sheets")
     template_name = 'chemicals/sds_list.html'
     filters = {'letter': False, 'department': True}
@@ -202,27 +206,30 @@ class SDSDepartmentList(DetailView):
         for chemical in department.chemical_set.filter(archive=False):
             for sheet in chemical.safetydatasheet_set.all():
                 sds.append(sheet)
-        table = SDSTable(sds)
+        table = tables.SDSTable(sds)
         RequestConfig(
             self.request, paginate={'per_page': '25'}).configure(table)
         context['table'] = table
         context['tableheading'] = _("Safety Data Sheets")
         context['show_filter'] = self.filters
-        context['plants'] = get_list_or_404(Plant)
+        context['plants'] = sorted(
+            get_list_or_404(models.Plant), key=lambda x: x.name)
         context['target_name'] = "department_detail"
         return context
 
 
 class ApprovalDocumentList(TableListView):
     """Returns a list of approval document."""
-    model = Document
-    table_class = ApprovalTable
+    model = models.Document
+    table_class = tables.ApprovalTable
     table_heading = _("Approval Documents")
 
     def get_table_data(self):
         letter = self.get_filter_values()["letter"]
         return self.get_data_or_dict(
-            Document, doctype="FREIGABE", chemical__name__istartswith=letter,
+            models.Document,
+            doctype="FREIGABE",
+            chemical__name__istartswith=letter,
         )
 
 
@@ -231,8 +238,8 @@ class ApprovalDocumentList(TableListView):
 ###############################################################################
 class StockList(TableListView):
     """Returns the list of departments."""
-    model = Stock
-    table_class = DepartmentStockTable
+    model = models.Stock
+    table_class = tables.DepartmentStockTable
     table_heading = _("Departments")
     filters = {'letter': False, 'department': True}
     target_name = "stock_department_list"
@@ -243,8 +250,8 @@ class StockList(TableListView):
 
 class StockDepartmentList(TableListMixin, DetailView):
     """Returns a list of stocks belonging to a departments."""
-    model = Department
-    table_class = DepartmentStockTable
+    model = models.Department
+    table_class = tables.DepartmentStockTable
     table_heading = _("Stocks")
     filters = {'letter': False, 'department': True}
     target_name = "stock_department_list"
@@ -262,19 +269,33 @@ class StockDepartmentList(TableListMixin, DetailView):
         return context
 
 
-class LocationList(ListView):
+class LocationList(TableListView):
     """Returns a list of chemicals for a location."""
-    model = Location
+    model = models.Location
+    table_heading = _("Stock Locations")
+    table_class = tables.StockLocationTable
+    template_name = 'chemicals/table_list.html'
+    filters = {'location': True, }
+
+    def get_table_data(self):
+        return []
+
+    def get_context_data(self, **kwargs):
+        context = super(LocationList, self).get_context_data(**kwargs)
+        context['current_location'] = _(
+            "Please choose a location from the list.")
+        context['locations'] = self.get_location_list()
+        return context
 
 
 class ChemicalDepartment(DetailView):
     """Returns details about a stock."""
-    model = Chemical
+    model = models.Chemical
     template_name = "chemicals/chemical_department.html"
 
     def get_context_data(self, **kwargs):
         context = super(ChemicalDepartment, self).get_context_data(**kwargs)
-        department = Department.objects.get(pk=self.kwargs["dep_id"])
+        department = models.Department.objects.get(pk=self.kwargs["dep_id"])
         context["department"] = department
         context["stocks"] = context["chemical"].stock_set.filter(
             location__department=department)

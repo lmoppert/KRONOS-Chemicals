@@ -12,6 +12,7 @@ from .views import (ChemicalList, ChemicalDetail, ChemicalDepartment,
 
 urlpatterns = patterns(
     '',
+    #########################
     # Chemical Views
     url(r'^(?P<pk>\d+)$', ChemicalDetail.as_view(), name='chemical_detail'),
     url(r'^chemicals/$', ChemicalList.as_view(), name='chemical_list'),
@@ -24,19 +25,22 @@ urlpatterns = patterns(
     url(r'^departments/$', DepartmentList.as_view(), name='department_list'),
     url(r'^suppliers/$', SupplierList.as_view(), name='supplier_list'),
     url(r'^cmr/$', CMRList.as_view(), name='cmr_list'),
-    #
     url(r'^sds/department/(?P<pk>\d+)$', SDSDepartmentList.as_view(),
         name='sds_department_list'),
     url(r'^sds/$', SDSList.as_view(), name='sds_list'),
     url(r'^approval/$', ApprovalDocumentList.as_view(), name='approval_list'),
+    #########################
     # Stock Views
-    url(r'^location/(?P<pk>\d+)$', LocationList.as_view(),
-        name='location_list'),
     url(r'^stocks/department/(?P<pk>\d+)$', StockDepartmentList.as_view(),
         name='stock_department_list'),
     url(r'^stocks/$', StockList.as_view(), name='stock_list'),
-    url(r'^$', RedirectView.as_view(url=reverse_lazy('chemical_list')),
-        name='home'),
     url(r'^chemical/(?P<pk>\d+)/department/(?P<dep_id>\d+)$',
         ChemicalDepartment.as_view(), name='chemical_department'),
+    url(r'^locations/$', LocationList.as_view(), name='location_list'),
+    url(r'^location/(?P<pk>\d+)$', LocationList.as_view(),
+        name='stock_location_list'),
+    #########################
+    # Generic Views
+    url(r'^$', RedirectView.as_view(url=reverse_lazy('chemical_list')),
+        name='home'),
 )
