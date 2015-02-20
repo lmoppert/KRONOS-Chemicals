@@ -274,7 +274,8 @@ class StockLocationTable(tables.Table):
     chemical = tables.LinkColumn(
         'chemical_department',
         args=[A('chemical.pk'), A('location.department.pk')],
-        verbose_name=_("Chemical"))
+        verbose_name=_("Chemical")
+    )
     wgk = tables.Column(
         empty_values=(),
         verbose_name=_('WGK'),
@@ -305,13 +306,20 @@ class StockLocationTable(tables.Table):
             r = u'<span class="label label-default">%s</span>' % _("No Signal")
         return mark_safe(r)
 
+    def render_risks(self, record):
+        return render_as_list(record.chemical.risks.all())
+
     def render_storage_classes(self, record):
-        return render_as_list(record.storage_classes.all())
+        return render_as_list(record.chemical.storage_classes.all())
+
+    def render_pictograms(self, record):
+        return render_as_list(record.chemical.pictograms.all())
 
     def render_wgk(self, record):
-        return render_as_list(record.wgk.all())
+        return render_as_list(record.chemical.wgk.all())
 
     class Meta:
-        model = models.Chemical
+        model = models.Stock
         attrs = {'class': "table table-bordered table-striped table-condensed"}
+        order_by = ('location.name',)
         fields = ('chemical', 'storage_classes', 'wgk', 'risks', 'pictograms', )

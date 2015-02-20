@@ -15,6 +15,7 @@ td a {padding: 0 5px;display:block;}
 img {max-width:100%;}
 img.flag {margin:0 3px 2px 0;}
 .with-linebreaks {white-space: pre-wrap;}
+.scrollable-menu {height: auto; max-height: 400px; overflow-x: hidden;}
 
 
 /*******************************

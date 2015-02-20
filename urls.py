@@ -7,7 +7,8 @@ from django.conf.urls import patterns, url
 from .views import (ChemicalList, ChemicalDetail, ChemicalDepartment,
                     SupplierList, CMRList, StockList, ContactDetail,
                     DepartmentList, DepartmentView, SDSList, SDSDepartmentList,
-                    ApprovalDocumentList, LocationList, StockDepartmentList)
+                    ApprovalDocumentList, LocationList, LocationView,
+                    StockDepartmentList)
 
 
 urlpatterns = patterns(
@@ -37,7 +38,7 @@ urlpatterns = patterns(
     url(r'^chemical/(?P<pk>\d+)/department/(?P<dep_id>\d+)$',
         ChemicalDepartment.as_view(), name='chemical_department'),
     url(r'^locations/$', LocationList.as_view(), name='location_list'),
-    url(r'^location/(?P<pk>\d+)$', LocationList.as_view(),
+    url(r'^location/(?P<pk>\d+)$', LocationView.as_view(),
         name='stock_location_list'),
     #########################
     # Generic Views

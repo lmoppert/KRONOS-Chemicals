@@ -68,6 +68,10 @@ class TableListView(TableListMixin, ListView):
     """Generic View that adds the TableListMixin to the ListView"""
 
 
+class TableDetailView(TableListMixin, DetailView):
+    """Generic View that adds the TableListMixin to the DetailView"""
+
+
 ###############################################################################
 # Substances Views
 ###############################################################################
@@ -152,7 +156,7 @@ class DepartmentList(TableListView):
         return []
 
 
-class DepartmentView(TableListMixin, DetailView):
+class DepartmentView(TableDetailView):
     """Returns the list of chemicals used in a specific department."""
     model = models.Department
     table_class = tables.DepartmentSubstanceTable
@@ -248,7 +252,7 @@ class StockList(TableListView):
         return []
 
 
-class StockDepartmentList(TableListMixin, DetailView):
+class StockDepartmentList(TableDetailView):
     """Returns a list of stocks belonging to a departments."""
     model = models.Department
     table_class = tables.DepartmentStockTable
@@ -270,7 +274,7 @@ class StockDepartmentList(TableListMixin, DetailView):
 
 
 class LocationList(TableListView):
-    """Returns a list of chemicals for a location."""
+    """Returns the empty list for a location."""
     model = models.Location
     table_heading = _("Stock Locations")
     table_class = tables.StockLocationTable
@@ -282,8 +286,29 @@ class LocationList(TableListView):
 
     def get_context_data(self, **kwargs):
         context = super(LocationList, self).get_context_data(**kwargs)
-        context['current_location'] = _(
-            "Please choose a location from the list.")
+        context['locations'] = self.get_location_list()
+        return context
+
+
+class LocationView(TableDetailView):
+    """Returns a list of chemicals for a location."""
+    model = models.Location
+    table_heading = _("Stock Locations")
+    table_class = tables.StockLocationTable
+    template_name = 'chemicals/table_list.html'
+    filters = {'location': True, }
+
+    def get_table_data(self):
+        return self.get_object().stock_set.all()
+
+    def get_table_heading(self):
+        location = self.get_object()
+        return u"{} - {} - {}".format(
+            location.department.plant.name, location.department.name,
+            location.name)
+
+    def get_context_data(self, **kwargs):
+        context = super(LocationView, self).get_context_data(**kwargs)
         context['locations'] = self.get_location_list()
         return context
 
