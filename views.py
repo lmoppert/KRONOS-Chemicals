@@ -38,7 +38,7 @@ class TableListMixin(SingleTableMixin):
         locations = {}
         for plant in get_list_or_404(models.Plant):
             locations[plant.name] = models.Location.objects.filter(
-                department__plant=plant.id)
+                department__plant=plant.id).order_by('department__name', 'name')
         return locations
 
     def get_table_heading(self):
