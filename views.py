@@ -252,6 +252,13 @@ class ChemicalsMissingSDB(ChemicalList):
         return chemicals
 
 
+class ToxList(TableListView):
+    """Returns a list of Chemicals with Toxdata and SDS."""
+
+    model = models.Toxdata
+    table_class = tables.ToxTable
+
+
 ###############################################################################
 # Stock Views
 ###############################################################################

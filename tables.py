@@ -346,3 +346,15 @@ class StockLocationTable(tables.Table):
         attrs = {'class': "table table-bordered table-striped table-condensed"}
         order_by = ('location.name',)
         fields = ('chemical', 'storage_classes', 'wgk', 'risks', 'pictograms', )
+
+
+class ToxTable(tables.Table):
+    """Table for the Toxdata of a Chemical."""
+    # TODO: This has not been finished, the SDS should be displayed in a nested
+    #       table instead of using it in the main table. The main reason for
+    #       that is performance, but .select_related may also do the trick. Will
+    #       test this on the Stock View for chemicals first!
+    name = tables.LinkColumn(
+        'chemical_detail', accessor='chemical.name', args=[A('chemical.pk')])
+    supplier = tables.Column(accessor='supplier.name')
+    sds = tables.Column(accessor='chemical.safetydatasheet.first')
