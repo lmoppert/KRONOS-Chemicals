@@ -269,6 +269,29 @@ class DepartmentStockTable(tables.Table):
                   'location', 'max_volume', 'max_unit')
 
 
+class ChemicalStockTable(tables.Table):
+    """Table displaying Stocks that containing a dedicaded chemical."""
+    chemical = tables.LinkColumn(
+        'chemical_department',
+        args=[A('chemical_id'), A('department_id')],
+        verbose_name=_("Chemical"))
+    department = tables.LinkColumn(
+        'stock_department_list', args=[A('department_id')])
+    location = tables.Column(verbose_name=_("Location"))
+    volume = tables.Column(verbose_name=_("Volume"))
+    risks = RiskColumn(verbose_name=_("Risks"))
+    pictograms = PictoColumn(verbose_name=_("Pictograms"))
+
+    def render_risks(self, record):
+        return render_as_list(record["risks"].all())
+
+    def render_pictograms(self, record):
+        return render_as_list(record["pictograms"].all())
+
+    class Meta:
+        attrs = {'class': "table table-bordered table-striped table-condensed"}
+
+
 class StockLocationTable(tables.Table):
     """Table for the Location List."""
     chemical = tables.LinkColumn(

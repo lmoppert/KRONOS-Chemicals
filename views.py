@@ -325,3 +325,47 @@ class ChemicalDepartment(DetailView):
         context["stocks"] = context["chemical"].stock_set.filter(
             location__department=department)
         return context
+
+
+class ChemicalStockList(TableListView):
+    """Returns the list of stocks for a chemical."""
+    model = models.Chemical
+    table_heading = _("Chemicals")
+    table_class = tables.ChemicalStockTable
+    filters = {'letter': True, 'department': False}
+    target_name = "stock_department_list"
+    archive = False
+
+    def get_table_data(self):
+        UNITS = {
+            'p': 'units', 't': 't', 'l': 'l', 'g': 'g',
+            'c': 'cm³', 'k': 'kg', 'm': 'mm',
+        }
+        letter = self.get_filter_values()["letter"]
+        tabledata = []
+        chemicals = models.Chemical.objects.filter(archive=self.archive).filter(
+            name__istartswith=letter)
+        for chemical in chemicals:
+            for stock in chemical.stock_set.all():
+                volume = "{} {}".format(
+                    stock.max_volume, UNITS[stock.max_unit])
+                tabledata.append({
+                    'chemical': chemical.name,
+                    'chemical_id': chemical.id,
+                    'department_id': stock.location.department.id,
+                    'department': stock.location.department.name,
+                    'location': stock.location.name,
+                    'volume': volume,
+                    'risks': chemical.risks,
+                    'pictograms': chemical.pictograms,
+                })
+        return tabledata
+
+    def get_context_data(self, **kwargs):
+        context = super(ChemicalStockList, self).get_context_data(**kwargs)
+        table = tables.ChemicalStockTable(self.get_table_data())
+        RequestConfig(
+            self.request, paginate={'per_page': '25'}).configure(table)
+        context['table'] = table
+        context['test'] = self.get_table_data()
+        return context

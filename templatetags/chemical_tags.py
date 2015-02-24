@@ -30,9 +30,8 @@ sort_list.is_safe = True
 def show_unit(value):
     """Show the word representation of a unit"""
     UNITS = {
-        't': _('tons'), 'k': _('kilogram'), 'g': _('gram'),
+        'p': _('pieces'), 't': _('tons'), 'k': _('kilogram'), 'g': _('gram'),
         'c': _('cubic meter'), 'l': _('liter'), 'm': _('mililiter'),
-        'p': _('pieces'),
     }
     if value in UNITS:
         return UNITS[value]

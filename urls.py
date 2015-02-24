@@ -8,7 +8,7 @@ from .views import (ChemicalList, ChemicalDetail, ChemicalDepartment,
                     SupplierList, CMRList, StockList, ContactDetail,
                     DepartmentList, DepartmentView, SDSList, SDSDepartmentList,
                     ApprovalDocumentList, LocationList, LocationView,
-                    StockDepartmentList)
+                    StockDepartmentList, ChemicalStockList)
 
 
 urlpatterns = patterns(
@@ -40,6 +40,8 @@ urlpatterns = patterns(
     url(r'^locations/$', LocationList.as_view(), name='location_list'),
     url(r'^location/(?P<pk>\d+)$', LocationView.as_view(),
         name='stock_location_list'),
+    url(r'^chemicalstocks/$', ChemicalStockList.as_view(),
+        name='chemical_stock_list'),
     #########################
     # Generic Views
     url(r'^$', RedirectView.as_view(url=reverse_lazy('chemical_list')),

@@ -58,6 +58,7 @@ html body #header {height:51px;}
 #content table thead th.orderable.desc > a {
     background-image: url(../img/arrow-active-down.png);
 }
+#content table td.volume {white-space:nowrap;}
 
 
 /*******************************
