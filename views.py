@@ -6,6 +6,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DetailView, ListView
+from django.db.models import Count
 from django_tables2 import SingleTableMixin, RequestConfig
 from . import tables, models
 
@@ -235,6 +236,20 @@ class ApprovalDocumentList(TableListView):
             doctype="FREIGABE",
             chemical__name__istartswith=letter,
         )
+
+
+###############################################################################
+# SHE Views
+###############################################################################
+class ChemicalsMissingSDB(ChemicalList):
+    """Returns a list of all Substances that do not have a SDS."""
+
+    def get_table_data(self):
+        letter = self.get_filter_values()["letter"]
+        chemicals = models.Chemical.objects.annotate(
+            num_sds=Count('safetydatasheet')).filter(num_sds=0).filter(
+            name__istartswith=letter).filter(archive=self.archive)
+        return chemicals
 
 
 ###############################################################################

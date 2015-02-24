@@ -8,7 +8,7 @@ from .views import (ChemicalList, ChemicalDetail, ChemicalDepartment,
                     SupplierList, CMRList, StockList, ContactDetail,
                     DepartmentList, DepartmentView, SDSList, SDSDepartmentList,
                     ApprovalDocumentList, LocationList, LocationView,
-                    StockDepartmentList, ChemicalStockList)
+                    StockDepartmentList, ChemicalStockList, ChemicalsMissingSDB)
 
 
 urlpatterns = patterns(
@@ -30,6 +30,10 @@ urlpatterns = patterns(
         name='sds_department_list'),
     url(r'^sds/$', SDSList.as_view(), name='sds_list'),
     url(r'^approval/$', ApprovalDocumentList.as_view(), name='approval_list'),
+    #########################
+    # SHE Views
+    url(r'^missingsdb/$', ChemicalsMissingSDB.as_view(),
+        name='chemical_missing_sdb'),
     #########################
     # Stock Views
     url(r'^stocks/department/(?P<pk>\d+)$', StockDepartmentList.as_view(),
