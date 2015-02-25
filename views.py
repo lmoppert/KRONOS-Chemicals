@@ -359,29 +359,10 @@ class ChemicalStockList(TableListView):
     archive = False
 
     def get_table_data(self):
-        UNITS = {
-            'p': 'units', 't': 't', 'l': 'l', 'g': 'g',
-            'c': 'cm³', 'k': 'kg', 'm': 'mm',
-        }
         letter = self.get_filter_values()["letter"]
-        tabledata = []
-        chemicals = models.Chemical.objects.filter(archive=self.archive).filter(
-            name__istartswith=letter)
-        for chemical in chemicals:
-            for stock in chemical.stock_set.all():
-                volume = "{} {}".format(
-                    stock.max_volume, UNITS[stock.max_unit])
-                tabledata.append({
-                    'chemical': chemical.name,
-                    'chemical_id': chemical.id,
-                    'department_id': stock.location.department.id,
-                    'department': stock.location.department.name,
-                    'location': stock.location.name,
-                    'volume': volume,
-                    'risks': chemical.risks,
-                    'pictograms': chemical.pictograms,
-                })
-        return tabledata
+        return self.get_data_or_dict(
+            models.Chemical, name__istartswith=letter, archive=self.archive,
+        )
 
     def get_context_data(self, **kwargs):
         context = super(ChemicalStockList, self).get_context_data(**kwargs)
@@ -389,5 +370,4 @@ class ChemicalStockList(TableListView):
         RequestConfig(
             self.request, paginate={'per_page': '25'}).configure(table)
         context['table'] = table
-        context['test'] = self.get_table_data()
         return context

@@ -34,7 +34,7 @@ msgstr "Klassifizierungen"
 
 #: admin.py:161
 msgid "Identification"
-msgstr "Einstufung"
+msgstr "Identifizierung"
 
 #: admin.py:162 templates/chemicals/chemical_detail.html:76
 msgid "Classification"
@@ -349,7 +349,7 @@ msgstr "Warnung"
 
 #: models/substance.py:132
 msgid "no signal"
-msgstr "Kein Signal"
+msgstr "Kein Signalwort"
 
 #: models/substance.py:162 models/substance.py:279 models/substance.py:287
 #: tables.py:64 tables.py:101 tables.py:294

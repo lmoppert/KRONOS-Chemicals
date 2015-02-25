@@ -4,6 +4,7 @@ from operator import attrgetter
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.utils.html import escape
+from django.core.urlresolvers import reverse
 import django_tables2 as tables
 from django_tables2.utils import A  # alias for Accessor
 from . import models
@@ -271,25 +272,41 @@ class DepartmentStockTable(tables.Table):
 
 class ChemicalStockTable(tables.Table):
     """Table displaying Stocks that containing a dedicaded chemical."""
-    chemical = tables.LinkColumn(
-        'chemical_department',
-        args=[A('chemical_id'), A('department_id')],
-        verbose_name=_("Chemical"))
-    department = tables.LinkColumn(
-        'stock_department_list', args=[A('department_id')])
-    location = tables.Column(verbose_name=_("Location"))
-    volume = tables.Column(verbose_name=_("Volume"))
-    risks = RiskColumn(verbose_name=_("Risks"))
-    pictograms = PictoColumn(verbose_name=_("Pictograms"))
+    name = tables.LinkColumn('chemical_detail', args=[A('pk')])
+    stock_set = tables.Column(
+        empty_values=(),
+        verbose_name=_("Chemical Stocks"),
+        orderable=False,
+    )
+    risks = RiskColumn(
+        verbose_name=_("Risk Indication"),
+        orderable=False,
+    )
+    pictograms = PictoColumn(
+        verbose_name=_("Pictogram"),
+        orderable=False,
+    )
 
-    def render_risks(self, record):
-        return render_as_list(record["risks"].all())
-
-    def render_pictograms(self, record):
-        return render_as_list(record["pictograms"].all())
+    def render_stock_set(self, record):
+        UNITS = {'p': 'units', 't': 't', 'l': 'l', 'g': 'g', 'c': 'm3',
+                 'k': 'kg', 'm': 'ml'}
+        stocks = u'<table class="{}">\n'.format(self.Meta.attrs['class'])
+        for stock in record.stock_set.all():
+            url = reverse('chemical_department', kwargs={
+                'pk': record.id, 'dep_id': stock.location.department.id, })
+            row = u'<tr><td class="department"><a href="{}">{}</a></td>\n' \
+                  '<td class="location">{}</td>\n' \
+                  '<td class="volume">{} {}</td></tr>\n'
+            stocks += row.format(
+                url, stock.location.department.name, stock.location.name,
+                stock.max_volume, UNITS[stock.max_unit],)
+        stocks += '</table>'
+        return mark_safe(stocks)
 
     class Meta:
+        model = models.Chemical
         attrs = {'class': "table table-bordered table-striped table-condensed"}
+        fields = ('name', 'stock_set', 'risks', 'pictograms', )
 
 
 class StockLocationTable(tables.Table):

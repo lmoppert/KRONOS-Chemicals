@@ -152,8 +152,11 @@ class ChemicalAdmin(TranslationAdmin):
         }),
         (_('Relations'), {
             'classes': ('suit-tab', 'suit-tab-classification', ),
-            'fields': ('wgk', 'storage_classes', 'seveso_categories',
-                       'rphrases', 'pphrases', 'signal')
+            'fields': ('wgk', 'storage_classes', 'rphrases', 'signal')
+        }),
+        (None, {
+            'classes': ('suit-tab', 'suit-tab-seveso',),
+            'fields': ('seveso_categories', )
         }),
     )
 
@@ -179,7 +182,7 @@ class ChemicalAdmin(TranslationAdmin):
     ]
 
     filter_horizontal = ('wgk', 'storage_classes', 'seveso_categories',
-                         'rphrases', 'pphrases')
+                         'rphrases', )
 
 
 ##############################################################################
