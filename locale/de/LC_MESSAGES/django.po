@@ -448,7 +448,7 @@ msgstr "Gefahr"
 
 #: tables.py:75 tables.py:305 templatetags/chemical_tags.py:31
 msgid "No Signal"
-msgstr "Kein Signal"
+msgstr "Kein Signalwort"
 
 #: tables.py:171 templates/chemicals/chemical_department.html:80
 #: templates/chemicals/chemical_detail.html:167
@@ -564,7 +564,7 @@ msgstr "Beschreibung"
 #: templates/chemicals/chemical_department.html:51
 #: templates/chemicals/chemical_detail.html:113
 msgid "Signal"
-msgstr "Signal"
+msgstr "Signalwort"
 
 #: templates/chemicals/chemical_department.html:59
 #: templates/chemicals/chemical_detail.html:121
@@ -719,33 +719,3 @@ msgstr "Lagerorte"
 #: views.py:279
 msgid "Please choose a location from the list."
 msgstr "Bitte wählen Sie einen Lagerort aus der Liste aus."
-
-#~ msgid "Singal"
-#~ msgstr "Signal"
-
-#~ msgid "Singals"
-#~ msgstr "Signale"
-
-#~ msgid "Producer"
-#~ msgstr "Hersteller"
-
-#~ msgid "Substance Views"
-#~ msgstr "Stoffe Ansichten"
-
-#~ msgid "Producers"
-#~ msgstr "Hersteller"
-
-#~ msgid "SHE Views"
-#~ msgstr "SHE Ansichten"
-
-#~ msgid "Name"
-#~ msgstr "Name"
-
-#~ msgid "Address"
-#~ msgstr "Adresse"
-
-#~ msgid "Country"
-#~ msgstr "Land"
-
-#~ msgid "E-Mail"
-#~ msgstr "E-Mail"
