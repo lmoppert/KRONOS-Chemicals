@@ -6,7 +6,7 @@ from filer.models.foldermodels import Folder
 #     PPhraseCheck, PictogramCheck, StorageClassCheck, WGKCheck)
 from chemicals.models.periphery import (
     Contact, Person, Role, Department, Plant, Location, Stock, Supplier)
-from chemicals.models.substance import (
+from chemicals.models.chemical import (
     Chemical, RiskIndication, StorageClass, SevesoCategory, HPhrase, Toxdata,
     WGK, RPhrase, PPhrase, Risk, HPhraseRelation, Pictogram, Document,
     SevesoDocument, ReachDocument, SafetyDataSheet, ExtendedSafetyDataSheet)
@@ -69,7 +69,7 @@ def get_file_handle(s):
         leg_file = LegacyFiles.objects.using('legacy').get(fileid=int(s[7:]))
     except:
         return None
-    fid = 1  # The ID of the "Substances" folder
+    fid = 1  # The ID of the "Chemicals" folder
     for fname in leg_file.folder[:-1].split("/"):
         fobj = Folder.objects.get(parent_id=fid, name=fname)
         fid = fobj.id

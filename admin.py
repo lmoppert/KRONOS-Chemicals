@@ -2,16 +2,7 @@
 
 # pep257: disable C0110
 
-from chemicals.models import (Chemical, Document, ReachDocument,
-                              ReachInformation, SafetyDataSheet,
-                              ExtendedSafetyDataSheet, SevesoDocument,
-                              SevesoInformation, CheckList, CheckSection,
-                              HPhraseCheck, PPhraseCheck, WGKCheck,
-                              PictogramCheck, StorageClassCheck, PPECheck,
-                              Contact, Role, Person, Supplier, Department,
-                              Plant, RiskIndication, WGK, StorageClass,
-                              SevesoCategory, RPhrase, PPhrase, HPhrase
-                              )
+from chemicals import models
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin, TranslationTabularInline
 from django.utils.translation import ugettext_lazy as _
@@ -23,7 +14,7 @@ from django.utils.translation import ugettext_lazy as _
 class DepartmentInline(admin.TabularInline):
     """Inline view for the departments."""
 
-    model = Chemical.departments.through
+    model = models.Chemical.departments.through
     extra = 0
     suit_classes = 'suit-tab suit-tab-department'
 
@@ -31,7 +22,7 @@ class DepartmentInline(admin.TabularInline):
 class DocumentInline(admin.TabularInline):
     """Inline view for the documents."""
 
-    model = Document
+    model = models.Document
     extra = 0
     suit_classes = 'suit-tab suit-tab-sds'
 
@@ -39,7 +30,7 @@ class DocumentInline(admin.TabularInline):
 class ReachDocumentInline(admin.TabularInline):
     """Inline view for the risks."""
 
-    model = ReachDocument
+    model = models.ReachDocument
     extra = 0
     suit_classes = 'suit-tab suit-tab-reach'
 
@@ -47,7 +38,7 @@ class ReachDocumentInline(admin.TabularInline):
 class ReachInformationInline(TranslationTabularInline):
     """Inline view for the risks."""
 
-    model = ReachInformation
+    model = models.ReachInformation
     extra = 0
     suit_classes = 'suit-tab suit-tab-reach'
 
@@ -55,7 +46,7 @@ class ReachInformationInline(TranslationTabularInline):
 class SafetyDataSheetInline(admin.TabularInline):
     """Inline view for the risks."""
 
-    model = SafetyDataSheet
+    model = models.SafetyDataSheet
     extra = 0
     suit_classes = 'suit-tab suit-tab-sds'
 
@@ -63,7 +54,7 @@ class SafetyDataSheetInline(admin.TabularInline):
 class ExtendedSafetyDataSheetInline(admin.TabularInline):
     """Inline view for the risks."""
 
-    model = ExtendedSafetyDataSheet
+    model = models.ExtendedSafetyDataSheet
     extra = 0
     suit_classes = 'suit-tab suit-tab-sds'
 
@@ -71,7 +62,7 @@ class ExtendedSafetyDataSheetInline(admin.TabularInline):
 class SevesoDocumentInline(admin.TabularInline):
     """Inline view for the risks."""
 
-    model = SevesoDocument
+    model = models.SevesoDocument
     extra = 0
     suit_classes = 'suit-tab suit-tab-seveso'
 
@@ -79,7 +70,7 @@ class SevesoDocumentInline(admin.TabularInline):
 class SevesoInformationInline(TranslationTabularInline):
     """Inline view for the risks."""
 
-    model = SevesoInformation
+    model = models.SevesoInformation
     extra = 0
     suit_classes = 'suit-tab suit-tab-seveso'
 
@@ -191,7 +182,7 @@ class ChemicalAdmin(TranslationAdmin):
 class RoleInline(admin.TabularInline):
     """Inline view for a role."""
 
-    model = Role
+    model = models.Role
     extra = 1
 
 
@@ -237,49 +228,49 @@ class PlantAdmin(TranslationAdmin):
 class CheckSectionInline(TranslationTabularInline):
     """Inline view for the risks."""
 
-    model = CheckSection
+    model = models.CheckSection
     extra = 1
 
 
 class HPhraseCheckInline(admin.TabularInline):
     """Inline view for the risks."""
 
-    model = HPhraseCheck
+    model = models.HPhraseCheck
     extra = 1
 
 
 class PPhraseCheckInline(admin.TabularInline):
     """Inline view for the risks."""
 
-    model = PPhraseCheck
+    model = models.PPhraseCheck
     extra = 1
 
 
 class WGKCheckInline(admin.TabularInline):
     """Inline view for the risks."""
 
-    model = WGKCheck
+    model = models.WGKCheck
     extra = 1
 
 
 class PictogramCheckInline(admin.TabularInline):
     """Inline view for the risks."""
 
-    model = PictogramCheck
+    model = models.PictogramCheck
     extra = 1
 
 
 class StorageClassCheckInline(admin.TabularInline):
     """Inline view for the risks."""
 
-    model = StorageClassCheck
+    model = models.StorageClassCheck
     extra = 1
 
 
 class PPECheckInline(admin.TabularInline):
     """Inline view for the risks."""
 
-    model = PPECheck
+    model = models.PPECheck
     extra = 1
 
 
@@ -302,22 +293,22 @@ class CheckListAdmin(admin.ModelAdmin):
 #
 #    """Inline view for the user profile."""
 #
-#    model = UserProfile
+#    model = models.UserProfile
 #    max_num = 1
 #    can_delete = False
 
 
-admin.site.register(RiskIndication, RiskIndicationAdmin)
-admin.site.register(WGK, WGKAdmin)
-admin.site.register(StorageClass, StorageClassAdmin)
-admin.site.register(SevesoCategory, SevesoCategoryAdmin)
-admin.site.register(RPhrase, RPhraseAdmin)
-admin.site.register(PPhrase, PPhraseAdmin)
-admin.site.register(HPhrase, HPhraseAdmin)
-admin.site.register(Chemical, ChemicalAdmin)
-admin.site.register(Contact, ContactAdmin)
-admin.site.register(Person, PersonAdmin)
-admin.site.register(Supplier, SupplierAdmin)
-admin.site.register(Department, DepartmentAdmin)
-admin.site.register(Plant, PlantAdmin)
-admin.site.register(CheckList, CheckListAdmin)
+admin.site.register(models.RiskIndication, RiskIndicationAdmin)
+admin.site.register(models.WGK, WGKAdmin)
+admin.site.register(models.StorageClass, StorageClassAdmin)
+admin.site.register(models.SevesoCategory, SevesoCategoryAdmin)
+admin.site.register(models.RPhrase, RPhraseAdmin)
+admin.site.register(models.PPhrase, PPhraseAdmin)
+admin.site.register(models.HPhrase, HPhraseAdmin)
+admin.site.register(models.Chemical, ChemicalAdmin)
+admin.site.register(models.Contact, ContactAdmin)
+admin.site.register(models.Person, PersonAdmin)
+admin.site.register(models.Supplier, SupplierAdmin)
+admin.site.register(models.Department, DepartmentAdmin)
+admin.site.register(models.Plant, PlantAdmin)
+# admin.site.register(models.CheckList, CheckListAdmin)

@@ -38,8 +38,8 @@ class PictoColumn(tables.Column):
         return render_as_list(record.pictograms.all())
 
 
-class SubstanceTable(tables.Table):
-    """Table for the Substance View."""
+class ChemicalTable(tables.Table):
+    """Table for the Chemical View."""
     name = tables.LinkColumn('chemical_detail', args=[A('pk')])
     wgk = tables.Column(
         empty_values=(),
@@ -95,7 +95,7 @@ class SubstanceTable(tables.Table):
                   'wgk', 'supplier_set', )
 
 
-class DepartmentSubstanceTable(tables.Table):
+class DepartmentChemicalTable(tables.Table):
     """Table for use in Department View"""
     name = tables.LinkColumn('chemical_detail', args=[A('pk')])
     risks = RiskColumn(verbose_name=_("Risk Indication"))
@@ -108,7 +108,7 @@ class DepartmentSubstanceTable(tables.Table):
         fields = ('name', 'risks', 'pictograms')
 
 
-class CMRSubstanceTable(tables.Table):
+class CMRChemicalTable(tables.Table):
     """Table for use in Department View"""
     name = tables.LinkColumn('chemical_detail', args=[A('pk')])
     supplier_set = tables.Column(empty_values=(), verbose_name=_("Supplier"))

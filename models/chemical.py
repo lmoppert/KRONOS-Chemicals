@@ -1,4 +1,4 @@
-"""Models that are related to a substance."""
+"""Models that are related to a chemical."""
 
 from django.db import models
 from django.conf import settings

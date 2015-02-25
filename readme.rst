@@ -4,7 +4,7 @@ KRONOS Chemicals
 
 About
 -----
-**KRONOS Chemicals** is a web based application where the substances used at
+**KRONOS Chemicals** is a web based application where the chemicals used at
 KRONOS are listed with detailed infromation including Safety Data Sheets and
 REACH.
 

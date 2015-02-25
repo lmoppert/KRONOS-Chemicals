@@ -1,4 +1,4 @@
-"""URL config for the substances protal."""
+"""URL config for the chemical protal."""
 
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse_lazy

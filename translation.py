@@ -1,7 +1,7 @@
 """ Model Translations for Chemicals."""
 
 from modeltranslation.translator import translator, TranslationOptions
-from .models.substance import (HPhrase, PPhrase, RPhrase, Pictogram, WGK, Risk,
+from .models.chemical import (HPhrase, PPhrase, RPhrase, Pictogram, WGK, Risk,
                                SevesoCategory, StorageClass, ReachInformation,
                                SevesoInformation, Chemical, Synonym,
                                RiskIndication, HPhraseRelation)

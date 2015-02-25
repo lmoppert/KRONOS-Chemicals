@@ -1,5 +1,5 @@
 # vim: set fileencoding=utf-8 :
-"""Views for the substance portal."""
+"""Views for the chemicals portal."""
 
 from django.shortcuts import _get_queryset, get_list_or_404
 from django.core.exceptions import ImproperlyConfigured
@@ -74,12 +74,12 @@ class TableDetailView(TableListMixin, DetailView):
 
 
 ###############################################################################
-# Substances Views
+# Chemical Views
 ###############################################################################
 class ChemicalList(TableListView):
-    """Returns a list of all Substances that are not archived."""
+    """Returns a list of all Chemicals that are not archived."""
     model = models.Chemical
-    table_class = tables.SubstanceTable
+    table_class = tables.ChemicalTable
     table_heading = _("Chemicals")
     archive = False
 
@@ -149,7 +149,7 @@ class ContactDetail(DetailView):
 class DepartmentList(TableListView):
     """Returns the list of departments."""
     model = models.Department
-    table_class = tables.DepartmentSubstanceTable
+    table_class = tables.DepartmentChemicalTable
     table_heading = _("Departments")
     filters = {'letter': False, 'department': True}
 
@@ -160,7 +160,7 @@ class DepartmentList(TableListView):
 class DepartmentView(TableDetailView):
     """Returns the list of chemicals used in a specific department."""
     model = models.Department
-    table_class = tables.DepartmentSubstanceTable
+    table_class = tables.DepartmentChemicalTable
     table_heading = _("Departments")
     filters = {'letter': True, 'department': True}
 
@@ -242,7 +242,7 @@ class ApprovalDocumentList(TableListView):
 # SHE Views
 ###############################################################################
 class ChemicalsMissingSDB(ChemicalList):
-    """Returns a list of all Substances that do not have a SDS."""
+    """Returns a list of all Chemicals that do not have a SDS."""
 
     def get_table_data(self):
         letter = self.get_filter_values()["letter"]
