@@ -83,8 +83,8 @@ class HPhraseCheck(models.Model):
 
     class Meta:
         app_label = "chemicals"
-        verbose_name = _("H Phrase")
-        verbose_name_plural = _("H Phrases")
+        verbose_name = _("H-Phrase")
+        verbose_name_plural = _("H-Phrases")
 
 
 class PPhraseCheck(models.Model):
@@ -100,8 +100,8 @@ class PPhraseCheck(models.Model):
 
     class Meta:
         app_label = "chemicals"
-        verbose_name = _("P Phrase")
-        verbose_name_plural = _("P Phrases")
+        verbose_name = _("P-Phrase")
+        verbose_name_plural = _("P-Phrases")
 
 
 class WGKCheck(models.Model):

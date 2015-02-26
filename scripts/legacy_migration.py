@@ -556,12 +556,9 @@ def create_chemicals(chemical):
         registration_number=chemical.regno,
         cas=chemical.cas_no,
         einecs=chemical.einecs,
-        cmr=chemical.cmr,
         needed=chemical.needed,
         preparation=chemical.preparation,
         archive=chemical.archive,
-        instruction=chemical.instruction,
-        hazardous=chemical.stoerfallstoff,
         reach_vo=chemical.reach_vo,
         components_registered=chemical.regkomponents,
 
@@ -701,7 +698,6 @@ def create_sdb():
             supplier=Contact.objects.get(id=obj.supplier.contact_id),
             chemical=Chemical.objects.get(id=obj.chemical.chemical_id),
             file=get_file_handle(obj.path),
-            instruction=obj.instruction or False,
             issue_date=obj.issuedate,
             country_code=get_language(obj.countrycode),
         )
@@ -721,7 +717,6 @@ def create_esdb():
             supplier=Contact.objects.get(id=obj.supplier.contact_id),
             chemical=Chemical.objects.get(id=obj.chemical.chemical_id),
             file=get_file_handle(obj.path),
-            instruction=obj.instruction or False,
             issue_date=obj.issuedate,
             country_code=get_language(obj.countrycode),
         )

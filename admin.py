@@ -126,10 +126,6 @@ class ChemicalAdmin(TranslationAdmin):
             'classes': ('suit-tab', 'suit-tab-general',),
             'fields': ('name', 'synonyms',)
         }),
-        (_('Comments'), {
-            'classes': ('suit-tab', 'suit-tab-general',),
-            'fields': ('comment',)
-        }),
         (_('Values'), {
             'classes': ('suit-tab', 'suit-tab-general',),
             'fields': ('article', 'registration_number', 'cas',
@@ -137,8 +133,7 @@ class ChemicalAdmin(TranslationAdmin):
         }),
         (_('Flags'), {
             'classes': ('suit-tab', 'suit-tab-general',),
-            'fields': ('cmr', 'needed', 'preparation', 'archive',
-                       'instruction', 'hazardous', 'reach_vo',
+            'fields': ('needed', 'preparation', 'archive', 'reach_vo',
                        'components_registered')
         }),
         (_('Relations'), {
@@ -148,6 +143,10 @@ class ChemicalAdmin(TranslationAdmin):
         (None, {
             'classes': ('suit-tab', 'suit-tab-seveso',),
             'fields': ('seveso_categories', )
+        }),
+        (_('Comments'), {
+            'classes': ('suit-tab', 'suit-tab-general',),
+            'fields': ('comment',)
         }),
     )
 

@@ -12,38 +12,42 @@ class HPhrase(models.Model):
     """Simple class for storing H phrases of a chemical."""
 
     name = models.CharField(max_length=40, verbose_name=_("H-Phrase"))
-    description = models.CharField(max_length=400, blank=True, null=True)
-    seveso_relevant = models.BooleanField(default=False)
+    description = models.CharField(max_length=400, blank=True, null=True,
+                                   verbose_name=_("Description"))
+    seveso_relevant = models.BooleanField(default=False,
+                                          verbose_name=_("Seveso Relevant"))
 
     def __unicode__(self):
         return "%s - %s" % (self.name, self.description)
 
     class Meta:
         app_label = "chemicals"
-        verbose_name = _("H Phrase")
-        verbose_name_plural = _("H Phrases")
+        verbose_name = _("H-Phrase")
+        verbose_name_plural = _("H-Phrases")
 
 
 class PPhrase(models.Model):
     """Simple class for storing P phrases of a chemical."""
 
     name = models.CharField(max_length=40, verbose_name=_("P-Phrase"))
-    description = models.CharField(max_length=400, blank=True, null=True)
+    description = models.CharField(max_length=400, blank=True, null=True,
+                                   verbose_name=_("Description"))
 
     def __unicode__(self):
         return "%s - %s" % (self.name, self.description)
 
     class Meta:
         app_label = "chemicals"
-        verbose_name = _("P Phrase")
-        verbose_name_plural = _("P Phrases")
+        verbose_name = _("P-Phrase")
+        verbose_name_plural = _("P-Phrases")
 
 
 class RPhrase(models.Model):
     """Simple class for storing R phrases of a chemical."""
 
     name = models.CharField(max_length=40, verbose_name=_("R-Phrase"))
-    description = models.CharField(max_length=400, blank=True, null=True)
+    description = models.CharField(max_length=400, blank=True, null=True,
+                                   verbose_name=_("Description"))
 
     def __unicode__(self):
         return "%s - %s" % (self.name, self.description)
@@ -58,7 +62,8 @@ class SevesoCategory(models.Model):
     """Class for the Seveso category of a chemical."""
 
     name = models.CharField(max_length=40, verbose_name=_("Seveso Category"))
-    description = models.CharField(max_length=400, blank=True, null=True)
+    description = models.CharField(max_length=400, blank=True, null=True,
+                                   verbose_name=_("Description"))
 
     def __unicode__(self):
         return "%s - %s" % (self.name, self.description)
@@ -73,7 +78,8 @@ class StorageClass(models.Model):
     """Class for the storage class of a chemical."""
 
     name = models.CharField(max_length=40, verbose_name=_("Storage Class"))
-    description = models.CharField(max_length=400)
+    description = models.CharField(max_length=400, blank=True, null=True,
+                                   verbose_name=_("Description"))
 
     def __unicode__(self):
         return "%s - %s" % (self.name, self.description)
@@ -94,15 +100,16 @@ class Synonym(models.Model):
 
     class Meta:
         app_label = "chemicals"
-        verbose_name = _("Chemical Synonym")
-        verbose_name_plural = _("Chemical Synonyms")
+        verbose_name = _("Synonym")
+        verbose_name_plural = _("Synonyms")
 
 
 class WGK(models.Model):
     """Simple class for storing the WGK of a chemical."""
 
     name = models.CharField(max_length=20, verbose_name=_("WGK"))
-    description = models.CharField(max_length=100, blank=True, null=True)
+    description = models.CharField(max_length=400, blank=True, null=True,
+                                   verbose_name=_("Description"))
 
     def __unicode__(self):
         return "%s - %s" % (self.name, self.description)
@@ -132,45 +139,56 @@ class Chemical(models.Model):
     SIGNALS = (('d', _('danger')), ('w', _('warning')), ('n', _('no signal')),)
 
     name = models.CharField(max_length=200, verbose_name=_("Chemical"))
-    comment = models.CharField(max_length=800, blank=True, null=True)
-    article = models.CharField(max_length=100, blank=True, null=True)
+    comment = models.TextField(verbose_name=_("Comment"))
+    article = models.CharField(max_length=100, blank=True, null=True,
+                               verbose_name=_("Article Number"))
     registration_number = models.CharField(
-        max_length=100, blank=True, null=True)
-    cas = models.CharField(max_length=100, blank=True, null=True)
-    einecs = models.CharField(max_length=100, blank=True, null=True)
-    signal = models.CharField(max_length=1, choices=SIGNALS, default='n')
+        max_length=100, blank=True, null=True,
+        verbose_name=_("Registration Number")
+    )
+    cas = models.CharField(max_length=100, blank=True, null=True,
+                           verbose_name=_("CAS"))
+    einecs = models.CharField(max_length=100, blank=True, null=True,
+                              verbose_name=_("EINECS"))
+    signal = models.CharField(max_length=1, choices=SIGNALS, default='n',
+                              verbose_name=_("Signal"))
 
     # Boolean switches
-    cmr = models.BooleanField(default=False)
-    needed = models.BooleanField(default=False)
-    preparation = models.BooleanField(default=False)
-    archive = models.BooleanField(default=False)
-    instruction = models.BooleanField(default=False)
-    hazardous = models.BooleanField(default=False)
-    reach_vo = models.BooleanField(default=False)
-    components_registered = models.BooleanField(default=False)
+    archive = models.BooleanField(default=False, verbose_name=_("Archive"))
+    needed = models.BooleanField(default=False,
+                                 verbose_name=_("Permanently Needed"))
+    preparation = models.BooleanField(default=False,
+                                      verbose_name=_("Preparation"))
+    components_registered = models.BooleanField(
+        default=False, verbose_name=_("Components Registered"))
+    reach_vo = models.BooleanField(
+        default=False, verbose_name=_("Listed in annex XIV REACH regulation"))
 
     # Many to many relations
-    wgk = models.ManyToManyField(WGK, blank=True)
-    synonyms = models.ManyToManyField(Synonym, blank=True)
-    storage_classes = models.ManyToManyField(
-        StorageClass, blank=True, verbose_name=_("Storage Classes"))
-    seveso_categories = models.ManyToManyField(SevesoCategory, blank=True)
-    rphrases = models.ManyToManyField(RPhrase, blank=True)
-    pphrases = models.ManyToManyField(PPhrase, blank=True)
-    pictograms = models.ManyToManyField(
-        'Pictogram', blank=True, verbose_name=_("Pictogram"))
+    wgk = models.ManyToManyField(WGK, blank=True, verbose_name=_("WGK"))
+    synonyms = models.ManyToManyField(Synonym, blank=True,
+                                      verbose_name=_("Synonyms"))
+    storage_classes = models.ManyToManyField(StorageClass, blank=True,
+                                             verbose_name=_("Storage Classes"))
+    seveso_categories = models.ManyToManyField(
+        SevesoCategory, blank=True, verbose_name=_("Seveso Categories"))
+    rphrases = models.ManyToManyField(RPhrase, blank=True,
+                                      verbose_name=_("R-Phrases"))
+    pphrases = models.ManyToManyField(PPhrase, blank=True,
+                                      verbose_name=_("P-Phrases"))
+    pictograms = models.ManyToManyField('Pictogram', blank=True,
+                                        verbose_name=_("Pictogram"))
 
     # Many to many relations with dedicated relation table
-    risks = models.ManyToManyField(
-        RiskIndication, through='Risk', blank=True,
-        verbose_name=_("Risk Indication"))
-    hphrases = models.ManyToManyField(
-        HPhrase, through='HPhraseRelation', blank=True)
-    departments = models.ManyToManyField(
-        'Department', through='Supplier', blank=True)
-    locations = models.ManyToManyField(
-        'Location', through='Stock', blank=True)
+    risks = models.ManyToManyField(RiskIndication, through='Risk', blank=True,
+                                   verbose_name=_("Risk Indication"))
+    hphrases = models.ManyToManyField(HPhrase, through='HPhraseRelation',
+                                      blank=True, verbose_name=_("H-Phrases"))
+    departments = models.ManyToManyField('Department', through='Supplier',
+                                         blank=True,
+                                         verbose_name=_("Departments"))
+    locations = models.ManyToManyField('Location', through='Stock', blank=True,
+                                       verbose_name=_("Locations"))
 
     def get_approval_documents(self):
         return self.document_set.filter(doctype="FREIGABE")
@@ -193,10 +211,10 @@ class Chemical(models.Model):
 class Toxdata(models.Model):
     """Class for Tox / Oekotox information belonging to a chemical."""
 
-    chemical = models.ForeignKey(Chemical)
-    supplier = models.ForeignKey('Contact')
-    tox = models.BooleanField(default=False)
-    oekotox = models.BooleanField(default=False)
+    chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"))
+    supplier = models.ForeignKey('Contact', verbose_name=_("Supplier"))
+    tox = models.BooleanField(default=False, verbose_name=_("Tox"))
+    oekotox = models.BooleanField(default=False, verbose_name=_("Oekotox"))
 
     def __unicode__(self):
         return self.supplier.name
@@ -210,8 +228,8 @@ class Toxdata(models.Model):
 class ReachInformation(models.Model):
     """Class for REACH information belonging to a chemical."""
 
-    chemical = models.ForeignKey(Chemical)
-    description = models.TextField()
+    chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"))
+    description = models.TextField(verbose_name=_("Description"))
 
     def __unicode__(self):
         return self.description
@@ -225,8 +243,8 @@ class ReachInformation(models.Model):
 class SevesoInformation(models.Model):
     """Class for the Seveso information of a chemical."""
 
-    chemical = models.ForeignKey(Chemical)
-    description = models.TextField()
+    chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"))
+    description = models.TextField(verbose_name=_("Description"))
 
     def __unicode__(self):
         return self.description
@@ -240,8 +258,9 @@ class SevesoInformation(models.Model):
 class Risk(models.Model):
     """Simple class for the risk class of a chemical."""
 
-    chemical = models.ForeignKey(Chemical)
-    riskindication = models.ForeignKey(RiskIndication)
+    chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"))
+    riskindication = models.ForeignKey(RiskIndication, verbose_name=_(
+                                       "Risk Indication"))
     info = models.TextField()
 
     def __unicode__(self):
@@ -256,9 +275,9 @@ class Risk(models.Model):
 class HPhraseRelation(models.Model):
     """Simple class for H phrases of a chemical."""
 
-    chemical = models.ForeignKey(Chemical)
-    hphrase = models.ForeignKey(HPhrase)
-    info = models.TextField(blank=True)
+    chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"))
+    hphrase = models.ForeignKey(HPhrase, verbose_name=_("H-Phrase"))
+    info = models.TextField(blank=True, verbose_name=_("Information"))
 
     def __unicode__(self):
         return self.hphrase.name
@@ -275,9 +294,9 @@ class HPhraseRelation(models.Model):
 class Pictogram(models.Model):
     """Class for the pictograms related to a chemical."""
 
-    code = models.CharField(max_length=100)
+    code = models.CharField(max_length=100, verbose_name=_("Code"))
     name = models.CharField(max_length=400, verbose_name=_("Pictogram"))
-    image = FilerImageField(null=True, blank=True)
+    image = FilerImageField(null=True, blank=True, verbose_name=_("Image"))
 
     def __unicode__(self):
         return self.name
@@ -292,10 +311,10 @@ class Document(models.Model):
     """Class for documents belonging to a chemical."""
 
     plant = models.ForeignKey('Plant')
-    chemical = models.ForeignKey(Chemical)
-    file = FilerFileField(null=True, blank=True)
-    doctype = models.CharField(max_length=100)
-    created = models.DateField(auto_now_add=True)
+    chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"))
+    file = FilerFileField(null=True, blank=True, verbose_name=_("File"))
+    doctype = models.CharField(max_length=100, verbose_name=_("Document Type"))
+    created = models.DateField(auto_now_add=True, verbose_name=_("Created on"))
 
     class Meta:
         app_label = "chemicals"
@@ -306,10 +325,11 @@ class Document(models.Model):
 class ReachDocument(models.Model):
     """Class for REACH documents belonging to a chemical."""
 
-    chemical = models.ForeignKey(Chemical)
-    file = FilerFileField(null=True, blank=True)
-    country_code = models.CharField(max_length=2, choices=settings.LANGUAGES)
-    created = models.DateField(auto_now_add=True)
+    chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"))
+    file = FilerFileField(null=True, blank=True, verbose_name=_("File"))
+    country_code = models.CharField(max_length=2, choices=settings.LANGUAGES,
+                                    verbose_name=_("Country Code"))
+    created = models.DateField(auto_now_add=True, verbose_name=_("Created on"))
 
     class Meta:
         app_label = "chemicals"
@@ -325,10 +345,11 @@ class SevesoDocument(models.Model):
 
     """
 
-    chemical = models.ForeignKey(Chemical)
-    file = FilerFileField(null=True, blank=True)
-    country_code = models.CharField(max_length=2, choices=settings.LANGUAGES)
-    created = models.DateField(auto_now_add=True)
+    chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"))
+    file = FilerFileField(null=True, blank=True, verbose_name=_("File"))
+    country_code = models.CharField(max_length=2, choices=settings.LANGUAGES,
+                                    verbose_name=_("Country Code"))
+    created = models.DateField(auto_now_add=True, verbose_name=_("Created on"))
 
     class Meta:
         app_label = "chemicals"
@@ -339,13 +360,14 @@ class SevesoDocument(models.Model):
 class SafetyDataSheet(models.Model):
     """Class for safety data sheets belonging to a chemical."""
 
-    supplier = models.ForeignKey('Contact')
-    chemical = models.ForeignKey(Chemical)
-    file = FilerFileField(null=True, blank=True)
-    instruction = models.BooleanField(default=False)
-    issue_date = models.DateField(null=True, blank=True)
-    country_code = models.CharField(max_length=2, choices=settings.LANGUAGES)
-    created = models.DateField(auto_now_add=True)
+    supplier = models.ForeignKey('Contact', verbose_name=_("Supplier"))
+    chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"))
+    file = FilerFileField(null=True, blank=True, verbose_name=_("File"))
+    issue_date = models.DateField(null=True, blank=True,
+                                  verbose_name=_("Issue Date"))
+    country_code = models.CharField(max_length=2, choices=settings.LANGUAGES,
+                                    verbose_name=_("Country Code"))
+    created = models.DateField(auto_now_add=True, verbose_name=_("Created on"))
 
     class Meta:
         app_label = "chemicals"
@@ -356,13 +378,14 @@ class SafetyDataSheet(models.Model):
 class ExtendedSafetyDataSheet(models.Model):
     """Class for extended safety data sheets belonging to a chemical."""
 
-    supplier = models.ForeignKey('Contact')
-    chemical = models.ForeignKey(Chemical)
-    file = FilerFileField(null=True, blank=True)
-    instruction = models.BooleanField(default=False)
-    issue_date = models.DateField(null=True, blank=True)
-    country_code = models.CharField(max_length=2, choices=settings.LANGUAGES)
-    created = models.DateField(auto_now_add=True)
+    supplier = models.ForeignKey('Contact', verbose_name=_("Supplier"))
+    chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"))
+    file = FilerFileField(null=True, blank=True, verbose_name=_("File"))
+    issue_date = models.DateField(null=True, blank=True,
+                                  verbose_name=_("Issue Date"))
+    country_code = models.CharField(max_length=2, choices=settings.LANGUAGES,
+                                    verbose_name=_("Country Code"))
+    created = models.DateField(auto_now_add=True, verbose_name=_("Created on"))
 
     class Meta:
         app_label = "chemicals"

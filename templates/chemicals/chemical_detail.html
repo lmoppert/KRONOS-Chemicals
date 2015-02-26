@@ -49,25 +49,16 @@
                 <input type="checkbox" disabled{{ chemical.needed|yesno:" checked," }}> {% trans "Always needed" %}
             </label></div>
             <div class="checkbox"><label>
-                <input type="checkbox" disabled{{ chemical.components_registered|yesno:" checked," }}> {% trans "Components registered" %}
+                <input type="checkbox" disabled{{ chemical.components_registered|yesno:" checked," }}> {% trans "Components Registered" %}
             </label></div>
             <div class="checkbox"><label>
                 <input type="checkbox" disabled{{ chemical.archive|yesno:" checked," }}> {% trans "Archived" %}
             </label></div>
             <div class="checkbox"><label>
-                <input type="checkbox" disabled{{ chemical.cmr|yesno:" checked," }}> {% trans "CMR" %}
-            </label></div>
-            <div class="checkbox"><label>
                 <input type="checkbox" disabled{{ chemical.reach_vo|yesno:" checked," }}>
                 <span {% if chemical.preparation %} class="text-muted"{% endif %}>
-                {% trans "Listed in Appendix XIV, REACH-VO" %}
+                {% trans "Listed in annex XIV REACH regulation" %}
                 </span>
-            </label></div>
-            <div class="checkbox"><label>
-                <input type="checkbox" disabled{{ chemical.hazardous|yesno:" checked," }}> {% trans "Hazardous" %}
-            </label></div>
-            <div class="checkbox"><label>
-                <input type="checkbox" disabled{{ chemical.instruction|yesno:" checked," }}> {% trans "Instruction" %}
             </label></div>
         </div>
     </div>

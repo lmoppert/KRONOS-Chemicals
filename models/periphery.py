@@ -8,13 +8,19 @@ from django.utils.translation import ugettext_lazy as _
 class Person(models.Model):
     """Class holding information about a person."""
 
-    title = models.CharField(max_length=100, blank=True, null=True)
-    academic_title = models.CharField(max_length=100, blank=True, null=True)
-    surname = models.CharField(max_length=100, blank=True, null=True)
-    givenname = models.CharField(max_length=200)
-    phone = models.CharField(max_length=100, blank=True, null=True)
-    fax = models.CharField(max_length=100, blank=True, null=True)
-    email = models.CharField(max_length=100, blank=True, null=True)
+    title = models.CharField(max_length=100, blank=True, null=True,
+                             verbose_name=_("Title"))
+    academic_title = models.CharField(max_length=100, blank=True, null=True,
+                                      verbose_name=_("Academic Title"))
+    surname = models.CharField(max_length=100, blank=True, null=True,
+                               verbose_name=_("Surname"))
+    givenname = models.CharField(max_length=200, verbose_name=_("Given name"))
+    phone = models.CharField(max_length=100, blank=True, null=True,
+                             verbose_name=_("Phone"))
+    fax = models.CharField(max_length=100, blank=True, null=True,
+                           verbose_name=_("Fax"))
+    email = models.CharField(max_length=100, blank=True, null=True,
+                             verbose_name=_("Email"))
 
     def _get_name(self):
         return "%s %s" % (self.surname, self.givenname)
@@ -32,15 +38,22 @@ class Person(models.Model):
 class Contact(models.Model):
     """Class holding information about a company."""
 
-    persons = models.ManyToManyField(Person, through='Role')
-    name = models.CharField(max_length=400)
-    address = models.TextField(blank=True, null=True)
-    country = models.CharField(max_length=100, blank=True, null=True)
-    phone = models.CharField(max_length=100, blank=True, null=True)
-    fax = models.CharField(max_length=100, blank=True, null=True)
-    email = models.CharField(max_length=100, blank=True, null=True)
-    web = models.CharField(max_length=100, blank=True, null=True)
-    info = models.TextField(blank=True, null=True)
+    persons = models.ManyToManyField(Person, through='Role',
+                                     verbose_name=_("Persons"))
+    name = models.CharField(max_length=400, verbose_name=_("Name"))
+    address = models.TextField(blank=True, null=True, verbose_name=_("Address"))
+    country = models.CharField(max_length=100, blank=True, null=True,
+                               verbose_name=_("Country"))
+    phone = models.CharField(max_length=100, blank=True, null=True,
+                             verbose_name=_("Phone"))
+    fax = models.CharField(max_length=100, blank=True, null=True,
+                           verbose_name=_("Fax"))
+    email = models.CharField(max_length=100, blank=True, null=True,
+                             verbose_name=_("Email"))
+    web = models.CharField(max_length=100, blank=True, null=True,
+                           verbose_name=_("Web"))
+    info = models.TextField(blank=True, null=True,
+                            verbose_name=_("Information"))
 
     def __unicode__(self):
         return self.name
@@ -60,9 +73,9 @@ class Role(models.Model):
     ROLES = (('r', 'REACH'), ('c', _('Chemical')),)
 
     # This model was originally named Contact_Person
-    person = models.ForeignKey(Person)
-    contact = models.ForeignKey(Contact)
-    role = models.CharField(max_length=1, choices=ROLES)
+    person = models.ForeignKey(Person, verbose_name=_("Person"))
+    contact = models.ForeignKey(Contact, verbose_name=_("Contact"))
+    role = models.CharField(max_length=1, choices=ROLES, verbose_name=_("Role"))
 
     class Meta:
         app_label = "chemicals"
@@ -77,7 +90,7 @@ class Plant(models.Model):
 
     """
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
 
     def __unicode__(self):
         return self.name
@@ -91,8 +104,8 @@ class Plant(models.Model):
 class Department(models.Model):
     """Class with informations about a department in a specific plant."""
 
-    plant = models.ForeignKey(Plant)
-    name = models.CharField(max_length=100)
+    plant = models.ForeignKey(Plant, verbose_name=_("Plant"))
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
 
     def __unicode__(self):
         return self.name
@@ -107,8 +120,8 @@ class Department(models.Model):
 class Location(models.Model):
     """Class naming a storage room of a specific department."""
 
-    department = models.ForeignKey(Department)
-    name = models.CharField(max_length=100)
+    department = models.ForeignKey(Department, verbose_name=_("Department"))
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
 
     def __unicode__(self):
         return self.name
@@ -130,8 +143,8 @@ class Stock(models.Model):
         ('p', _('pieces')),
     )
 
-    chemical = models.ForeignKey('Chemical')
-    location = models.ForeignKey(Location)
+    chemical = models.ForeignKey('Chemical', verbose_name=_("Chemical"))
+    location = models.ForeignKey(Location, verbose_name=_("Location"))
     max_volume = models.CharField(
         max_length=25, blank=True, null=True, verbose_name=_("Volume"))
     max_unit = models.CharField(
@@ -150,10 +163,9 @@ class Stock(models.Model):
 class Supplier(models.Model):
     """Class mapping a supplier of a chemical with a department."""
 
-    chemical = models.ForeignKey('Chemical')
-    contact = models.ForeignKey(Contact)
-    department = models.ForeignKey(Department)
-    has_instructions = models.BooleanField(default=False, null=False)
+    chemical = models.ForeignKey('Chemical', verbose_name=_("Chemical"))
+    contact = models.ForeignKey(Contact, verbose_name=_("Contact"))
+    department = models.ForeignKey(Department, verbose_name=_("Department"))
 
     class Meta:
         app_label = "chemicals"
