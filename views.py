@@ -80,7 +80,6 @@ class ChemicalList(TableListView):
     """Returns a list of all Chemicals that are not archived."""
     model = models.Chemical
     table_class = tables.ChemicalTable
-    table_heading = _("Chemicals")
     archive = False
 
     def get_table_data(self):
