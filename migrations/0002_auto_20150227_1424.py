@@ -60,7 +60,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='hphrase',
             name='cmr',
-            field=models.IntegerField(default=0, verbose_name='CMR', choices=[(0, b'Not relevant'), (1, b'Category 1A/1B'), (2, b'Category 2')]),
+            field=models.IntegerField(default=9, verbose_name='CMR', choices=[(9, b'Not relevant'), (1, b'Category 1A/1B'), (2, b'Category 2')]),
             preserve_default=True,
         ),
         migrations.AlterField(
