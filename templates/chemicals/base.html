@@ -12,6 +12,7 @@
                 <span class="caret"></span>
             </a>
             <ul id="chem_menu1" class="dropdown-menu" role="menu" aria-labelledby="chem_dd1">
+                <li class="navheading"> {% trans "Chemical Views" %}</li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Chemicals" %}</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "supplier_list" %}/?lid=1">{% trans "Suppliers" %}</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "department_list" %}">{% trans "Departments" %}</a></li>
@@ -19,7 +20,7 @@
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "archived_chemicals" %}">{% trans "Archive" %}</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "sds_list" %}">{% trans "MSDS" %}</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "approval_list" %}">{% trans "Approval Documents" %}</a></li>
-                <li><hr></li>
+                <li class="navheading"> {% trans "SHE Views" %}</li>
                 <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "H-Phrases" %}</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "chemical_missing_sdb" %}">{% trans "Chemicals without SDS" %}</a></li>
                 <!--
@@ -30,11 +31,13 @@
                 -->
                 <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Tox Oekotox" %}</a></li>
                 <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Chemical Numbers" %}</a></li>
-                <li><hr></li>
+                <li class="navheading"> {% trans "Chemical Stock Views" %}</li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "stock_list" %}">{% trans "Department" %}</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "location_list" %}">{% trans "Stock Location" %}</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "chemical_stock_list" %}">{% trans "Chemicals" %}</a></li>
+                <!--
                 <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Checklists" %}</a></li>
+                -->
             </ul>
         </li>
     </ul>
