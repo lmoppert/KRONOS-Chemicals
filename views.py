@@ -243,6 +243,7 @@ class ApprovalDocumentList(TableListView):
 ###############################################################################
 class ChemicalsMissingSDB(ChemicalList):
     """Returns a list of all Chemicals that do not have a SDS."""
+    table_heading = _("Chemicals without SDS")
 
     def get_table_data(self):
         letter = self.get_filter_values()["letter"]
