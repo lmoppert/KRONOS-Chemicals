@@ -38,6 +38,16 @@ class PictoColumn(tables.Column):
         return render_as_list(record.pictograms.all())
 
 
+class ChemicalNumberTable(tables.Table):
+    """Table for the Chemical View."""
+    name = tables.LinkColumn('chemical_detail', args=[A('pk')])
+
+    class Meta:
+        model = models.Chemical
+        attrs = {'class': "table table-bordered table-striped table-condensed"}
+        fields = ('name', 'preparation', 'article', 'cas', 'einecs', )
+
+
 class ChemicalTable(tables.Table):
     """Table for the Chemical View."""
     name = tables.LinkColumn('chemical_detail', args=[A('pk')])

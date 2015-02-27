@@ -260,6 +260,18 @@ class ToxList(TableListView):
     table_class = tables.ToxTable
 
 
+class ChemicalNumbers(ChemicalList):
+    """Returns a list of all Chemicals that do not have a SDS."""
+    table_class = tables.ChemicalNumberTable
+    table_heading = _("Chemical Numbers")
+
+    def get_table_data(self):
+        letter = self.get_filter_values()["letter"]
+        return self.get_data_or_dict(
+            models.Chemical, name__istartswith=letter, archive=self.archive,
+        )
+
+
 ###############################################################################
 # Stock Views
 ###############################################################################
