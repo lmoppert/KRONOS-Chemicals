@@ -114,7 +114,7 @@ class PPhraseAdmin(TranslationAdmin):
 class HPhraseAdmin(TranslationAdmin):
     """Admin view for H-Phrases."""
 
-    list_display = ('name', 'description')
+    list_display = ('name', 'description', 'cmr', 'seveso_relevant')
 
 
 class ChemicalAdmin(TranslationAdmin):

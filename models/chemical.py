@@ -9,13 +9,20 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class HPhrase(models.Model):
-    """Simple class for storing H phrases of a chemical."""
+    """Simple class for storing H phrases of a chemical. This also contains
+    information about Seveso relevance and CMR value."""
 
+    CMR = (
+        (1, _('CMR Category 1A/1B')),
+        (2, _('CMR Category 2')),
+        (9, _('Not CMR relevant')),
+    )
     name = models.CharField(max_length=40, verbose_name=_("H-Phrase"))
     description = models.CharField(max_length=400, blank=True, null=True,
                                    verbose_name=_("Description"))
     seveso_relevant = models.BooleanField(default=False,
                                           verbose_name=_("Seveso Relevant"))
+    cmr = models.IntegerField(default=9, choices=CMR, verbose_name=_("CMR"))
 
     def __unicode__(self):
         return "%s - %s" % (self.name, self.description)
@@ -139,7 +146,7 @@ class Chemical(models.Model):
     SIGNALS = (('d', _('danger')), ('w', _('warning')), ('n', _('no signal')),)
 
     name = models.CharField(max_length=200, verbose_name=_("Chemical"))
-    comment = models.TextField(verbose_name=_("Comment"))
+    comment = models.TextField(verbose_name=_("Comment"), null=True)
     article = models.CharField(max_length=100, blank=True, null=True,
                                verbose_name=_("Article Number"))
     registration_number = models.CharField(
@@ -189,6 +196,25 @@ class Chemical(models.Model):
                                          verbose_name=_("Departments"))
     locations = models.ManyToManyField('Location', through='Stock', blank=True,
                                        verbose_name=_("Locations"))
+
+    @property
+    def cmr1(self):
+        if self.hphrases.all().aggregate(models.Min('cmr'))['cmr__min'] == 1:
+            return True
+        else:
+            return False
+
+    @property
+    def cmr2(self):
+        if self.hphrases.all().aggregate(models.Min('cmr'))['cmr__min'] == 2:
+            return True
+        else:
+            return False
+
+    @property
+    def seveso_relevant(self):
+        return self.hphrases.all().aggregate(models.Max(
+            'seveso_relevant'))['seveso_relevant__max']
 
     def get_approval_documents(self):
         return self.document_set.filter(doctype="FREIGABE")

@@ -49,7 +49,7 @@
                 <input type="checkbox" disabled{{ chemical.needed|yesno:" checked," }}> {% trans "Always needed" %}
             </label></div>
             <div class="checkbox"><label>
-                <input type="checkbox" disabled{{ chemical.components_registered|yesno:" checked," }}> {% trans "Components Registered" %}
+                <input type="checkbox" disabled{{ chemical.components_registered|yesno:" checked," }}> {% trans "Components registered" %}
             </label></div>
             <div class="checkbox"><label>
                 <input type="checkbox" disabled{{ chemical.archive|yesno:" checked," }}> {% trans "Archived" %}
@@ -60,6 +60,15 @@
                 {% trans "Listed in annex XIV REACH regulation" %}
                 </span>
             </label></div>
+            <div class="checkbox"><label>
+                <input type="checkbox" disabled{{ chemical.cmr1|yesno:" checked," }}> {% trans "CMR Category 1A/1B" %}
+            </label></div>
+            <div class="checkbox"><label>
+                <input type="checkbox" disabled{{ chemical.cmr2|yesno:" checked," }}> {% trans "CMR Category 2" %}
+            </label></div>
+            <div class="checkbox"><label>
+                <input type="checkbox" disabled{{ chemical.seveso_relevant|yesno:" checked," }}> {% trans "Seveso relevant" %}
+            </label></div>
         </div>
     </div>
     <p>
@@ -68,7 +77,7 @@
             <li><a href="#department" data-toggle="tab">{% trans "Department / Supplier" %}</a></li>
             <li><a href="#sds" data-toggle="tab">{% trans "SDS / Document" %}</a></li>
             <li><a href="#reach" data-toggle="tab">REACH</a></li>
-            <li><a href="#checklist" data-toggle="tab">{% trans "Checklist" %}</a></li>
+            <!-- li><a href="#checklist" data-toggle="tab">{% trans "Checklist" %}</a></li -->
         </ul>
         <div class="tab-content">
             <div class="tab-pane fade in active" id="classification">
@@ -236,8 +245,10 @@
                     </div>
                 </div>
             </div>
+            <!-- 
             <div class="tab-pane fade" id="checklist">
             </div>
+            -->
         </div>
     </p>
 {% endblock %}
