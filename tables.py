@@ -138,23 +138,34 @@ class CMRChemicalTable(tables.Table):
 
 class CMRTable(tables.Table):
     """Table listing all CMR chemicals."""
-    contact = tables.LinkColumn('contact_detail',
-                                accessor='contact.name',
-                                args=[A('contact.pk')],
-                                verbose_name=_('Supplier'))
-    chemical = tables.LinkColumn('chemical_detail',
-                                 accessor='chemical.name',
-                                 args=[A('chemical.pk')],
-                                 verbose_name=_('Chemical'))
-    department = tables.Column(accessor='department.name',
-                               verbose_name=_('Department'))
+    name = tables.LinkColumn('chemical_detail', args=[A('pk')])
+    cmr = tables.Column(
+        empty_values=(),
+        verbose_name=_('CMR Category'),
+        orderable=False,
+    )
+    supplier_set = tables.Column(
+        empty_values=(),
+        verbose_name=_("Supplier"),
+        orderable=False,
+    )
+
+    def render_cmr(self, record):
+        if record.cmr1:
+            return "1A/1B"
+        else:
+            return "2"
+
+    def render_supplier_set(self, record):
+        contacts = []
+        for supplier in record.supplier_set.all():
+            contacts.append(supplier.contact)
+        return render_as_list(set(contacts))
 
     class Meta:
         model = models.Supplier
         attrs = {'class': "table table-bordered table-striped table-condensed"}
-        order_by = ('contact', 'chemical')
-        fields = ('chemical', 'department', 'contact',)
-        # fields = ('chemical', 'CMR category', 'department', 'contact',)
+        fields = ('name', 'cmr', 'supplier_set')
 
 
 class SupplierTable(tables.Table):

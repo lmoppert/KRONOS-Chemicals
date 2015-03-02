@@ -135,10 +135,13 @@ class CMRList(SupplierList):
 
     def get_table_data(self):
         letter = self.get_filter_values()["letter"]
-        return self.get_data_or_dict(
-            models.Supplier, chemical__cmr=True, chemical__archive=False,
-            chemical__name__istartswith=letter
-        )
+        chemicals = []
+        for h in models.HPhrase.objects.all():
+            if h.cmr < 9:
+                chemicals.extend(h.chemical_set.filter(archive=False).filter(
+                    name__istartswith=letter)
+                )
+        return chemicals
 
 
 class ContactDetail(DetailView):
