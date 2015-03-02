@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 ##############################################################################
-# Admin of Chemicals
+# Inline definitions for Chemicals
 ##############################################################################
 class DepartmentInline(admin.TabularInline):
     """Inline view for the departments."""
@@ -75,6 +75,9 @@ class SevesoInformationInline(TranslationTabularInline):
     suit_classes = 'suit-tab suit-tab-seveso'
 
 
+##############################################################################
+# Admin of Chemicals
+##############################################################################
 class RiskIndicationAdmin(TranslationAdmin):
     """Admin view for Risk Indications."""
 
@@ -103,24 +106,30 @@ class RPhraseAdmin(TranslationAdmin):
     """Admin view for R-Phrases."""
 
     list_display = ('name', 'description')
+    search_fields = ('name', 'description')
 
 
 class PPhraseAdmin(TranslationAdmin):
     """Admin view for R-Phrases."""
 
     list_display = ('name', 'description')
+    search_fields = ('name', 'description')
 
 
 class HPhraseAdmin(TranslationAdmin):
     """Admin view for H-Phrases."""
 
     list_display = ('name', 'description', 'cmr', 'seveso_relevant')
+    search_fields = ('name', 'description')
 
 
 class ChemicalAdmin(TranslationAdmin):
     """Admin view for the chemicals."""
 
     list_display = ('name', 'registration_number', 'article', 'comment')
+    search_fields = ('name', )
+    list_filter = ('needed', 'preparation', 'archive', 'reach_vo',
+                   'components_registered')
     fieldsets = (
         (None, {
             'classes': ('suit-tab', 'suit-tab-general',),
@@ -149,7 +158,9 @@ class ChemicalAdmin(TranslationAdmin):
             'fields': ('comment',)
         }),
     )
-
+    filter_horizontal = (
+        'wgk', 'storage_classes', 'seveso_categories', 'rphrases',
+    )
     suit_form_tabs = (
         ('general', _('Identification')),
         ('classification', _('Classification')),
@@ -159,7 +170,6 @@ class ChemicalAdmin(TranslationAdmin):
         ('checklist', _('Checklists')),
         ('seveso', _('Seveso')),
     )
-
     inlines = [
         DepartmentInline,
         DocumentInline,
@@ -171,8 +181,12 @@ class ChemicalAdmin(TranslationAdmin):
         SevesoInformationInline,
     ]
 
-    filter_horizontal = ('wgk', 'storage_classes', 'seveso_categories',
-                         'rphrases', )
+
+class StockAdmin(admin.ModelAdmin):
+    """Admin view for the contacts."""
+
+    list_display = ('chemical', 'location')
+    search_fields = ['chemical__name', 'location__name']
 
 
 ##############################################################################
@@ -189,6 +203,8 @@ class PersonAdmin(admin.ModelAdmin):
     """Admin view for a person."""
 
     list_display = ('title', 'academic_title', 'surname', 'givenname')
+    list_display_links = ('surname', 'givenname')
+    search_fields = ('surname', 'givenname', 'title')
     inlines = [
         RoleInline,
     ]
@@ -198,6 +214,7 @@ class ContactAdmin(admin.ModelAdmin):
     """Admin view for the contacts."""
 
     list_display = ('name', 'country', 'info')
+    search_fields = ('name', 'info', )
     inlines = [
         RoleInline,
     ]
@@ -207,12 +224,14 @@ class SupplierAdmin(admin.ModelAdmin):
     """Admin view for a supplier."""
 
     list_display = ('department', 'chemical', 'contact')
+    search_fields = ('department', 'chemical', 'contact')
 
 
 class DepartmentAdmin(admin.ModelAdmin):
     """Admin view for a department."""
 
     list_display = ('name', 'plant')
+    search_fields = ('name', )
 
 
 class PlantAdmin(TranslationAdmin):
@@ -310,4 +329,5 @@ admin.site.register(models.Person, PersonAdmin)
 admin.site.register(models.Supplier, SupplierAdmin)
 admin.site.register(models.Department, DepartmentAdmin)
 admin.site.register(models.Plant, PlantAdmin)
+admin.site.register(models.Stock, StockAdmin)
 # admin.site.register(models.CheckList, CheckListAdmin)
