@@ -3,6 +3,7 @@ from django import template
 from django.utils.datastructures import SortedDict
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
+from chemicals.models.periphery import Stock
 
 register = template.Library()
 
@@ -29,12 +30,8 @@ sort_list.is_safe = True
 @register.filter
 def show_unit(value):
     """Show the word representation of a unit"""
-    UNITS = {
-        'p': _('pieces'), 't': _('tons'), 'k': _('kilogram'), 'g': _('gram'),
-        'c': _('cubic meter'), 'l': _('liter'), 'm': _('mililiter'),
-    }
-    if value in UNITS:
-        return UNITS[value]
+    if value in Stock.UNITS:
+        return Stock.UNITS[value]
     else:
         return ''
 

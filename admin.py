@@ -175,6 +175,12 @@ class ChemicalAdmin(TranslationAdmin):
                          'rphrases', )
 
 
+class StockAdmin(admin.ModelAdmin):
+    """Admin view for the Stock Locations."""
+
+    list_display = ('chemical', 'location')
+
+
 ##############################################################################
 # Admin of Contacts
 ##############################################################################
@@ -310,4 +316,5 @@ admin.site.register(models.Person, PersonAdmin)
 admin.site.register(models.Supplier, SupplierAdmin)
 admin.site.register(models.Department, DepartmentAdmin)
 admin.site.register(models.Plant, PlantAdmin)
+admin.site.register(models.Stock, StockAdmin)
 # admin.site.register(models.CheckList, CheckListAdmin)

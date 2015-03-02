@@ -137,7 +137,9 @@ class Location(models.Model):
 
 class Stock(models.Model):
     """Class adding volume informatino for a chemical to a location."""
-    UNITS = (
+    UNITS = {'p': 'units', 't': 't', 'l': 'l', 'g': 'g', 'c': 'm3', 'k': 'kg',
+             'm': 'ml'}
+    UNIT_CHOICES = (
         ('t', _('tons')), ('k', _('kilogram')), ('g', _('gram')),
         ('c', _('cubic meter')), ('l', _('liter')), ('m', _('mililiter')),
         ('p', _('pieces')),
@@ -148,11 +150,11 @@ class Stock(models.Model):
     max_volume = models.CharField(
         max_length=25, blank=True, null=True, verbose_name=_("Volume"))
     max_unit = models.CharField(
-        max_length=1, choices=UNITS, verbose_name=_("Unit"))
+        max_length=1, choices=UNIT_CHOICES, verbose_name=_("Unit"))
     year_volume = models.CharField(
         max_length=25, blank=True, null=True, verbose_name=_("Year Volume"))
     year_unit = models.CharField(
-        max_length=1, choices=UNITS, verbose_name=_("Unit"))
+        max_length=1, choices=UNIT_CHOICES, verbose_name=_("Unit"))
 
     class Meta:
         app_label = "chemicals"

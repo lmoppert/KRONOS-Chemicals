@@ -309,8 +309,6 @@ class ChemicalStockTable(tables.Table):
     )
 
     def render_stock_set(self, record):
-        UNITS = {'p': 'units', 't': 't', 'l': 'l', 'g': 'g', 'c': 'm3',
-                 'k': 'kg', 'm': 'ml'}
         stocks = u'<table class="{}">\n'.format(self.Meta.attrs['class'])
         for stock in record.stock_set.all():
             url = reverse('chemical_department', kwargs={
@@ -320,7 +318,7 @@ class ChemicalStockTable(tables.Table):
                   '<td class="volume">{} {}</td></tr>\n'
             stocks += row.format(
                 url, stock.location.department.name, stock.location.name,
-                stock.max_volume, UNITS[stock.max_unit],)
+                stock.max_volume, models.Stock.UNITS[stock.max_unit],)
         stocks += '</table>'
         return mark_safe(stocks)
 
