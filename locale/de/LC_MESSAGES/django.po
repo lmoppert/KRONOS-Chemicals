@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KRONOS Intranet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-27 18:24+0100\n"
+"POT-Creation-Date: 2015-03-02 12:03+0100\n"
 "PO-Revision-Date: 2014-02-11 09:52+0100\n"
 "Last-Translator: Lutz Moppert <lutz.moppert@kronosww.com>\n"
 "Language: Deutsch\n"
@@ -317,7 +317,8 @@ msgid "Pictogram"
 msgstr "Piktogramm"
 
 #: models/chemical.py:196 models/periphery.py:116 tables.py:190
-#: templates/chemicals/base.html:18 views.py:158 views.py:169 views.py:287
+#: templates/chemicals/base.html:18 templates/chemicals/base.html.py:35
+#: views.py:164
 msgid "Departments"
 msgstr "Abteilungen"
 
@@ -327,7 +328,7 @@ msgstr "Standorte"
 
 #: models/chemical.py:234 templates/chemicals/base.html:7
 #: templates/chemicals/base.html.py:16 templates/chemicals/base.html:37
-#: views.py:95 views.py:373
+#: views.py:368
 msgid "Chemicals"
 msgstr "Chemikalien"
 
@@ -445,21 +446,21 @@ msgstr "Ausgabe"
 
 #: models/chemical.py:400
 msgid "Safety Data Sheet"
-msgstr "Sicherheits-Daten-Blatt"
+msgstr "Sicherheitsdatenblatt"
 
 #: models/chemical.py:401 templates/chemicals/chemical_department.html:76
-#: templates/chemicals/chemical_detail.html:163 views.py:187 views.py:197
-#: views.py:208 views.py:223
+#: templates/chemicals/chemical_detail.html:163 views.py:182 views.py:192
+#: views.py:203 views.py:218
 msgid "Safety Data Sheets"
 msgstr "Sicherheitsdatenblätter"
 
 #: models/chemical.py:418
 msgid "Extended Safety Data Sheet"
-msgstr "Erweitertes Sicherheits-Daten-Blatt"
+msgstr "Erweitertes Sicherheitsdatenblatt"
 
 #: models/chemical.py:419
 msgid "Extended Safety Data Sheets"
-msgstr "Erweiterte Sicherheits-Daten-Blätter"
+msgstr "Erweiterte Sicherheitsdatenblätter"
 
 #: models/periphery.py:12
 msgid "Title"
@@ -543,8 +544,7 @@ msgid "Plants"
 msgstr "Standorte"
 
 #: models/periphery.py:115 models/periphery.py:123 models/periphery.py:168
-#: tables.py:150 tables.py:171 templates/chemicals/base.html:35
-#: templates/chemicals/chemical_detail.html:144
+#: tables.py:150 tables.py:171 templates/chemicals/chemical_detail.html:144
 #: templates/chemicals/chemical_detail.html:147
 msgid "Department"
 msgstr "Abteilung"
@@ -597,11 +597,11 @@ msgstr "Jahresmenge"
 msgid "Stock"
 msgstr "Bestand"
 
-#: models/periphery.py:160 views.py:299
+#: models/periphery.py:160 views.py:294
 msgid "Stocks"
 msgstr "Bestände"
 
-#: models/periphery.py:173 templates/chemicals/base.html:17 views.py:126
+#: models/periphery.py:173 templates/chemicals/base.html:17 views.py:121
 msgid "Suppliers"
 msgstr "Lieferanten"
 
@@ -662,17 +662,17 @@ msgstr "Weitere Ansichten"
 
 #: templates/chemicals/base.html:15
 msgid "Chemical Views"
-msgstr "Chemikalienansichten"
+msgstr "Chemikalien-Ansichten"
 
-#: templates/chemicals/base.html:22 views.py:235
+#: templates/chemicals/base.html:22 views.py:230
 msgid "Approval Documents"
-msgstr "Freigabedokument"
+msgstr "Freigabedokumente"
 
 #: templates/chemicals/base.html:23
 msgid "SHE Views"
-msgstr "SHE Ansichten"
+msgstr "SHE-Ansichten"
 
-#: templates/chemicals/base.html:25 views.py:251
+#: templates/chemicals/base.html:25 views.py:246
 msgid "Chemicals without SDS"
 msgstr "Chemikalien ohne SDB"
 
@@ -688,15 +688,18 @@ msgstr "Seveso Ansicht"
 msgid "Seveso-View Listed Chemicals"
 msgstr "Seveso Ansicht - Gelistete Chemikalien"
 
-#: templates/chemicals/base.html:33 views.py:271
+#: templates/chemicals/base.html:33 views.py:266
 msgid "Chemical Numbers"
 msgstr "Stoffnummern"
 
 #: templates/chemicals/base.html:34
 msgid "Chemical Stock Views"
-msgstr "Chemikalienlageransichten"
+msgstr "Chemikalienlager-Ansichten"
 
-#: templates/chemicals/base.html:36
+#: templates/chemicals/base.html:36 views.py:314 views.py:331
+msgid "Stock Locations"
+msgstr "Lagerorte"
+
 #: templates/chemicals/chemical_department.html:11
 msgid "Stock Location"
 msgstr "Lagerort"
@@ -743,7 +746,7 @@ msgstr "Registrierung aller Komponenten"
 
 #: templates/chemicals/chemical_detail.html:55
 msgid "Archived"
-msgstr "Archiv"
+msgstr "Archiviert"
 
 #: templates/chemicals/chemical_detail.html:70
 msgid "Seveso relevant"
@@ -798,14 +801,14 @@ msgstr "Nächste"
 msgid "Archived chemicals"
 msgstr "Archivierte Chemikalien"
 
-#: views.py:93
-msgid "Chemicals (Archive)"
-msgstr "Chemikalien (Archivansicht)"
-
-#: views.py:139
+#: views.py:134
 msgid "Suppliers (CMR)"
 msgstr "Lieferanten (CMR)"
 
-#: views.py:319 views.py:336
-msgid "Stock Locations"
-msgstr "Lagerorte"
+#: views.py:153
+msgid "Departments (Chemical View)"
+msgstr "Abteilungen (Chemikalien-Ansicht)"
+
+#: views.py:282
+msgid "Departments (Stock View)"
+msgstr "Abteilungen (Chemikalienlager-Ansicht)"

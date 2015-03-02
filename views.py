@@ -79,6 +79,7 @@ class TableDetailView(TableListMixin, DetailView):
 class ChemicalList(TableListView):
     """Returns a list of all Chemicals that are not archived."""
     model = models.Chemical
+    table_heading = _("Chemicals")
     table_class = tables.ChemicalTable
     archive = False
 
@@ -149,7 +150,7 @@ class DepartmentList(TableListView):
     """Returns the list of departments."""
     model = models.Department
     table_class = tables.DepartmentChemicalTable
-    table_heading = _("Departments")
+    table_heading = _("Departments (Chemical View)")
     filters = {'letter': False, 'department': True}
 
     def get_table_data(self):
@@ -278,7 +279,7 @@ class StockList(TableListView):
     """Returns the list of departments."""
     model = models.Stock
     table_class = tables.DepartmentStockTable
-    table_heading = _("Departments")
+    table_heading = _("Departments (Stock View)")
     filters = {'letter': False, 'department': True}
     target_name = "stock_department_list"
 
