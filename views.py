@@ -179,51 +179,31 @@ class DepartmentView(TableDetailView):
         return context
 
 
-class SDSList(ListView):
+class SDSList(TableListView):
     """Returns a list of safety data sheets."""
     model = models.SafetyDataSheet
+    table_class = tables.SDSTable
     table_heading = _("Safety Data Sheets")
-    template_name = 'chemicals/sds_list.html'
-    filters = {'letter': False, 'department': True}
+    filters = {'letter': False, 'department': True, 'items': True}
 
-    def get_context_data(self, **kwargs):
-        context = super(SDSList, self).get_context_data(**kwargs)
-        table = tables.SDSTable([])
-        RequestConfig(
-            self.request, paginate={'per_page': '25'}).configure(table)
-        context['table'] = table
-        context['tableheading'] = _("Safety Data Sheets")
-        context['show_filter'] = self.filters
-        context['plants'] = sorted(
-            get_list_or_404(models.Plant), key=lambda x: x.name)
-        context['target_name'] = "department_detail"
-        return context
+    def get_table_data(self):
+        return []
 
 
-class SDSDepartmentList(DetailView):
+class SDSDepartmentList(TableDetailView):
     """Returns a list of safety data sheets belonging to a department."""
     model = models.Department
+    table_class = tables.SDSTable
     table_heading = _("Safety Data Sheets")
-    template_name = 'chemicals/sds_list.html'
-    filters = {'letter': False, 'department': True}
+    target_name = "department_detail"
+    filters = {'letter': False, 'department': True, 'items': True}
 
-    def get_context_data(self, **kwargs):
-        context = super(SDSDepartmentList, self).get_context_data(**kwargs)
-        department = context["department"]
+    def get_table_data(self):
         sds = []
-        for chemical in department.chemical_set.filter(archive=False):
+        for chemical in self.get_object().chemical_set.filter(archive=False):
             for sheet in chemical.safetydatasheet_set.all():
                 sds.append(sheet)
-        table = tables.SDSTable(sds)
-        RequestConfig(
-            self.request, paginate={'per_page': '25'}).configure(table)
-        context['table'] = table
-        context['tableheading'] = _("Safety Data Sheets")
-        context['show_filter'] = self.filters
-        context['plants'] = sorted(
-            get_list_or_404(models.Plant), key=lambda x: x.name)
-        context['target_name'] = "department_detail"
-        return context
+        return sds
 
 
 class ApprovalDocumentList(TableListView):
