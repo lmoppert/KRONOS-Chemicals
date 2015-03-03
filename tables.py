@@ -51,9 +51,10 @@ class ChemicalNumberTable(tables.Table):
 class ChemicalTable(tables.Table):
     """Table for the Chemical View."""
     name = tables.LinkColumn('chemical_detail', args=[A('pk')])
-    wgk = tables.Column(verbose_name=_('WGK'))
+    wgk = tables.Column(verbose_name=_('WGK'), accessor='wgk.name')
     # Translators: This is an abbreviation for Storage Classes
-    storage_classes = tables.Column(verbose_name=_("SC"))
+    storage_class = tables.Column(verbose_name=_("SC"),
+                                  accessor='storage_class.name')
     supplier_set = tables.Column(
         empty_values=(),
         verbose_name=_("Supplier"),
@@ -87,7 +88,7 @@ class ChemicalTable(tables.Table):
     class Meta:
         model = models.Chemical
         attrs = {'class': "table table-bordered table-striped table-condensed"}
-        fields = ('name', 'risks', 'pictograms', 'signal', 'storage_classes',
+        fields = ('name', 'risks', 'pictograms', 'signal', 'storage_class',
                   'wgk', 'supplier_set', )
 
 
@@ -321,9 +322,15 @@ class StockLocationTable(tables.Table):
         args=[A('chemical.pk'), A('location.department.pk')],
         verbose_name=_("Chemical")
     )
-    wgk = tables.Column(verbose_name=_('WGK'))
+    wgk = tables.Column(
+        accessor='chemical.wgk.name',
+        verbose_name=_('WGK')
+    )
     # Translators: This is an abbreviation for Storage Classes
-    storage_classes = tables.Column(verbose_name=_("SC"))
+    storage_class = tables.Column(
+        accessor='chemical.storage_class.name',
+        verbose_name=_("SC")
+    )
     risks = RiskColumn(
         verbose_name=_("Risk Indication"),
         orderable=False,
@@ -353,7 +360,7 @@ class StockLocationTable(tables.Table):
         model = models.Stock
         attrs = {'class': "table table-bordered table-striped table-condensed"}
         order_by = ('location.name',)
-        fields = ('chemical', 'storage_classes', 'wgk', 'risks', 'pictograms', )
+        fields = ('chemical', 'storage_class', 'wgk', 'risks', 'pictograms', )
 
 
 class ToxTable(tables.Table):

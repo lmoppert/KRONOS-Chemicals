@@ -140,7 +140,8 @@ class ChemicalAdmin(TranslationAdmin):
 
     list_display = ('name', 'registration_number', 'article', 'comment')
     search_fields = ('name', )
-    list_filter = ('preparation', 'archive', 'signal', 'hphrases__cmr')
+    list_filter = ('preparation', 'archive', 'signal', 'hphrases__cmr', 'wgk',
+                   'storage_class')
     fieldsets = (
         (None, {
             'classes': ('suit-tab', 'suit-tab-general',),
@@ -158,7 +159,7 @@ class ChemicalAdmin(TranslationAdmin):
         }),
         (_('Relations'), {
             'classes': ('suit-tab', 'suit-tab-classification', ),
-            'fields': ('wgk', 'storage_classes', 'rphrases', 'signal')
+            'fields': ('wgk', 'storage_class', 'rphrases', 'signal')
         }),
         (None, {
             'classes': ('suit-tab', 'suit-tab-seveso',),

@@ -159,6 +159,13 @@ def create_wgks():
     count = 0
     objs = StoffeWgk.objects.using('legacy').all()
     print "Found %s WGKs, processing migrattion..." % objs.count()
+    WGK.objects.create(
+        name='--',
+        description='Keine WGK angegeben',
+        description_en='Keine WGK angegeben',
+        description_de='Keine WGK angegeben',
+        description_nl='Keine WGK angegeben',
+    )
     for obj in objs:
         count += 1
         oid = obj.wgk_id
@@ -177,6 +184,13 @@ def create_storage_classes():
     count = 0
     objs = StoffeStorageclass.objects.using('legacy').all()
     print "Found %s Storage Classes, processing migrattion..." % objs.count()
+    StorageClass.objects.create(
+        name='--',
+        description='No storage class assigned yet',
+        description_en='No storage class assigned yet',
+        description_de='Bisher wurde keine Lagerklasse angegeben',
+        description_nl='No storage class assigned yet',
+    )
     for obj in objs:
         count += 1
         oid = obj.storageclassid
@@ -387,8 +401,8 @@ def create_stocks():
     for obj in objs:
         count += 1
         oid = obj.location_id
-        if oid % 100 == 0:
-            print "Processing Contact above %s" % oid
+        if obj.stock_id % 100 == 0:
+            print "Processing Stock above %s" % obj.stock_id
         location = Location.objects.get(id=oid)
         chemical = Chemical.objects.get(id=obj.chemical_id)
         Stock.objects.create(
@@ -445,11 +459,13 @@ def create_simple_relations(oid, chemical):
     ####################
     # WGK & Storage Class
     obj = StoffeChemWgk.objects.using('legacy').filter(chemical=oid).first()
-    chemical.wgk = WGK.objects.get(name=obj.wgk)
+    if obj:
+        chemical.wgk = WGK.objects.get(name=obj.wgk)
     obj = StoffeChemStorageclass.objects.using('legacy').filter(
         chemical=oid).first()
-    chemical.storage_classes = StorageClass.objects.get(
-        id=obj.storageclassid.storageclassid)
+    if obj:
+        chemical.storage_classes = StorageClass.objects.get(
+            id=obj.storageclassid.storageclassid)
     ####################
     # Seveso Categorie
     count = 0

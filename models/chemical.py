@@ -173,9 +173,9 @@ class Chemical(models.Model):
         default=False, verbose_name=_("Listed in annex XIV REACH regulation"))
 
     # Many to one relations
-    wgk = models.ForeignKey(WGK, blank=True, verbose_name=_("WGK"))
-    storage_classes = models.ForeignKey(StorageClass, blank=True,
-                                        verbose_name=_("Storage Classes"))
+    wgk = models.ForeignKey(WGK, default=1, verbose_name=_("WGK"))
+    storage_class = models.ForeignKey(StorageClass, default=1,
+                                        verbose_name=_("Storage Class"))
 
     # Many to many relations
     synonyms = models.ManyToManyField(Synonym, blank=True,
