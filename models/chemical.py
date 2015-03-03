@@ -146,7 +146,8 @@ class Chemical(models.Model):
     SIGNALS = (('d', _('danger')), ('w', _('warning')), ('n', _('no signal')),)
 
     name = models.CharField(max_length=200, verbose_name=_("Chemical"))
-    comment = models.TextField(verbose_name=_("Comment"), null=True)
+    comment = models.TextField(verbose_name=_("Comment"), blank=True,
+                               default='')
     article = models.CharField(max_length=100, blank=True, null=True,
                                verbose_name=_("Article Number"))
     registration_number = models.CharField(
@@ -171,12 +172,14 @@ class Chemical(models.Model):
     reach_vo = models.BooleanField(
         default=False, verbose_name=_("Listed in annex XIV REACH regulation"))
 
+    # Many to one relations
+    wgk = models.ForeignKey(WGK, blank=True, verbose_name=_("WGK"))
+    storage_classes = models.ForeignKey(StorageClass, blank=True,
+                                        verbose_name=_("Storage Classes"))
+
     # Many to many relations
-    wgk = models.ManyToManyField(WGK, blank=True, verbose_name=_("WGK"))
     synonyms = models.ManyToManyField(Synonym, blank=True,
                                       verbose_name=_("Synonyms"))
-    storage_classes = models.ManyToManyField(StorageClass, blank=True,
-                                             verbose_name=_("Storage Classes"))
     seveso_categories = models.ManyToManyField(
         SevesoCategory, blank=True, verbose_name=_("Seveso Categories"))
     rphrases = models.ManyToManyField(RPhrase, blank=True,
@@ -255,7 +258,8 @@ class ReachInformation(models.Model):
     """Class for REACH information belonging to a chemical."""
 
     chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"))
-    description = models.TextField(verbose_name=_("Description"))
+    description = models.TextField(verbose_name=_("Description"), blank=True,
+                                   default='')
 
     def __unicode__(self):
         return self.description
@@ -270,7 +274,8 @@ class SevesoInformation(models.Model):
     """Class for the Seveso information of a chemical."""
 
     chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"))
-    description = models.TextField(verbose_name=_("Description"))
+    description = models.TextField(verbose_name=_("Description"), blank=True,
+                                   default='')
 
     def __unicode__(self):
         return self.description
@@ -287,7 +292,7 @@ class Risk(models.Model):
     chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"))
     riskindication = models.ForeignKey(RiskIndication, verbose_name=_(
                                        "Risk Indication"))
-    info = models.TextField()
+    info = models.TextField(blank=True, default='')
 
     def __unicode__(self):
         return self.riskindication.name
@@ -303,7 +308,8 @@ class HPhraseRelation(models.Model):
 
     chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"))
     hphrase = models.ForeignKey(HPhrase, verbose_name=_("H-Phrase"))
-    info = models.TextField(blank=True, verbose_name=_("Information"))
+    info = models.TextField(blank=True, default='',
+                            verbose_name=_("Information"))
 
     def __unicode__(self):
         return self.hphrase.name

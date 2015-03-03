@@ -113,15 +113,11 @@
                         <p><b>{% trans "Signal" %}:</b> {{ chemical.signal|show_signal }}</p><br>
                         <table class="table table-striped table-bordered table-condensed">
                             <tr><th>{% trans "Storage Class" %}</th><th>{% trans "Description" %}</th></tr>
-                            {% for obj in chemical.storage_classes.all %}
-                            <tr><td>{{ obj.name }}</td><td>{{ obj.description }}</td></tr>
-                            {% endfor %}
+                            <tr><td>{{ chemical.storage_classes.name }}</td><td>{{ chemical.storage_classes.description }}</td></tr>
                         </table>
                         <table class="table table-striped table-bordered table-condensed">
                             <tr><th>{% trans "Water Hazard Classification" %}</th><th>{% trans "Description" %}</th></tr>
-                            {% for obj in chemical.wgk.all %}
-                            <tr><td>{{ obj.name }}</td><td>{{ obj.description }}</td></tr>
-                            {% endfor %}
+                            <tr><td>{{ chemical.wgk.name }}</td><td>{{ chemical.wgk.description }}</td></tr>
                         </table>
                     </div>
                     <div class="col-lg-6">

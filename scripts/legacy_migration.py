@@ -443,23 +443,13 @@ def create_tox():
 ##############################################################################
 def create_simple_relations(oid, chemical):
     ####################
-    # WGK
-    count = 0
-    objs = StoffeChemWgk.objects.using('legacy').filter(chemical=oid)
-    for obj in objs:
-        count += 1
-        chemical.wgk.add(
-            WGK.objects.get(name=obj.wgk)
-        )
-    ####################
-    # Storage Class
-    count = 0
-    objs = StoffeChemStorageclass.objects.using('legacy').filter(chemical=oid)
-    for obj in objs:
-        count += 1
-        chemical.storage_classes.add(
-            StorageClass.objects.get(id=obj.storageclassid.storageclassid)
-        )
+    # WGK & Storage Class
+    obj = StoffeChemWgk.objects.using('legacy').filter(chemical=oid).first()
+    chemical.wgk = WGK.objects.get(name=obj.wgk)
+    obj = StoffeChemStorageclass.objects.using('legacy').filter(
+        chemical=oid).first()
+    chemical.storage_classes = StorageClass.objects.get(
+        id=obj.storageclassid.storageclassid)
     ####################
     # Seveso Categorie
     count = 0

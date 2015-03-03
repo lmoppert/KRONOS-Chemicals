@@ -51,17 +51,9 @@ class ChemicalNumberTable(tables.Table):
 class ChemicalTable(tables.Table):
     """Table for the Chemical View."""
     name = tables.LinkColumn('chemical_detail', args=[A('pk')])
-    wgk = tables.Column(
-        empty_values=(),
-        verbose_name=_('WGK'),
-        orderable=False,
-    )
+    wgk = tables.Column(verbose_name=_('WGK'))
     # Translators: This is an abbreviation for Storage Classes
-    storage_classes = tables.Column(
-        empty_values=(),
-        verbose_name=_("SC"),
-        orderable=False,
-    )
+    storage_classes = tables.Column(verbose_name=_("SC"))
     supplier_set = tables.Column(
         empty_values=(),
         verbose_name=_("Supplier"),
@@ -85,12 +77,6 @@ class ChemicalTable(tables.Table):
         else:
             r = u'<span class="label label-default">%s</span>' % _("No Signal")
         return mark_safe(r)
-
-    def render_storage_classes(self, record):
-        return render_as_list(record.storage_classes.all())
-
-    def render_wgk(self, record):
-        return render_as_list(record.wgk.all())
 
     def render_supplier_set(self, record):
         contacts = []
@@ -335,17 +321,9 @@ class StockLocationTable(tables.Table):
         args=[A('chemical.pk'), A('location.department.pk')],
         verbose_name=_("Chemical")
     )
-    wgk = tables.Column(
-        empty_values=(),
-        verbose_name=_('WGK'),
-        orderable=False,
-    )
+    wgk = tables.Column(verbose_name=_('WGK'))
     # Translators: This is an abbreviation for Storage Classes
-    storage_classes = tables.Column(
-        empty_values=(),
-        verbose_name=_("SC"),
-        orderable=False,
-    )
+    storage_classes = tables.Column(verbose_name=_("SC"))
     risks = RiskColumn(
         verbose_name=_("Risk Indication"),
         orderable=False,
@@ -368,14 +346,8 @@ class StockLocationTable(tables.Table):
     def render_risks(self, record):
         return render_as_list(record.chemical.risks.all())
 
-    def render_storage_classes(self, record):
-        return render_as_list(record.chemical.storage_classes.all())
-
     def render_pictograms(self, record):
         return render_as_list(record.chemical.pictograms.all())
-
-    def render_wgk(self, record):
-        return render_as_list(record.chemical.wgk.all())
 
     class Meta:
         model = models.Stock

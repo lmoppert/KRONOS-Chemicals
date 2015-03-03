@@ -78,30 +78,39 @@ class SevesoInformationInline(TranslationTabularInline):
 ##############################################################################
 # Admin of Chemicals
 ##############################################################################
+@admin.register(models.RiskIndication)
 class RiskIndicationAdmin(TranslationAdmin):
     """Admin view for Risk Indications."""
 
     list_display = ('name',)
+    search_fields = ('name', )
 
 
+@admin.register(models.WGK)
 class WGKAdmin(TranslationAdmin):
     """Admin view for WGK."""
 
     list_display = ('name', 'description')
+    search_fields = ('name', 'description')
 
 
+@admin.register(models.StorageClass)
 class StorageClassAdmin(TranslationAdmin):
     """Admin view for Storage Classes."""
 
     list_display = ('name', 'description')
+    search_fields = ('name', 'description')
 
 
+@admin.register(models.SevesoCategory)
 class SevesoCategoryAdmin(TranslationAdmin):
     """Admin view for Seveso Categories."""
 
     list_display = ('name', 'description')
+    search_fields = ('name', 'description')
 
 
+@admin.register(models.RPhrase)
 class RPhraseAdmin(TranslationAdmin):
     """Admin view for R-Phrases."""
 
@@ -109,6 +118,7 @@ class RPhraseAdmin(TranslationAdmin):
     search_fields = ('name', 'description')
 
 
+@admin.register(models.PPhrase)
 class PPhraseAdmin(TranslationAdmin):
     """Admin view for R-Phrases."""
 
@@ -116,6 +126,7 @@ class PPhraseAdmin(TranslationAdmin):
     search_fields = ('name', 'description')
 
 
+@admin.register(models.HPhrase)
 class HPhraseAdmin(TranslationAdmin):
     """Admin view for H-Phrases."""
 
@@ -123,13 +134,13 @@ class HPhraseAdmin(TranslationAdmin):
     search_fields = ('name', 'description')
 
 
+@admin.register(models.Chemical)
 class ChemicalAdmin(TranslationAdmin):
     """Admin view for the chemicals."""
 
     list_display = ('name', 'registration_number', 'article', 'comment')
     search_fields = ('name', )
-    list_filter = ('needed', 'preparation', 'archive', 'reach_vo',
-                   'components_registered')
+    list_filter = ('preparation', 'archive', 'signal', 'hphrases__cmr')
     fieldsets = (
         (None, {
             'classes': ('suit-tab', 'suit-tab-general',),
@@ -158,9 +169,7 @@ class ChemicalAdmin(TranslationAdmin):
             'fields': ('comment',)
         }),
     )
-    filter_horizontal = (
-        'wgk', 'storage_classes', 'seveso_categories', 'rphrases',
-    )
+    filter_horizontal = ('seveso_categories', 'rphrases',)
     suit_form_tabs = (
         ('general', _('Identification')),
         ('classification', _('Classification')),
@@ -182,17 +191,12 @@ class ChemicalAdmin(TranslationAdmin):
     ]
 
 
-class StockAdmin(admin.ModelAdmin):
-    """Admin view for the contacts."""
-
-    list_display = ('chemical', 'location')
-    search_fields = ['chemical__name', 'location__name']
-
-
+@admin.register(models.Stock)
 class StockAdmin(admin.ModelAdmin):
     """Admin view for the Stock Locations."""
 
     list_display = ('chemical', 'location')
+    search_fields = ['chemical__name', 'location__name']
 
 
 ##############################################################################
@@ -205,6 +209,7 @@ class RoleInline(admin.TabularInline):
     extra = 1
 
 
+@admin.register(models.Person)
 class PersonAdmin(admin.ModelAdmin):
     """Admin view for a person."""
 
@@ -216,6 +221,7 @@ class PersonAdmin(admin.ModelAdmin):
     ]
 
 
+@admin.register(models.Contact)
 class ContactAdmin(admin.ModelAdmin):
     """Admin view for the contacts."""
 
@@ -226,6 +232,7 @@ class ContactAdmin(admin.ModelAdmin):
     ]
 
 
+@admin.register(models.Supplier)
 class SupplierAdmin(admin.ModelAdmin):
     """Admin view for a supplier."""
 
@@ -233,6 +240,7 @@ class SupplierAdmin(admin.ModelAdmin):
     search_fields = ('department', 'chemical', 'contact')
 
 
+@admin.register(models.Department)
 class DepartmentAdmin(admin.ModelAdmin):
     """Admin view for a department."""
 
@@ -240,10 +248,12 @@ class DepartmentAdmin(admin.ModelAdmin):
     search_fields = ('name', )
 
 
+@admin.register(models.Plant)
 class PlantAdmin(TranslationAdmin):
     """Admin view for a department."""
 
     list_display = ('name',)
+    search_fields = ('name', )
 
 
 ##############################################################################
@@ -298,6 +308,7 @@ class PPECheckInline(admin.TabularInline):
     extra = 1
 
 
+# @admin.register(models.CheckList)
 class CheckListAdmin(admin.ModelAdmin):
     """Admin view for the check list."""
 
@@ -314,26 +325,8 @@ class CheckListAdmin(admin.ModelAdmin):
 
 
 # class UserProfileInline(admin.StackedInline):
-#
 #    """Inline view for the user profile."""
 #
 #    model = models.UserProfile
 #    max_num = 1
 #    can_delete = False
-
-
-admin.site.register(models.RiskIndication, RiskIndicationAdmin)
-admin.site.register(models.WGK, WGKAdmin)
-admin.site.register(models.StorageClass, StorageClassAdmin)
-admin.site.register(models.SevesoCategory, SevesoCategoryAdmin)
-admin.site.register(models.RPhrase, RPhraseAdmin)
-admin.site.register(models.PPhrase, PPhraseAdmin)
-admin.site.register(models.HPhrase, HPhraseAdmin)
-admin.site.register(models.Chemical, ChemicalAdmin)
-admin.site.register(models.Contact, ContactAdmin)
-admin.site.register(models.Person, PersonAdmin)
-admin.site.register(models.Supplier, SupplierAdmin)
-admin.site.register(models.Department, DepartmentAdmin)
-admin.site.register(models.Plant, PlantAdmin)
-admin.site.register(models.Stock, StockAdmin)
-# admin.site.register(models.CheckList, CheckListAdmin)
