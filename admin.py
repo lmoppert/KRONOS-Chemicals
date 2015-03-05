@@ -184,7 +184,7 @@ class ChemicalAdmin(TranslationAdmin):
         ('checklist', _('Checklists')),
         ('seveso', _('Seveso')),
     )
-    inlines = [
+    inlines = (
         DepartmentInline,
         DocumentInline,
         ReachDocumentInline,
@@ -193,7 +193,7 @@ class ChemicalAdmin(TranslationAdmin):
         ExtendedSafetyDataSheetInline,
         SevesoDocumentInline,
         SevesoInformationInline,
-    ]
+    )
 
     def archive_chemicals(self, request, queryset):
         queryset.update(archive=True)
@@ -226,7 +226,7 @@ class ProfileInline(admin.StackedInline):
     model = models.Profile
     can_delete = False
     suit_classes = 'suit-tab suit-tab-general'
-    filter_horizontal = ('user', 'departments')
+    filter_horizontal = ('departments',)
     verbose_name = _("managed department")
     verbose_name_plural = _("managed departments")
 
@@ -285,9 +285,7 @@ class PersonAdmin(admin.ModelAdmin):
     list_display = ('title', 'academic_title', 'surname', 'givenname')
     list_display_links = ('surname', 'givenname')
     search_fields = ('surname', 'givenname', 'title')
-    inlines = [
-        RoleInline,
-    ]
+    inlines = (RoleInline, )
 
 
 @admin.register(models.Contact)
@@ -296,9 +294,7 @@ class ContactAdmin(admin.ModelAdmin):
 
     list_display = ('name', 'country', 'info')
     search_fields = ('name', 'info', )
-    inlines = [
-        RoleInline,
-    ]
+    inlines = (RoleInline, )
 
 
 @admin.register(models.Supplier)
@@ -315,7 +311,6 @@ class DepartmentAdmin(admin.ModelAdmin):
 
     list_display = ('name', 'plant')
     search_fields = ('name', )
-    filter_horizontal = ('admins',)
     inlines = (ManagersInline, )
 
 

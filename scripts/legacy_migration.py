@@ -465,7 +465,7 @@ def create_simple_relations(oid, chemical):
         chemical=oid).first()
     if obj:
         chemical.storage_classes = StorageClass.objects.get(
-            id=obj.storageclassid.storageclassid)
+            id=obj.storageclassid)
     ####################
     # Seveso Categorie
     count = 0

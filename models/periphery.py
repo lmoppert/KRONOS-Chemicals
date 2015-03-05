@@ -132,6 +132,9 @@ class Profile(models.Model):
         app_label = "chemicals"
         verbose_name = _("User Profile")
         verbose_name_plural = _("User Profiles")
+        permissions = (
+            ('view_she', "Can see features only visible for SHE members"),
+        )
 
 
 class Location(models.Model):
