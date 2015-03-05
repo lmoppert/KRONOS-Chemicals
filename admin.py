@@ -220,10 +220,10 @@ class StockAdmin(admin.ModelAdmin):
 admin.site.unregister(User)
 
 
-class DepartmentAdminInline(admin.StackedInline):
+class ProfileInline(admin.StackedInline):
     """Inline view for the department admins used for User Form."""
 
-    model = models.DepartmentAdmin
+    model = models.Profile
     can_delete = False
     suit_classes = 'suit-tab suit-tab-general'
     filter_horizontal = ('user', 'departments')
@@ -231,10 +231,10 @@ class DepartmentAdminInline(admin.StackedInline):
     verbose_name_plural = _("managed departments")
 
 
-class DepartmentAdminListInline(admin.TabularInline):
+class ManagersInline(admin.TabularInline):
     """Inline view for the admins of a department."""
 
-    model = models.DepartmentAdmin.departments.through
+    model = models.Profile.departments.through
     extra = 0
     verbose_name = _("department admin")
     verbose_name_plural = _("department admins")
@@ -265,7 +265,7 @@ class UserAdmin(UserAdmin):
         ('general', _('General')),
         ('extended', _('Extended')),
     )
-    inlines = (DepartmentAdminInline, )
+    inlines = (ProfileInline, )
 
 
 ##############################################################################
@@ -316,7 +316,7 @@ class DepartmentAdmin(admin.ModelAdmin):
     list_display = ('name', 'plant')
     search_fields = ('name', )
     filter_horizontal = ('admins',)
-    inlines = (DepartmentAdminListInline, )
+    inlines = (ManagersInline, )
 
 
 @admin.register(models.Plant)

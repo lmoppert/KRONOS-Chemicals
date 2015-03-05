@@ -118,10 +118,10 @@ class Department(models.Model):
         ordering = ['name']
 
 
-class DepartmentAdmin(models.Model):
+class Profile(models.Model):
     """Class extending the build in User model."""
 
-    user = models.OneToOneField(User, verbose_name=_("Department Admin"))
+    user = models.OneToOneField(User, verbose_name=_("Profile"))
     departments = models.ManyToManyField(Department,
                                          verbose_name=_("Managed Department"))
 
@@ -130,8 +130,8 @@ class DepartmentAdmin(models.Model):
 
     class Meta:
         app_label = "chemicals"
-        verbose_name = _("Department Admin")
-        verbose_name_plural = _("Department Admins")
+        verbose_name = _("User Profile")
+        verbose_name_plural = _("User Profiles")
 
 
 class Location(models.Model):
