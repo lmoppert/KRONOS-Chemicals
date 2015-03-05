@@ -736,7 +736,7 @@ def create_esdb():
 ##############################################################################
 def run():
     # Independent Tables
-    create_users()
+    # create_users()
     create_riskindications()
     create_wgks()
     create_storage_classes()

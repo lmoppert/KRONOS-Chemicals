@@ -2,10 +2,12 @@
 
 # pep257: disable C0110
 
-from chemicals import models
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 from modeltranslation.admin import TranslationAdmin, TranslationTabularInline
 from django.utils.translation import ugettext_lazy as _
+from chemicals import models
 
 
 ##############################################################################
@@ -138,10 +140,12 @@ class HPhraseAdmin(TranslationAdmin):
 class ChemicalAdmin(TranslationAdmin):
     """Admin view for the chemicals."""
 
-    list_display = ('name', 'registration_number', 'article', 'comment')
+    list_display = ('name', 'preparation', 'article', 'cas', 'einecs',
+                    'archive')
     search_fields = ('name', )
     list_filter = ('preparation', 'archive', 'signal', 'hphrases__cmr', 'wgk',
                    'storage_class')
+    actions = ('archive_chemicals', 'unarchive_chemicals')
     fieldsets = (
         (None, {
             'classes': ('suit-tab', 'suit-tab-general',),
@@ -191,6 +195,16 @@ class ChemicalAdmin(TranslationAdmin):
         SevesoInformationInline,
     ]
 
+    def archive_chemicals(self, request, queryset):
+        queryset.update(archive=True)
+    archive_chemicals.short_description = _(
+        "Move selected chemicals to archive")
+
+    def unarchive_chemicals(self, request, queryset):
+        queryset.update(archive=False)
+    unarchive_chemicals.short_description = _(
+        "Remove selected chemicals from archive")
+
 
 @admin.register(models.Stock)
 class StockAdmin(admin.ModelAdmin):
@@ -198,6 +212,60 @@ class StockAdmin(admin.ModelAdmin):
 
     list_display = ('chemical', 'location')
     search_fields = ['chemical__name', 'location__name']
+
+
+##############################################################################
+# Admin of Authentication
+##############################################################################
+admin.site.unregister(User)
+
+
+class DepartmentAdminInline(admin.StackedInline):
+    """Inline view for the department admins used for User Form."""
+
+    model = models.DepartmentAdmin
+    can_delete = False
+    suit_classes = 'suit-tab suit-tab-general'
+    filter_horizontal = ('user', 'departments')
+    verbose_name = _("managed department")
+    verbose_name_plural = _("managed departments")
+
+
+class DepartmentAdminListInline(admin.TabularInline):
+    """Inline view for the admins of a department."""
+
+    model = models.DepartmentAdmin.departments.through
+    extra = 0
+    verbose_name = _("department admin")
+    verbose_name_plural = _("department admins")
+
+
+@admin.register(User)
+class UserAdmin(UserAdmin):
+    fieldsets = (
+        (_('Personal info'), {
+            'classes': ('suit-tab', 'suit-tab-general',),
+            'fields': ('username', 'password', 'first_name', 'last_name',
+                       'email')
+        }),
+        (_('Permissions'), {
+            'classes': ('suit-tab', 'suit-tab-general',),
+            'fields': ('is_active', 'is_staff', 'is_superuser')
+        }),
+        (_('User permissions'), {
+            'classes': ('suit-tab', 'suit-tab-extended',),
+            'fields': ('groups', 'user_permissions')
+        }),
+        (_('Important dates'), {
+            'classes': ('suit-tab', 'suit-tab-extended',),
+            'fields': ('last_login', 'date_joined')
+        }),
+    )
+    suit_form_tabs = (
+        ('general', _('General')),
+        ('extended', _('Extended')),
+    )
+    inlines = (DepartmentAdminInline, )
 
 
 ##############################################################################
@@ -247,6 +315,8 @@ class DepartmentAdmin(admin.ModelAdmin):
 
     list_display = ('name', 'plant')
     search_fields = ('name', )
+    filter_horizontal = ('admins',)
+    inlines = (DepartmentAdminListInline, )
 
 
 @admin.register(models.Plant)
@@ -310,24 +380,16 @@ class PPECheckInline(admin.TabularInline):
 
 
 # @admin.register(models.CheckList)
-class CheckListAdmin(admin.ModelAdmin):
-    """Admin view for the check list."""
-
-    list_display = ('chemical', 'department', 'country_code', 'status')
-    inlines = [
-        CheckSectionInline,
-        HPhraseCheckInline,
-        PPhraseCheckInline,
-        WGKCheckInline,
-        PictogramCheckInline,
-        StorageClassCheckInline,
-        PPECheckInline,
-    ]
-
-
-# class UserProfileInline(admin.StackedInline):
-#    """Inline view for the user profile."""
+# class CheckListAdmin(admin.ModelAdmin):
+#     """Admin view for the check list."""
 #
-#    model = models.UserProfile
-#    max_num = 1
-#    can_delete = False
+#     list_display = ('chemical', 'department', 'country_code', 'status')
+#     inlines = [
+#         CheckSectionInline,
+#         HPhraseCheckInline,
+#         PPhraseCheckInline,
+#         WGKCheckInline,
+#         PictogramCheckInline,
+#         StorageClassCheckInline,
+#         PPECheckInline,
+#     ]

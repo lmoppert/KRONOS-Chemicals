@@ -3,6 +3,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import User
 
 
 class Person(models.Model):
@@ -115,6 +116,22 @@ class Department(models.Model):
         verbose_name = _("Department")
         verbose_name_plural = _("Departments")
         ordering = ['name']
+
+
+class DepartmentAdmin(models.Model):
+    """Class extending the build in User model."""
+
+    user = models.OneToOneField(User, verbose_name=_("Department Admin"))
+    departments = models.ManyToManyField(Department,
+                                         verbose_name=_("Managed Department"))
+
+    def __unicode__(self):
+        return self.user.get_full_name()
+
+    class Meta:
+        app_label = "chemicals"
+        verbose_name = _("Department Admin")
+        verbose_name_plural = _("Department Admins")
 
 
 class Location(models.Model):
