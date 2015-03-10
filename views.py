@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DetailView, ListView
 from django.db.models import Count
 from django_tables2 import SingleTableMixin, RequestConfig
+from django import forms
 from . import tables, models
 
 
@@ -335,14 +336,26 @@ class ChemicalDepartment(DetailView):
     """Returns details about a stock."""
     model = models.Chemical
     template_name = "chemicals/chemical_department.html"
+    formfactory = forms.inlineformset_factory(
+        models.Chemical, models.Stock, extra=1, fields=(
+            'location', 'max_volume', 'max_unit', 'year_volume', 'year_unit'
+        )
+    )
 
-    def get_context_data(self, **kwargs):
-        context = super(ChemicalDepartment, self).get_context_data(**kwargs)
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
         department = models.Department.objects.get(pk=self.kwargs["dep_id"])
-        context["department"] = department
-        context["stocks"] = context["chemical"].stock_set.filter(
-            location__department=department)
-        return context
+        formset = self.formfactory(instance=self.object)
+        context = self.get_context_data(formset=formset, department=department)
+        return self.render_to_response(context)
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(ChemicalDepartment, self).get_context_data(**kwargs)
+    #     department = models.Department.objects.get(pk=self.kwargs["dep_id"])
+    #     context["department"] = department
+    #     context["stocks"] = context["chemical"].stock_set.filter(
+    #         location__department=department)
+    #     return context
 
 
 class ChemicalStockList(TableListView):
