@@ -336,16 +336,13 @@ class ChemicalDepartment(DetailView):
     """Returns details about a stock."""
     model = models.Chemical
     template_name = "chemicals/chemical_department.html"
-    formfactory = forms.inlineformset_factory(
-        models.Chemical, models.Stock, extra=1, fields=(
-            'location', 'max_volume', 'max_unit', 'year_volume', 'year_unit'
-        )
-    )
+    StockFormSet = forms.inlineformset_factory(models.Chemical, models.Stock,
+                                               extra=0)
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         department = models.Department.objects.get(pk=self.kwargs["dep_id"])
-        formset = self.formfactory(instance=self.object)
+        formset = self.StockFormSet(instance=self.object)
         context = self.get_context_data(formset=formset, department=department)
         return self.render_to_response(context)
 

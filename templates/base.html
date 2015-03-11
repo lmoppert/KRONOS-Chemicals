@@ -77,9 +77,12 @@
             </div>
         </div>
     </div>
-    {% render_block "js" %}
     <script type="text/javascript" src="{% static "chemicals/js/jquery.min.js" %}"></script>
     <script type="text/javascript" src="{% static "chemicals/js/bootstrap.min.js" %}"></script>
     <script type="text/javascript" src="{% static "chemicals/js/respond.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "chemicals/js/chemicals.js" %}"></script>
+    {% render_block "js" %}
 </body>
 </html>
+<!-- vim:syntax=htmldjango
+-->
