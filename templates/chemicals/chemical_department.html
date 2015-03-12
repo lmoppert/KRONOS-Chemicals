@@ -6,7 +6,7 @@
 <h1> {{ department.name }} <small>{{ chemical.name }}</small></h1>
 <div class="row">
     <div class="col-lg-12">
-        <form action="." method="post">{% csrf_token %}
+        <form id="stockform" action="#" method="post">{% csrf_token %}
         <table id="stocktable" class="table table-bordered table-condensed">
             <thead>
                 <tr class="active">
@@ -21,17 +21,39 @@
                 {% if form.non_form.errors %}
                 <tr><td colspan="6">{{ form.non_form_errors }}</td></tr>
                 {% endif %}
-                <tr class="form-container">
+                <tr>
                     <th class="location">{{ form.location|as_crispy_field }}</th>
                     <td>{{ form.max_volume|as_crispy_field }}</td>
                     <td>{{ form.max_unit|as_crispy_field }}</td>
                     <td>{{ form.year_volume|as_crispy_field }}</td>
                     <td>{{ form.year_unit|as_crispy_field }}</td>
-                    <td style="text-align:center;vertical-align:middle">
-                        {% if form.instance.pk %}{{ form.DELETE }}{% endif %}
+                    <td class="actions">
+                        {{ form.id }}
+                        {% if form.instance.pk %}
+                        {{ form.DELETE }}
+                        {% else %}
+                        <span class="hidden">{{ form.DELETE }}</span>
+                        <button type="button" class="btn btn-danger btn-xs" aria-label="Remove Row">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}
+                <tr class="form-template" data-form-type="{{ formset.prefix }}">
+                    <th class="location">{{ formset.empty_form.location|as_crispy_field }}</th>
+                    <td>{{ formset.empty_form.max_volume|as_crispy_field }}</td>
+                    <td>{{ formset.empty_form.max_unit|as_crispy_field }}</td>
+                    <td>{{ formset.empty_form.year_volume|as_crispy_field }}</td>
+                    <td>{{ formset.empty_form.year_unit|as_crispy_field }}</td>
+                    <td class="actions">
+                        {{ formset.empty_form.id }}
+                        <span class="hidden">{{ formset.empty_form.DELETE }}</span>
+                        <button type="button" class="btn btn-danger btn-xs" aria-label="Remove Row">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </td>
+                </tr>
             </tbody>
         </table>
         <ul class="nav nav-pills">

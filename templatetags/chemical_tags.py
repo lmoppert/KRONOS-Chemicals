@@ -4,7 +4,6 @@ from django.utils.datastructures import SortedDict
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from chemicals.models.periphery import Stock
-from django.conf import settings
 
 register = template.Library()
 

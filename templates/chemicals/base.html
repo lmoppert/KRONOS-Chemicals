@@ -46,6 +46,16 @@
     </ul>
 {% endblock %}
 {% block base_content %}
+    <div id="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                <button type=button" class="close" data-dismiss="alert" aria-lagel="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
     <div id="content">
         {% block chemical_content %}
         {% endblock %}

@@ -31,18 +31,19 @@ html body #header {height:51px;}
 
 
 /*******************************
- * Breadcrumbs
+ * Others
  *******************************/
 #breadcrumbs {width:100%; display:inline-block; text-align:right; font-size:12px; color:#0E509C;}
 #breadcrumbs ul {margin:0;}
 #breadcrumbs li {display:inline;}
-
+#messages {margin-top:10px;}
+#messages div.alert {margin:5px;}
 
 /*******************************
  * Conent
  *******************************/
 #content {margin-bottom:50px; min-height:500px; font-size:14px !important;}
-#content div.filter-panel {margin: 5px 5px 15px 5px;}
+#content div.filter-panel {margin:5px 5px 15px 5px;}
 #content object {padding:0; margin:0 10px 10px 0;}
 #content span.file img {width:12px; height:12px;}
 #content table.videos {float:none; margin-bottom:50px;}
@@ -62,6 +63,8 @@ html body #header {height:51px;}
 #content table td.volume {white-space:nowrap;}
 #content table#stocktable label {display:none;}
 #content table#stocktable div.form-group {margin-bottom:0;}
+#content table#stocktable td.actions {text-align:center; vertical-align:middle}
+#content .form-template {display:none;}
 
 
 /*******************************

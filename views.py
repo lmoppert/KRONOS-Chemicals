@@ -2,11 +2,14 @@
 """Views for the chemicals portal."""
 
 from django.shortcuts import _get_queryset, get_list_or_404
+from django.http import HttpResponseRedirect
 from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DetailView, ListView
+from django.views.generic.edit import FormMixin
 from django.db.models import Count
+from django.contrib import messages
 from django_tables2 import SingleTableMixin, RequestConfig
 from django import forms
 from . import tables, models
@@ -332,27 +335,39 @@ class LocationView(TableDetailView):
         return context
 
 
-class ChemicalDepartment(DetailView):
+class ChemicalDepartment(FormMixin, DetailView):
     """Returns details about a stock."""
     model = models.Chemical
     template_name = "chemicals/chemical_department.html"
-    StockFormSet = forms.inlineformset_factory(models.Chemical, models.Stock,
-                                               extra=0)
+    formset_class = forms.inlineformset_factory(models.Chemical, models.Stock,
+                                                extra=0)
+
+    def get_department(self):
+        return models.Department.objects.get(pk=self.kwargs["dep_id"])
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        department = models.Department.objects.get(pk=self.kwargs["dep_id"])
-        formset = self.StockFormSet(instance=self.object)
+        department = self.get_department()
+        formset = self.formset_class(instance=self.object)
         context = self.get_context_data(formset=formset, department=department)
         return self.render_to_response(context)
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(ChemicalDepartment, self).get_context_data(**kwargs)
-    #     department = models.Department.objects.get(pk=self.kwargs["dep_id"])
-    #     context["department"] = department
-    #     context["stocks"] = context["chemical"].stock_set.filter(
-    #         location__department=department)
-    #     return context
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        department = self.get_department()
+        success_url = reverse('chemical_department', kwargs={
+            'pk': self.object.id, 'dep_id': department.id, })
+        formset = self.formset_class(instance=self.object,
+                                     **self.get_form_kwargs())
+        context = self.get_context_data(formset=formset, department=department)
+        if formset.is_valid():
+            formset.save()
+            messages.success(request, _("Changes have been saved."))
+            return HttpResponseRedirect(success_url)
+        else:
+            messages.error(request, _("Changes have not been saved yet. "
+                                      "Errors are displayed below."))
+            return self.render_to_response(context)
 
 
 class ChemicalStockList(TableListView):
