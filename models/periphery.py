@@ -108,6 +108,9 @@ class Department(models.Model):
     plant = models.ForeignKey(Plant, verbose_name=_("Plant"))
     name = models.CharField(max_length=100, verbose_name=_("Name"))
 
+    def get_absolut_url(self):
+        return reverse('department_detail', kwargs={'pk': self.pk})
+
     def __unicode__(self):
         return self.name
 
@@ -147,7 +150,7 @@ class Location(models.Model):
         return self.name
 
     def get_absolut_url(self):
-        return reverse('location_detail', kwargs={'pk': self.pk})
+        return reverse('stock_location_list', kwargs={'pk': self.pk})
 
     class Meta:
         app_label = "chemicals"
