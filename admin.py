@@ -206,14 +206,6 @@ class ChemicalAdmin(TranslationAdmin):
         "Remove selected chemicals from archive")
 
 
-@admin.register(models.Stock)
-class StockAdmin(admin.ModelAdmin):
-    """Admin view for the Stock Locations."""
-
-    list_display = ('chemical', 'location')
-    search_fields = ['chemical__name', 'location__name']
-
-
 ##############################################################################
 # Admin of Authentication
 ##############################################################################

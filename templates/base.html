@@ -38,7 +38,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a id="lang_dd" href="#" class="navbar-button" role="button" data-toggle="dropdown">
-                            {% firstof user.get_full_name user.username %}&nbsp;
+                            {% firstof user.get_full_name user.username "Language" %} &nbsp;
                             <img class="flag" src="{% static 'chemicals/img/flag-' %}{{ LANGUAGE_CODE }}.png" alt="{{ LANGUAGE_CODE }}">
                             <span class="caret"></span>
                         </a>

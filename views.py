@@ -348,8 +348,10 @@ class ChemicalDepartment(FormMixin, DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         department = self.get_department()
+        stocks = self.object.stock_set.filter(location__department=department)
         formset = self.formset_class(instance=self.object)
-        context = self.get_context_data(formset=formset, department=department)
+        context = self.get_context_data(formset=formset, department=department,
+                                        stocks=stocks)
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
