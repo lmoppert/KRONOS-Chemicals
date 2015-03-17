@@ -194,9 +194,6 @@ class Chemical(models.Model):
                                    verbose_name=_("Risk Indication"))
     hphrases = models.ManyToManyField(HPhrase, through='HPhraseRelation',
                                       blank=True, verbose_name=_("H-Phrases"))
-    departments = models.ManyToManyField('Department', through='Supplier',
-                                         blank=True,
-                                         verbose_name=_("Departments"))
     locations = models.ManyToManyField('Location', through='Stock', blank=True,
                                        verbose_name=_("Locations"))
 
@@ -241,7 +238,7 @@ class Toxdata(models.Model):
     """Class for Tox / Oekotox information belonging to a chemical."""
 
     chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"))
-    supplier = models.ForeignKey('Contact', verbose_name=_("Supplier"))
+    supplier = models.ForeignKey('Supplier', verbose_name=_("Supplier"))
     tox = models.BooleanField(default=False, verbose_name=_("Tox"))
     oekotox = models.BooleanField(default=False, verbose_name=_("Oekotox"))
 
@@ -392,7 +389,7 @@ class SevesoDocument(models.Model):
 class SafetyDataSheet(models.Model):
     """Class for safety data sheets belonging to a chemical."""
 
-    supplier = models.ForeignKey('Contact', verbose_name=_("Supplier"))
+    supplier = models.ForeignKey('Supplier', verbose_name=_("Supplier"))
     chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"))
     file = FilerFileField(null=True, blank=True, verbose_name=_("File"))
     issue_date = models.DateField(null=True, blank=True,
@@ -410,7 +407,7 @@ class SafetyDataSheet(models.Model):
 class ExtendedSafetyDataSheet(models.Model):
     """Class for extended safety data sheets belonging to a chemical."""
 
-    supplier = models.ForeignKey('Contact', verbose_name=_("Supplier"))
+    supplier = models.ForeignKey('Supplier', verbose_name=_("Supplier"))
     chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"))
     file = FilerFileField(null=True, blank=True, verbose_name=_("File"))
     issue_date = models.DateField(null=True, blank=True,

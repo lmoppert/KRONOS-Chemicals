@@ -3,29 +3,29 @@
 {% load render_table from django_tables2 %}
 
 {% block chemical_content %}
-    <h1>{{ contact.name }}</h1>
-    <div class="col-lg-3 with-linebreaks">{{ contact.address }}<br>{{ contact.country }}</div>
+    <h1>{{ supplier.name }}</h1>
+    <div class="col-lg-3 with-linebreaks">{{ supplier.address }}<br>{{ supplier.country }}</div>
     <div class="col-lg-3">
         <table>
             <tr>
                 <th style="width:80px;">{% trans "Phone" %}</th>
-                <td>{{ contact.phone }}</td>
+                <td>{{ supplier.phone }}</td>
             </tr><tr>
                 <th>{% trans "Fax" %}</th>
-                <td>{{ contact.fax|default_if_none:"" }}</td>
+                <td>{{ supplier.fax|default_if_none:"" }}</td>
             </tr><tr>
                 <th>{% trans "Email" %}</th>
-                <td>{{ contact.email|default_if_none:"" }}</td>
+                <td>{{ supplier.email|default_if_none:"" }}</td>
             </tr><tr>
                 <th>{% trans "Web" %}</th>
-                <td>{{ contact.web|default_if_none:"" }}</td>
+                <td>{{ supplier.web|default_if_none:"" }}</td>
             </tr>
         </table>
     </div>
     <div class="col-lg-6">
         <b>{% trans "Info" %}</b><br>
         <div class="well well-sm with-linebreaks">
-            {{ contact.info|default_if_none:"" }}
+            {{ supplier.info|default_if_none:"" }}
         </div>
     </div>
 {% endblock %}

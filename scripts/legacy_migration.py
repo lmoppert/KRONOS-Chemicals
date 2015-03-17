@@ -5,7 +5,7 @@ from filer.models.foldermodels import Folder
 #     CheckList, CheckSection, CheckUsage, HPhraseCheck, PPE, PPECheck,
 #     PPhraseCheck, PictogramCheck, StorageClassCheck, WGKCheck)
 from chemicals.models.periphery import (
-    Contact, Person, Role, Department, Plant, Location, Stock, Supplier)
+    Consumer, Person, Role, Department, Plant, Location, Stock, Supplier)
 from chemicals.models.chemical import (
     Chemical, RiskIndication, StorageClass, SevesoCategory, HPhrase, Toxdata,
     WGK, RPhrase, PPhrase, Risk, HPhraseRelation, Pictogram, Document,
@@ -301,17 +301,17 @@ def create_persons():
 ##############################################################################
 # Create methods contacts
 ##############################################################################
-def create_contacts():
+def create_suppliers():
     count = 0
     objs = StoffeContact.objects.using('legacy').all()
-    print "Found %s Contacts, processing migrattion..." % objs.count()
+    print "Found %s Suppliers, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
         if obj.contact_id % 100 == 0:
-            print "Processing Contact above %s" % obj.contact_id
+            print "Processing Suppliers above %s" % obj.contact_id
         address = make_address(obj.address, obj.street, obj.number, obj.plz,
                                obj.city)
-        new_obj = Contact.objects.create(
+        new_obj = Supplier.objects.create(
             id=obj.contact_id,
             name=obj.name,
             address=address,
@@ -334,10 +334,10 @@ def create_contacts():
                 role = 'r'
             Role.objects.create(
                 person=person,
-                contact=new_obj,
+                supplier=new_obj,
                 role=role
             )
-    print "%s Contacts migrated" % count
+    print "%s Suppliers migrated" % count
 
 
 def create_plants():
@@ -416,24 +416,27 @@ def create_stocks():
     print "%s Stocks migrated" % count
 
 
-def create_suppliers():
+def create_consumers():
     count = 0
-    print "Processing suppliers"
+    print "Processing consumers"
     objs = StoffeChemDepContact.objects.using('legacy').all()
-    print "Found %s Suppliers, processing migrattion..." % objs.count()
+    print "Found %s Consumners, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
         if count % 100 == 0:
-            print "    ...%s Suppliers have been processed" % count
+            print "    ...%s Consumners have been processed" % count
         chemical = Chemical.objects.get(id=obj.chemical.chemical_id)
-        contact = Contact.objects.get(id=obj.contact.contact_id)
+        try:
+            supplier = Supplier.objects.get(id=obj.contact.contact_id)
+        except:
+            continue
         department = Department.objects.get(id=obj.department.department_id)
-        Supplier.objects.create(
+        Consumer.objects.create(
             chemical=chemical,
-            contact=contact,
+            supplier=supplier,
             department=department
         )
-    print "%s Suppliers migrated" % count
+    print "%s Consumners migrated" % count
 
 
 def create_tox():
@@ -444,7 +447,7 @@ def create_tox():
     for obj in objs:
         count += 1
         Toxdata.objects.create(
-            supplier=Contact.objects.get(id=obj.supplier_id),
+            supplier=Supplier.objects.get(id=obj.supplier_id),
             chemical=Chemical.objects.get(id=obj.chemical_id),
             tox=obj.toxdata,
             oekotox=obj.oekotoxdata,
@@ -701,7 +704,7 @@ def create_sdb():
         if count % 500 == 0:
             print "    ...%s SDS have been processed" % count
         new = SafetyDataSheet.objects.create(
-            supplier=Contact.objects.get(id=obj.supplier.contact_id),
+            supplier=Supplier.objects.get(id=obj.supplier.contact_id),
             chemical=Chemical.objects.get(id=obj.chemical.chemical_id),
             file=get_file_handle(obj.path),
             issue_date=obj.issuedate,
@@ -720,7 +723,7 @@ def create_esdb():
     for obj in objs:
         count += 1
         new = ExtendedSafetyDataSheet.objects.create(
-            supplier=Contact.objects.get(id=obj.supplier.contact_id),
+            supplier=Supplier.objects.get(id=obj.supplier.contact_id),
             chemical=Chemical.objects.get(id=obj.chemical.chemical_id),
             file=get_file_handle(obj.path),
             issue_date=obj.issuedate,
@@ -735,32 +738,32 @@ def create_esdb():
 # Main method
 ##############################################################################
 def run():
-    # Independent Tables
-    # create_users()
-    create_riskindications()
-    create_wgks()
-    create_storage_classes()
-    create_seveso_categories()
-    create_rphrases()
-    create_pphrases()
-    create_hphrases()
-    create_persons()
-    create_plants()
-
-    # Tables, that have relations to others
-    count = 0
-    chemicals = StoffeChemical.objects.using('legacy').all()
-    print "Found %s Chemicals, processing migrattion..." % chemicals.count()
-    for chemical in chemicals:
-        count += 1
-        create_chemicals(chemical)
-    print "%s Chemicals migrated" % count
-    create_contacts()
-    create_departments()
-    create_locations()
-    create_stocks()
-    create_suppliers()
-    create_tox()
+#    # Independent Tables
+#    # create_users()
+#    create_riskindications()
+#    create_wgks()
+#    create_storage_classes()
+#    create_seveso_categories()
+#    create_rphrases()
+#    create_pphrases()
+#    create_hphrases()
+#    create_persons()
+#    create_plants()
+#
+#    # Tables, that have relations to others
+#    count = 0
+#    chemicals = StoffeChemical.objects.using('legacy').all()
+#    print "Found %s Chemicals, processing migrattion..." % chemicals.count()
+#    for chemical in chemicals:
+#        count += 1
+#        create_chemicals(chemical)
+#    print "%s Chemicals migrated" % count
+#    create_suppliers()
+#    create_departments()
+#    create_locations()
+#    create_stocks()
+#    create_consumers()
+#    create_tox()
 
     # Tables that contain media files
     create_pictograms()

@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic import RedirectView
 from django.conf.urls import patterns, url
 from .views import (ChemicalList, ChemicalDetail, ChemicalDepartment,
-                    SupplierList, CMRList, StockList, ContactDetail,
+                    ConsumerList, CMRList, StockList, SupplierDetail,
                     DepartmentList, DepartmentView, SDSList, SDSDepartmentList,
                     ApprovalDocumentList, LocationList, LocationView,
                     StockDepartmentList, ChemicalStockList, ChemicalsMissingSDB,
@@ -20,12 +20,12 @@ urlpatterns = patterns(
     url(r'^chemicals/$', ChemicalList.as_view(), name='chemical_list'),
     url(r'^archived/$', ChemicalList.as_view(archive=True, table_heading=_(
         'Archived chemicals')), name='archived_chemicals'),
-    url(r'^contact/(?P<pk>\d+)$', ContactDetail.as_view(),
-        name='contact_detail'),
+    url(r'^supplier/(?P<pk>\d+)$', SupplierDetail.as_view(),
+        name='supplier_detail'),
     url(r'^department/(?P<pk>\d+)$', DepartmentView.as_view(),
         name='department_detail'),
     url(r'^departments/$', DepartmentList.as_view(), name='department_list'),
-    url(r'^suppliers/$', SupplierList.as_view(), name='supplier_list'),
+    url(r'^suppliers/$', ConsumerList.as_view(), name='supplier_list'),
     url(r'^cmr/$', CMRList.as_view(), name='cmr_list'),
     url(r'^sds/department/(?P<pk>\d+)$', SDSDepartmentList.as_view(),
         name='sds_department_list'),

@@ -79,11 +79,11 @@ class ChemicalTable(tables.Table):
             r = u'<span class="label label-default">%s</span>' % _("No Signal")
         return mark_safe(r)
 
-    def render_supplier_set(self, record):
-        contacts = []
-        for supplier in record.supplier_set.all():
-            contacts.append(supplier.contact)
-        return render_as_list(set(contacts))
+    def render_consumer_set(self, record):
+        consumers = []
+        for consumer in record.consumer_set.all():
+            consumers.append(consumer.supplier)
+        return render_as_list(set(consumers))
 
     class Meta:
         model = models.Chemical
@@ -110,11 +110,11 @@ class CMRChemicalTable(tables.Table):
     name = tables.LinkColumn('chemical_detail', args=[A('pk')])
     supplier_set = tables.Column(empty_values=(), verbose_name=_("Supplier"))
 
-    def render_supplier_set(self, record):
-        contacts = []
-        for supplier in record.supplier_set.all():
-            contacts.append(supplier.contact)
-        return render_as_list(set(contacts))
+    def render_consumer_set(self, record):
+        consumers = []
+        for consumer in record.consumer_set.all():
+            consumers.append(consumer.supplier)
+        return render_as_list(set(consumers))
 
     class Meta:
         model = models.Chemical
@@ -143,11 +143,11 @@ class CMRTable(tables.Table):
         else:
             return "2"
 
-    def render_supplier_set(self, record):
-        contacts = []
-        for supplier in record.supplier_set.all():
-            contacts.append(supplier.contact)
-        return render_as_list(set(contacts))
+    def render_consumer_set(self, record):
+        consumers = []
+        for consumer in record.consumer_set.all():
+            consumers.append(consumer.supplier)
+        return render_as_list(set(consumers))
 
     class Meta:
         model = models.Supplier
@@ -155,12 +155,12 @@ class CMRTable(tables.Table):
         fields = ('name', 'cmr', 'supplier_set')
 
 
-class SupplierTable(tables.Table):
+class ConsumerTable(tables.Table):
     """Table listing all suppliers."""
-    contact = tables.LinkColumn('contact_detail',
-                                accessor='contact.name',
-                                args=[A('contact.pk')],
-                                verbose_name=_('Supplier'))
+    supplier = tables.LinkColumn('supplier_detail',
+                                 accessor='supplier.name',
+                                 args=[A('supplier.pk')],
+                                 verbose_name=_('Supplier'))
     chemical = tables.LinkColumn('chemical_detail',
                                  accessor='chemical.name',
                                  args=[A('chemical.pk')],
@@ -169,10 +169,10 @@ class SupplierTable(tables.Table):
                                verbose_name=_('Department'))
 
     class Meta:
-        model = models.Supplier
+        model = models.Consumer
         attrs = {'class': "table table-bordered table-striped table-condensed"}
-        order_by = ('contact', 'chemical')
-        fields = ('contact', 'chemical', 'department',)
+        order_by = ('supplier', 'chemical')
+        fields = ('supplier', 'chemical', 'department', 'comment')
 
 
 class SDSTable(tables.Table):
@@ -249,20 +249,42 @@ class DepartmentTable(tables.Table):
                   'max_volume', 'max_unit')
 
 
-class DepartmentStockTable(tables.Table):
+class DepartmentConsumerTable(tables.Table):
     """Table displaying Stocks of a Department."""
-    # department = tables.Column(
-    #     accessor='location.department.name', verbose_name=_("Department"))
     chemical = tables.LinkColumn(
         'chemical_department',
-        args=[A('chemical.pk'), A('location.department.pk')],
-        verbose_name=_("Chemical"))
+        args=[A('chemical.pk'), A('department.pk')],
+        verbose_name=_("Chemical"),
+    )
     risks = RiskColumn(
-        accessor='chemical.risks', verbose_name=_("Risks"))
+        accessor='chemical.risks',
+        verbose_name=_("Risks"),
+        orderable=False,
+    )
     pictograms = PictoColumn(
-        accessor='chemical.pictograms', verbose_name=_("Pictograms"))
-    location = tables.Column(
-        accessor='location.name', verbose_name=_("Location"))
+        accessor='chemical.pictograms',
+        verbose_name=_("Pictograms"),
+        orderable=False,
+    )
+    stocks = tables.Column(
+        empty_values=(),
+        accessor='stocks',
+        verbose_name=_("Chemical Stocks"),
+        orderable=False,
+    )
+
+    def render_stocks(self, record):
+        stocks = u'<table class="{}">\n'.format(self.Meta.attrs['class'])
+        for stock in record.stocks.all():
+            row = u'<tr><td class="location">{}</td>\n' \
+                  '<td class="volume">{} {}</td></tr>\n'
+            stocks += row.format(
+                stock.location.name,
+                stock.max_volume,
+                models.Stock.UNITS[stock.max_unit],
+            )
+        stocks += '</table>'
+        return mark_safe(stocks)
 
     def render_risks(self, record):
         return render_as_list(record.chemical.risks.all())
@@ -271,11 +293,9 @@ class DepartmentStockTable(tables.Table):
         return render_as_list(record.chemical.pictograms.all())
 
     class Meta:
-        model = models.Stock
+        model = models.Consumer
         attrs = {'class': "table table-bordered table-striped table-condensed"}
-        order_by = ('location.name',)
-        fields = ('chemical', 'risks', 'pictograms',
-                  'location', 'max_volume', 'max_unit')
+        fields = ('chemical', 'risks', 'pictograms', 'stocks')
 
 
 class ChemicalStockTable(tables.Table):

@@ -23,9 +23,9 @@ class Person(models.Model):
     email = models.CharField(max_length=100, blank=True, null=True,
                              verbose_name=_("Email"))
 
-    def _get_name(self):
+    @property
+    def name(self):
         return "%s %s" % (self.surname, self.givenname)
-    name = property(_get_name)
 
     def __unicode__(self):
         return self.name
@@ -36,7 +36,7 @@ class Person(models.Model):
         verbose_name_plural = _("Persons")
 
 
-class Contact(models.Model):
+class Supplier(models.Model):
     """Class holding information about a company."""
 
     persons = models.ManyToManyField(Person, through='Role',
@@ -60,12 +60,12 @@ class Contact(models.Model):
         return self.name
 
     def get_absolut_url(self):
-        return reverse('contact_detail', kwargs={'pk': self.pk})
+        return reverse('supplier_detail', kwargs={'pk': self.pk})
 
     class Meta:
         app_label = "chemicals"
-        verbose_name = _("Contact")
-        verbose_name_plural = _("Contacts")
+        verbose_name = _("Supplier")
+        verbose_name_plural = _("Suppliers")
 
 
 class Role(models.Model):
@@ -75,7 +75,7 @@ class Role(models.Model):
 
     # This model was originally named Contact_Person
     person = models.ForeignKey(Person, verbose_name=_("Person"))
-    contact = models.ForeignKey(Contact, verbose_name=_("Contact"))
+    supplier = models.ForeignKey(Supplier, verbose_name=_("Supplier"))
     role = models.CharField(max_length=1, choices=ROLES, verbose_name=_("Role"))
 
     class Meta:
@@ -185,14 +185,21 @@ class Stock(models.Model):
         verbose_name_plural = _("Stocks")
 
 
-class Supplier(models.Model):
-    """Class mapping a supplier of a chemical with a department."""
+class Consumer(models.Model):
+    """Class mapping a chemical with a department and a supplier."""
 
     chemical = models.ForeignKey('Chemical', verbose_name=_("Chemical"))
-    contact = models.ForeignKey(Contact, verbose_name=_("Contact"))
+    supplier = models.ForeignKey(Supplier, verbose_name=_("Supplier"))
     department = models.ForeignKey(Department, verbose_name=_("Department"))
+    comment = models.TextField(verbose_name=_("Comment"), blank=True,
+                               default='')
+
+    @property
+    def stocks(self):
+        return self.chemical.stock_set.filter(
+            location__in=self.department.location_set.all())
 
     class Meta:
         app_label = "chemicals"
-        verbose_name = _("Supplier")
-        verbose_name_plural = _("Suppliers")
+        verbose_name = _("Consumer")
+        verbose_name_plural = _("Consumers")

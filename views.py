@@ -102,37 +102,35 @@ class ChemicalDetail(DetailView):
         context = super(ChemicalDetail, self).get_context_data(**kwargs)
         chemical = context["chemical"]
         locations = []
-        for supplier in chemical.supplier_set.all():
-            locs = supplier.department.location_set.filter(
+        for consumer in chemical.consumer_set.all():
+            locs = consumer.department.location_set.filter(
                 stock__in=chemical.stock_set.all())
             for location in locs:
                 locations.append({
                     'url': reverse('chemical_department', kwargs={
                         'pk': chemical.id,
-                        'dep_id': supplier.department.id, }),
+                        'dep_id': consumer.department.id, }),
                     'name': location.name,
-                    'department': supplier.department.name,
-                    'supplier': supplier.contact.name
+                    'department': consumer.department.name,
+                    'supplier': consumer.supplier.name
                 })
         context["locations"] = locations
         return context
 
 
-class SupplierList(TableListView):
-    """Returns a list of all Suppliers."""
-    model = models.Supplier
-    table_class = tables.SupplierTable
+class ConsumerList(TableListView):
+    """Returns a list of all Suppliers / Consumers."""
+    model = models.Consumer
+    table_class = tables.ConsumerTable
     table_heading = _("Suppliers")
 
     def get_table_data(self):
         letter = self.get_filter_values()["letter"]
-        return self.get_data_or_dict(
-            models.Supplier, chemical__archive=False,
-            contact__name__istartswith=letter
-        )
+        return self.get_data_or_dict(models.Consumer,
+                                     supplier__name__istartswith=letter)
 
 
-class CMRList(SupplierList):
+class CMRList(ConsumerList):
     """Returns a list of Suppliers for CMR Chemicals."""
     table_class = tables.CMRTable
     table_heading = _("Suppliers (CMR)")
@@ -148,9 +146,9 @@ class CMRList(SupplierList):
         return chemicals
 
 
-class ContactDetail(DetailView):
-    """Returns details about a specific contact."""
-    model = models.Contact
+class SupplierDetail(DetailView):
+    """Returns details about a specific supplier."""
+    model = models.Supplier
 
 
 class DepartmentList(TableListView):
@@ -173,8 +171,12 @@ class DepartmentView(TableDetailView):
 
     def get_table_data(self):
         letter = self.get_filter_values()["letter"]
-        return self.get_object().chemical_set.filter(
-            name__istartswith=letter, archive=False)
+        chemicals = []
+        consumers = self.get_object().consumer_set.filter(
+            chemical__name__istartswith=letter, chemical__archive=False)
+        for consumer in consumers:
+            chemicals.append(consumer.chemical)
+        return chemicals
 
     def get_context_data(self, **kwargs):
         context = super(DepartmentView, self).get_context_data(**kwargs)
@@ -204,7 +206,9 @@ class SDSDepartmentList(TableDetailView):
 
     def get_table_data(self):
         sds = []
-        for chemical in self.get_object().chemical_set.filter(archive=False):
+        consumers = self.get_object().consumer_set.filter(
+            chemical__archive=False)
+        for chemical in consumers:
             for sheet in chemical.safetydatasheet_set.all():
                 sds.append(sheet)
         return sds
@@ -265,7 +269,7 @@ class ChemicalNumbers(ChemicalList):
 class StockList(TableListView):
     """Returns the list of departments."""
     model = models.Stock
-    table_class = tables.DepartmentStockTable
+    table_class = tables.DepartmentConsumerTable
     table_heading = _("Departments (Stock View)")
     filters = {'letter': False, 'department': True}
     target_name = "stock_department_list"
@@ -277,16 +281,13 @@ class StockList(TableListView):
 class StockDepartmentList(TableDetailView):
     """Returns a list of stocks belonging to a departments."""
     model = models.Department
-    table_class = tables.DepartmentStockTable
+    table_class = tables.DepartmentConsumerTable
     table_heading = _("Stocks")
     filters = {'letter': False, 'department': True}
     target_name = "stock_department_list"
 
     def get_table_data(self):
-        stocks = []
-        for location in self.get_object().location_set.all():
-            stocks.extend(location.stock_set.all())
-        return stocks
+        return self.get_object().consumer_set.all()
 
     def get_context_data(self, **kwargs):
         context = super(StockDepartmentList, self).get_context_data(**kwargs)
@@ -345,10 +346,18 @@ class ChemicalDepartment(FormMixin, DetailView):
     def get_department(self):
         return models.Department.objects.get(pk=self.kwargs["dep_id"])
 
+    def get_stocks(self, department):
+        suppliers = self.object.consumer_set.filter(department=department)
+        stocks = []
+        for supplier in suppliers:
+            for stock in supplier.stocks.all():
+                stocks.append(stock)
+        return stocks
+
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         department = self.get_department()
-        stocks = self.object.stock_set.filter(location__department=department)
+        stocks = self.get_stocks(department)
         formset = self.formset_class(instance=self.object)
         context = self.get_context_data(formset=formset, department=department,
                                         stocks=stocks)

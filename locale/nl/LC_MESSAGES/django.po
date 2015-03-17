@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-11 16:26+0100\n"
+"POT-Creation-Date: 2015-03-13 16:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,7 +55,7 @@ msgid "REACH"
 msgstr ""
 
 #: admin.py:184 templates/chemicals/base.html:31
-#: templates/chemicals/base.html.py:42
+#: templates/chemicals/base.html.py:43
 msgid "Checklists"
 msgstr ""
 
@@ -71,43 +71,43 @@ msgstr ""
 msgid "Remove selected chemicals from archive"
 msgstr ""
 
-#: admin.py:230
+#: admin.py:222
 msgid "managed department"
 msgstr ""
 
-#: admin.py:231
+#: admin.py:223
 msgid "managed departments"
 msgstr ""
 
-#: admin.py:239
+#: admin.py:231
 msgid "department admin"
 msgstr ""
 
-#: admin.py:240
+#: admin.py:232
 msgid "department admins"
 msgstr ""
 
-#: admin.py:246
+#: admin.py:238
 msgid "Personal info"
 msgstr ""
 
-#: admin.py:251
+#: admin.py:243
 msgid "Permissions"
 msgstr ""
 
-#: admin.py:255
+#: admin.py:247
 msgid "User permissions"
 msgstr ""
 
-#: admin.py:259
+#: admin.py:251
 msgid "Important dates"
 msgstr ""
 
-#: admin.py:265
+#: admin.py:257
 msgid "General"
 msgstr ""
 
-#: admin.py:266
+#: admin.py:258
 msgid "Extended"
 msgstr ""
 
@@ -156,7 +156,7 @@ msgid "Personal Protective Equipments (PPE)"
 msgstr ""
 
 #: models/checklist.py:86 models/chemical.py:20 models/chemical.py:32
-#: models/chemical.py:310 templates/chemicals/chemical_department.html:104
+#: models/chemical.py:307 templates/chemicals/chemical_department.html:142
 #: templates/chemicals/chemical_detail.html:127
 msgid "H-Phrase"
 msgstr ""
@@ -222,10 +222,10 @@ msgstr ""
 
 #: models/chemical.py:22 models/chemical.py:41 models/chemical.py:57
 #: models/chemical.py:73 models/chemical.py:89 models/chemical.py:119
-#: models/chemical.py:261 models/chemical.py:277
-#: templates/chemicals/chemical_department.html:87
-#: templates/chemicals/chemical_department.html:94
-#: templates/chemicals/chemical_department.html:98
+#: models/chemical.py:258 models/chemical.py:274
+#: templates/chemicals/chemical_department.html:125
+#: templates/chemicals/chemical_department.html:132
+#: templates/chemicals/chemical_department.html:136
 #: templates/chemicals/chemical_detail.html:110
 #: templates/chemicals/chemical_detail.html:117
 #: templates/chemicals/chemical_detail.html:121
@@ -241,7 +241,7 @@ msgid "CMR"
 msgstr ""
 
 #: models/chemical.py:55 models/chemical.py:64
-#: templates/chemicals/chemical_department.html:76
+#: templates/chemicals/chemical_department.html:114
 #: templates/chemicals/chemical_detail.html:99
 msgid "R-Phrase"
 msgstr ""
@@ -259,7 +259,7 @@ msgid "Seveso Categories"
 msgstr ""
 
 #: models/chemical.py:87 models/chemical.py:96 models/chemical.py:178
-#: templates/chemicals/chemical_department.html:94
+#: templates/chemicals/chemical_department.html:132
 #: templates/chemicals/chemical_detail.html:117
 msgid "Storage Class"
 msgstr ""
@@ -276,13 +276,13 @@ msgstr ""
 msgid "Synonyms"
 msgstr ""
 
-#: models/chemical.py:133 models/chemical.py:302
-#: templates/chemicals/chemical_department.html:68
+#: models/chemical.py:133 models/chemical.py:299
+#: templates/chemicals/chemical_department.html:106
 #: templates/chemicals/chemical_detail.html:91
 msgid "Risk"
 msgstr ""
 
-#: models/chemical.py:140 models/chemical.py:194 models/chemical.py:294
+#: models/chemical.py:140 models/chemical.py:194 models/chemical.py:291
 #: tables.py:64 tables.py:98 tables.py:290 tables.py:335
 msgid "Risk Indication"
 msgstr ""
@@ -303,11 +303,11 @@ msgstr ""
 msgid "no signal"
 msgstr ""
 
-#: models/chemical.py:148 models/chemical.py:236 models/chemical.py:243
-#: models/chemical.py:260 models/chemical.py:276 models/chemical.py:292
-#: models/chemical.py:309 models/chemical.py:346 models/chemical.py:360
-#: models/chemical.py:380 models/chemical.py:396 models/chemical.py:414
-#: models/periphery.py:74 models/periphery.py:168 models/periphery.py:188
+#: models/chemical.py:148 models/chemical.py:233 models/chemical.py:240
+#: models/chemical.py:257 models/chemical.py:273 models/chemical.py:289
+#: models/chemical.py:306 models/chemical.py:343 models/chemical.py:357
+#: models/chemical.py:377 models/chemical.py:393 models/chemical.py:411
+#: models/periphery.py:74 models/periphery.py:171 models/periphery.py:191
 #: tables.py:167 tables.py:186 tables.py:229 tables.py:259 tables.py:323
 msgid "Chemical"
 msgstr ""
@@ -333,7 +333,7 @@ msgstr ""
 msgid "EINECS"
 msgstr ""
 
-#: models/chemical.py:162 templates/chemicals/chemical_department.html:92
+#: models/chemical.py:162 templates/chemicals/chemical_department.html:130
 #: templates/chemicals/chemical_detail.html:115
 msgid "Signal"
 msgstr ""
@@ -358,35 +358,29 @@ msgstr ""
 msgid "Listed in annex XIV REACH regulation"
 msgstr ""
 
-#: models/chemical.py:190 models/chemical.py:330 models/chemical.py:338
+#: models/chemical.py:190 models/chemical.py:327 models/chemical.py:335
 #: tables.py:68 tables.py:99 tables.py:294 tables.py:339
-#: templates/chemicals/chemical_department.html:87
+#: templates/chemicals/chemical_department.html:125
 #: templates/chemicals/chemical_detail.html:110
 msgid "Pictogram"
 msgstr ""
 
-#: models/chemical.py:199 models/periphery.py:117 tables.py:188
-#: templates/chemicals/base.html:18 templates/chemicals/base.html.py:38
-#: views.py:171
-msgid "Departments"
-msgstr ""
-
-#: models/chemical.py:201 models/periphery.py:155
+#: models/chemical.py:198 models/periphery.py:158
 msgid "Locations"
 msgstr ""
 
-#: models/chemical.py:237 templates/chemicals/base.html:7
-#: templates/chemicals/base.html.py:16 templates/chemicals/base.html:40
-#: views.py:86 views.py:376
+#: models/chemical.py:234 templates/chemicals/base.html:7
+#: templates/chemicals/base.html.py:16 templates/chemicals/base.html:41
+#: views.py:86 views.py:378
 msgid "Chemicals"
 msgstr ""
 
-#: models/chemical.py:244 models/chemical.py:395 models/chemical.py:413
-#: models/periphery.py:194 tables.py:60 tables.py:111 tables.py:136
-#: tables.py:163 tables.py:193
-#: templates/chemicals/chemical_department.html:117
-#: templates/chemicals/chemical_department.html:127
-#: templates/chemicals/chemical_department.html:136
+#: models/chemical.py:241 models/chemical.py:392 models/chemical.py:410
+#: models/periphery.py:78 models/periphery.py:192 tables.py:60 tables.py:111
+#: tables.py:136 tables.py:163 tables.py:193
+#: templates/chemicals/chemical_department.html:155
+#: templates/chemicals/chemical_department.html:165
+#: templates/chemicals/chemical_department.html:174
 #: templates/chemicals/chemical_detail.html:146
 #: templates/chemicals/chemical_detail.html:165
 #: templates/chemicals/chemical_detail.html:174
@@ -394,120 +388,120 @@ msgstr ""
 msgid "Supplier"
 msgstr ""
 
-#: models/chemical.py:245 templates/chemicals/chemical_department.html:127
+#: models/chemical.py:242 templates/chemicals/chemical_department.html:165
 #: templates/chemicals/chemical_detail.html:174
 msgid "Tox"
 msgstr ""
 
-#: models/chemical.py:246 templates/chemicals/chemical_department.html:127
+#: models/chemical.py:243 templates/chemicals/chemical_department.html:165
 #: templates/chemicals/chemical_detail.html:174
 msgid "Oekotox"
 msgstr ""
 
-#: models/chemical.py:253 models/chemical.py:254
+#: models/chemical.py:250 models/chemical.py:251
 #: templates/chemicals/base.html:33
 msgid "Tox Oekotox"
 msgstr ""
 
-#: models/chemical.py:269 models/chemical.py:270
+#: models/chemical.py:266 models/chemical.py:267
 msgid "Reach Information"
 msgstr ""
 
-#: models/chemical.py:285 models/chemical.py:286
+#: models/chemical.py:282 models/chemical.py:283
 msgid "Seveso Information"
 msgstr ""
 
-#: models/chemical.py:303 tables.py:189 tables.py:261
+#: models/chemical.py:300 tables.py:189 tables.py:261
 msgid "Risks"
 msgstr ""
 
-#: models/chemical.py:312 models/periphery.py:57
+#: models/chemical.py:309 models/periphery.py:57
 msgid "Information"
 msgstr ""
 
-#: models/chemical.py:319
+#: models/chemical.py:316
 msgid "H-Phrase Relation"
 msgstr ""
 
-#: models/chemical.py:320
+#: models/chemical.py:317
 msgid "H-Phrase Relations"
 msgstr ""
 
-#: models/chemical.py:329
+#: models/chemical.py:326
 msgid "Code"
 msgstr ""
 
-#: models/chemical.py:331
+#: models/chemical.py:328
 msgid "Image"
 msgstr ""
 
-#: models/chemical.py:339 tables.py:191 tables.py:263
+#: models/chemical.py:336 tables.py:191 tables.py:263
 msgid "Pictograms"
 msgstr ""
 
-#: models/chemical.py:347 models/chemical.py:361 models/chemical.py:381
-#: models/chemical.py:397 models/chemical.py:415
+#: models/chemical.py:344 models/chemical.py:358 models/chemical.py:378
+#: models/chemical.py:394 models/chemical.py:412
 msgid "File"
 msgstr ""
 
-#: models/chemical.py:348
+#: models/chemical.py:345
 msgid "Document Type"
 msgstr ""
 
-#: models/chemical.py:349 models/chemical.py:364 models/chemical.py:384
-#: models/chemical.py:402 models/chemical.py:420
+#: models/chemical.py:346 models/chemical.py:361 models/chemical.py:381
+#: models/chemical.py:399 models/chemical.py:417
 #: templates/chemicals/chemical_detail.html:201
 #: templates/chemicals/chemical_detail.html:213
 msgid "Created on"
 msgstr ""
 
-#: models/chemical.py:353 templates/chemicals/chemical_detail.html:236
+#: models/chemical.py:350 templates/chemicals/chemical_detail.html:236
 msgid "Document"
 msgstr ""
 
-#: models/chemical.py:354 templates/chemicals/chemical_detail.html:194
+#: models/chemical.py:351 templates/chemicals/chemical_detail.html:194
 msgid "Documents"
 msgstr ""
 
-#: models/chemical.py:363 models/chemical.py:383 models/chemical.py:401
-#: models/chemical.py:419
+#: models/chemical.py:360 models/chemical.py:380 models/chemical.py:398
+#: models/chemical.py:416
 msgid "Country Code"
 msgstr ""
 
-#: models/chemical.py:368
+#: models/chemical.py:365
 msgid "Reach Document"
 msgstr ""
 
-#: models/chemical.py:369
+#: models/chemical.py:366
 msgid "Reach Documents"
 msgstr ""
 
-#: models/chemical.py:388
+#: models/chemical.py:385
 msgid "Seveso Document"
 msgstr ""
 
-#: models/chemical.py:389
+#: models/chemical.py:386
 msgid "Seveso Documents"
 msgstr ""
 
-#: models/chemical.py:399 models/chemical.py:417
+#: models/chemical.py:396 models/chemical.py:414
 msgid "Issue Date"
 msgstr ""
 
-#: models/chemical.py:406
+#: models/chemical.py:403
 msgid "Safety Data Sheet"
 msgstr ""
 
-#: models/chemical.py:407 templates/chemicals/chemical_department.html:113
+#: models/chemical.py:404 templates/chemicals/chemical_department.html:151
 #: templates/chemicals/chemical_detail.html:161 views.py:190 views.py:201
 msgid "Safety Data Sheets"
 msgstr ""
 
-#: models/chemical.py:424
+#: models/chemical.py:421
 msgid "Extended Safety Data Sheet"
 msgstr ""
 
-#: models/chemical.py:425
+#: models/chemical.py:422
 msgid "Extended Safety Data Sheets"
 msgstr ""
 
@@ -528,17 +522,17 @@ msgid "Given name"
 msgstr ""
 
 #: models/periphery.py:20 models/periphery.py:49
-#: templates/chemicals/contact_detail.html:11
+#: templates/chemicals/supplier_detail.html:11
 msgid "Phone"
 msgstr ""
 
 #: models/periphery.py:22 models/periphery.py:51
-#: templates/chemicals/contact_detail.html:14
+#: templates/chemicals/supplier_detail.html:14
 msgid "Fax"
 msgstr ""
 
 #: models/periphery.py:24 models/periphery.py:53
-#: templates/chemicals/contact_detail.html:17
+#: templates/chemicals/supplier_detail.html:17
 msgid "Email"
 msgstr ""
 
@@ -551,7 +545,7 @@ msgid "Persons"
 msgstr ""
 
 #: models/periphery.py:44 models/periphery.py:94 models/periphery.py:109
-#: models/periphery.py:144
+#: models/periphery.py:147
 msgid "Name"
 msgstr ""
 
@@ -563,11 +557,11 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
-#: models/periphery.py:55 templates/chemicals/contact_detail.html:20
+#: models/periphery.py:55 templates/chemicals/supplier_detail.html:20
 msgid "Web"
 msgstr ""
 
-#: models/periphery.py:67 models/periphery.py:78 models/periphery.py:189
+#: models/periphery.py:67
 msgid "Contact"
 msgstr ""
 
@@ -592,82 +586,92 @@ msgstr ""
 msgid "Plants"
 msgstr ""
 
-#: models/periphery.py:116 models/periphery.py:143 models/periphery.py:190
+#: models/periphery.py:119 models/periphery.py:146 models/periphery.py:193
 #: tables.py:169 templates/chemicals/chemical_detail.html:142
 #: templates/chemicals/chemical_detail.html:145
 msgid "Department"
 msgstr ""
 
-#: models/periphery.py:124
+#: models/periphery.py:120 tables.py:188 templates/chemicals/base.html:18
+#: templates/chemicals/base.html.py:39 views.py:171
+msgid "Departments"
+msgstr ""
+
+#: models/periphery.py:127
 msgid "Profile"
 msgstr ""
 
-#: models/periphery.py:126
+#: models/periphery.py:129
 msgid "Managed Department"
 msgstr ""
 
-#: models/periphery.py:133
+#: models/periphery.py:136
 msgid "User Profile"
 msgstr ""
 
-#: models/periphery.py:134
+#: models/periphery.py:137
 msgid "User Profiles"
 msgstr ""
 
-#: models/periphery.py:154 models/periphery.py:169 tables.py:265
+#: models/periphery.py:157 models/periphery.py:172 tables.py:265
 msgid "Location"
 msgstr ""
 
-#: models/periphery.py:163
+#: models/periphery.py:166
 msgid "tons"
 msgstr ""
 
-#: models/periphery.py:163
+#: models/periphery.py:166
 msgid "kilogram"
 msgstr ""
 
-#: models/periphery.py:163
+#: models/periphery.py:166
 msgid "gram"
 msgstr ""
 
-#: models/periphery.py:164
+#: models/periphery.py:167
 msgid "cubic meter"
 msgstr ""
 
-#: models/periphery.py:164
+#: models/periphery.py:167
 msgid "liter"
 msgstr ""
 
-#: models/periphery.py:164
+#: models/periphery.py:167
 msgid "mililiter"
 msgstr ""
 
-#: models/periphery.py:165
+#: models/periphery.py:168
 msgid "pieces"
 msgstr ""
 
-#: models/periphery.py:171
+#: models/periphery.py:174
 msgid "Volume"
 msgstr ""
 
-#: models/periphery.py:173 models/periphery.py:177
+#: models/periphery.py:176 models/periphery.py:180
 msgid "Unit"
 msgstr ""
 
-#: models/periphery.py:175 templates/chemicals/chemical_department.html:15
+#: models/periphery.py:178 templates/chemicals/chemical_department.html:16
+#: templates/chemicals/chemical_department.html:88
 msgid "Year Volume"
 msgstr ""
 
-#: models/periphery.py:181
+#: models/periphery.py:184
 msgid "Stock"
 msgstr ""
 
-#: models/periphery.py:182 views.py:281
+#: models/periphery.py:185 views.py:281
 msgid "Stocks"
 msgstr ""
 
-#: models/periphery.py:195 templates/chemicals/base.html:17 views.py:125
-msgid "Suppliers"
+#: models/periphery.py:197
+msgid "Consumer"
+msgstr ""
+
+#: models/periphery.py:198
+msgid "Consumers"
 msgstr ""
 
 #. Translators: This is an abbreviation for Storage Classes
@@ -691,18 +695,18 @@ msgstr ""
 msgid "CMR Category"
 msgstr ""
 
-#: tables.py:180 templates/chemicals/chemical_department.html:117
+#: tables.py:180 templates/chemicals/chemical_department.html:155
 #: templates/chemicals/chemical_detail.html:165
 msgid "SDS"
 msgstr ""
 
-#: tables.py:181 templates/chemicals/chemical_department.html:136
+#: tables.py:181 templates/chemicals/chemical_department.html:174
 #: templates/chemicals/chemical_detail.html:182
 msgid "eSDS"
 msgstr ""
 
-#: tables.py:183 templates/chemicals/chemical_department.html:117
-#: templates/chemicals/chemical_department.html:136
+#: tables.py:183 templates/chemicals/chemical_department.html:155
+#: templates/chemicals/chemical_department.html:174
 #: templates/chemicals/chemical_detail.html:165
 #: templates/chemicals/chemical_detail.html:182
 #: templates/chemicals/chemical_detail.html:236
@@ -737,6 +741,10 @@ msgstr ""
 msgid "Chemical Views"
 msgstr ""
 
+#: templates/chemicals/base.html:17 views.py:125
+msgid "Suppliers"
+msgstr ""
+
 #: templates/chemicals/base.html:22 views.py:217
 msgid "Approval Documents"
 msgstr ""
@@ -765,71 +773,73 @@ msgstr ""
 msgid "Chemical Numbers"
 msgstr ""
 
-#: templates/chemicals/base.html:35
+#: templates/chemicals/base.html:36
 msgid "Administration"
 msgstr ""
 
-#: templates/chemicals/base.html:37
+#: templates/chemicals/base.html:38
 msgid "Chemical Stock Views"
 msgstr ""
 
-#: templates/chemicals/base.html:39 views.py:301 views.py:318
+#: templates/chemicals/base.html:40 views.py:301 views.py:318
 msgid "Stock Locations"
 msgstr ""
 
-#: templates/chemicals/chemical_department.html:13
+#: templates/chemicals/chemical_department.html:14
+#: templates/chemicals/chemical_department.html:86
 msgid "Stock Location"
 msgstr ""
 
-#: templates/chemicals/chemical_department.html:14
+#: templates/chemicals/chemical_department.html:15
+#: templates/chemicals/chemical_department.html:87
 msgid "Max Volume"
 msgstr ""
 
-#: templates/chemicals/chemical_department.html:16
+#: templates/chemicals/chemical_department.html:17
 msgid "Remove"
 msgstr ""
 
-#: templates/chemicals/chemical_department.html:41
+#: templates/chemicals/chemical_department.html:63
 msgid "Add a location from the list"
 msgstr ""
 
-#: templates/chemicals/chemical_department.html:55
+#: templates/chemicals/chemical_department.html:77
 msgid "Save Changes"
 msgstr ""
 
-#: templates/chemicals/chemical_department.html:64
+#: templates/chemicals/chemical_department.html:102
 #: templates/chemicals/chemical_detail.html:87
 msgid "Chemical Directive"
 msgstr ""
 
-#: templates/chemicals/chemical_department.html:68
+#: templates/chemicals/chemical_department.html:106
 #: templates/chemicals/chemical_detail.html:91
 #: templates/chemicals/chemical_detail.html:213
 #: templates/chemicals/chemical_detail.html:229
-#: templates/chemicals/contact_detail.html:26
+#: templates/chemicals/supplier_detail.html:26
 msgid "Info"
 msgstr ""
 
-#: templates/chemicals/chemical_department.html:76
-#: templates/chemicals/chemical_department.html:104
+#: templates/chemicals/chemical_department.html:114
+#: templates/chemicals/chemical_department.html:142
 #: templates/chemicals/chemical_detail.html:99
 #: templates/chemicals/chemical_detail.html:127
 #: templates/chemicals/chemical_detail.html:133
 msgid "ID"
 msgstr ""
 
-#: templates/chemicals/chemical_department.html:83
+#: templates/chemicals/chemical_department.html:121
 #: templates/chemicals/chemical_detail.html:106
 msgid "CLP"
 msgstr ""
 
-#: templates/chemicals/chemical_department.html:98
+#: templates/chemicals/chemical_department.html:136
 #: templates/chemicals/chemical_detail.html:121
 msgid "Water Hazard Classification"
 msgstr ""
 
-#: templates/chemicals/chemical_department.html:117
-#: templates/chemicals/chemical_department.html:136
+#: templates/chemicals/chemical_department.html:155
+#: templates/chemicals/chemical_department.html:174
 #: templates/chemicals/chemical_detail.html:165
 #: templates/chemicals/chemical_detail.html:182
 msgid "Published on"
@@ -904,10 +914,10 @@ msgstr ""
 msgid "Departments (Stock View)"
 msgstr ""
 
-#: views.py:365
+#: views.py:367
 msgid "Changes have been saved."
 msgstr ""
 
-#: views.py:368
+#: views.py:370
 msgid "Changes have not been saved yet. Errors are displayed below."
 msgstr ""

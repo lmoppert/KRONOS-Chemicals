@@ -16,7 +16,7 @@ from chemicals import models
 class DepartmentInline(admin.TabularInline):
     """Inline view for the departments."""
 
-    model = models.Chemical.departments.through
+    model = models.Consumer
     extra = 0
     suit_classes = 'suit-tab suit-tab-department'
 
@@ -280,21 +280,21 @@ class PersonAdmin(admin.ModelAdmin):
     inlines = (RoleInline, )
 
 
-@admin.register(models.Contact)
-class ContactAdmin(admin.ModelAdmin):
-    """Admin view for the contacts."""
+@admin.register(models.Supplier)
+class SupplierAdmin(admin.ModelAdmin):
+    """Admin view for the suppliers."""
 
     list_display = ('name', 'country', 'info')
     search_fields = ('name', 'info', )
     inlines = (RoleInline, )
 
 
-@admin.register(models.Supplier)
-class SupplierAdmin(admin.ModelAdmin):
+@admin.register(models.Consumer)
+class ConsumerAdmin(admin.ModelAdmin):
     """Admin view for a supplier."""
 
-    list_display = ('department', 'chemical', 'contact')
-    search_fields = ('department', 'chemical', 'contact')
+    list_display = ('department', 'chemical', 'supplier')
+    search_fields = ('department', 'chemical', 'supplier')
 
 
 @admin.register(models.Department)
