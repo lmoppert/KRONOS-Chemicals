@@ -336,41 +336,40 @@ class LocationView(TableDetailView):
         return context
 
 
-class ChemicalDepartment(FormMixin, DetailView):
+class ConsumerDetail(FormMixin, DetailView):
     """Returns details about a stock."""
-    model = models.Chemical
-    template_name = "chemicals/chemical_department.html"
+    model = models.Consumer
+    template_name = "chemicals/consumer_detail.html"
     formset_class = forms.inlineformset_factory(models.Chemical, models.Stock,
                                                 extra=0)
+
+    def get_object(self):
+        return models.Consumer.objects.get(chemical=self.kwargs["chem_id"],
+                                           department=self.kwargs["dep_id"])
 
     def get_department(self):
         return models.Department.objects.get(pk=self.kwargs["dep_id"])
 
-    def get_stocks(self, department):
-        suppliers = self.object.consumer_set.filter(department=department)
-        stocks = []
-        for supplier in suppliers:
-            for stock in supplier.stocks.all():
-                stocks.append(stock)
-        return stocks
-
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        department = self.get_department()
-        stocks = self.get_stocks(department)
-        formset = self.formset_class(instance=self.object)
+        department = self.object.department
+        chemical = self.object.chemical
+        stocks = self.object.stocks
+        formset = self.formset_class(instance=chemical, queryset=stocks)
         context = self.get_context_data(formset=formset, department=department,
-                                        stocks=stocks)
+                                        stocks=stocks, chemical=chemical)
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        department = self.get_department()
+        department = self.object.department
+        chemical = self.object.chemical
         success_url = reverse('chemical_department', kwargs={
-            'pk': self.object.id, 'dep_id': department.id, })
-        formset = self.formset_class(instance=self.object,
+            'chem_id': chemical.id, 'dep_id': department.id, })
+        formset = self.formset_class(instance=chemical,
                                      **self.get_form_kwargs())
-        context = self.get_context_data(formset=formset, department=department)
+        context = self.get_context_data(formset=formset, department=department,
+                                        chemical=chemical)
         if formset.is_valid():
             formset.save()
             messages.success(request, _("Changes have been saved."))
