@@ -28,6 +28,7 @@ class HPhrase(models.Model):
         return "%s - %s" % (self.name, self.description)
 
     class Meta:
+        ordering = ('name',)
         app_label = "chemicals"
         verbose_name = _("H-Phrase")
         verbose_name_plural = _("H-Phrases")
@@ -44,6 +45,7 @@ class PPhrase(models.Model):
         return "%s - %s" % (self.name, self.description)
 
     class Meta:
+        ordering = ('name',)
         app_label = "chemicals"
         verbose_name = _("P-Phrase")
         verbose_name_plural = _("P-Phrases")
@@ -60,6 +62,7 @@ class RPhrase(models.Model):
         return "%s - %s" % (self.name, self.description)
 
     class Meta:
+        ordering = ('name',)
         app_label = "chemicals"
         verbose_name = _("R-Phrase")
         verbose_name_plural = _("R-Phrases")
@@ -76,6 +79,7 @@ class SevesoCategory(models.Model):
         return "%s - %s" % (self.name, self.description)
 
     class Meta:
+        ordering = ('name',)
         app_label = "chemicals"
         verbose_name = _("Seveso Category")
         verbose_name_plural = _("Seveso Categories")
@@ -92,6 +96,7 @@ class StorageClass(models.Model):
         return "%s - %s" % (self.name, self.description)
 
     class Meta:
+        ordering = ('name',)
         app_label = "chemicals"
         verbose_name = _("Storage Class")
         verbose_name_plural = _("Storage Classes")
@@ -106,6 +111,7 @@ class Synonym(models.Model):
         return self.name
 
     class Meta:
+        ordering = ('name',)
         app_label = "chemicals"
         verbose_name = _("Synonym")
         verbose_name_plural = _("Synonyms")
@@ -122,6 +128,7 @@ class WGK(models.Model):
         return "%s - %s" % (self.name, self.description)
 
     class Meta:
+        ordering = ('name',)
         app_label = "chemicals"
         verbose_name = _("WGK")
         verbose_name_plural = _("WGKs")
@@ -136,6 +143,7 @@ class RiskIndication(models.Model):
         return self.name
 
     class Meta:
+        ordering = ('name',)
         app_label = "chemicals"
         verbose_name = _("Risk Indication")
         verbose_name_plural = _("Risk Indications")
@@ -175,7 +183,7 @@ class Chemical(models.Model):
     # Many to one relations
     wgk = models.ForeignKey(WGK, default=1, verbose_name=_("WGK"))
     storage_class = models.ForeignKey(StorageClass, default=1,
-                                        verbose_name=_("Storage Class"))
+                                      verbose_name=_("Storage Class"))
 
     # Many to many relations
     synonyms = models.ManyToManyField(Synonym, blank=True,

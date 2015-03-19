@@ -31,6 +31,7 @@ class Person(models.Model):
         return self.name
 
     class Meta:
+        ordering = ('givenname', 'surname')
         app_label = "chemicals"
         verbose_name = _("Person")
         verbose_name_plural = _("Persons")
@@ -63,6 +64,7 @@ class Supplier(models.Model):
         return reverse('supplier_detail', kwargs={'pk': self.pk})
 
     class Meta:
+        ordering = ('name',)
         app_label = "chemicals"
         verbose_name = _("Supplier")
         verbose_name_plural = _("Suppliers")
@@ -97,6 +99,7 @@ class Plant(models.Model):
         return self.name
 
     class Meta:
+        ordering = ('name',)
         app_label = "chemicals"
         verbose_name = _("Plant")
         verbose_name_plural = _("Plants")
@@ -115,10 +118,10 @@ class Department(models.Model):
         return self.name
 
     class Meta:
+        ordering = ('name',)
         app_label = "chemicals"
         verbose_name = _("Department")
         verbose_name_plural = _("Departments")
-        ordering = ['name']
 
 
 class Profile(models.Model):
@@ -153,6 +156,7 @@ class Location(models.Model):
         return reverse('stock_location_list', kwargs={'pk': self.pk})
 
     class Meta:
+        ordering = ['name']
         app_label = "chemicals"
         verbose_name = _("Location")
         verbose_name_plural = _("Locations")
