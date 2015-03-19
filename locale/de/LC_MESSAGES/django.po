@@ -424,11 +424,11 @@ msgstr "H-Satz Relation"
 
 #: models/chemical.py:317
 msgid "H-Phrase Relations"
-msgstr "H-Satz Relationen"
+msgstr "Zugeordnete H-Sätze"
 
 #: models/chemical.py:326
 msgid "Code"
-msgstr "Kode"
+msgstr "Kennzahl"
 
 #: models/chemical.py:328
 msgid "Image"

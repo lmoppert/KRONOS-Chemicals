@@ -77,6 +77,22 @@ class SevesoInformationInline(TranslationTabularInline):
     suit_classes = 'suit-tab suit-tab-seveso'
 
 
+class HPhraseInline(TranslationTabularInline):
+    """Inline view for the hphrases."""
+
+    model = models.HPhraseRelation
+    extra = 0
+    suit_classes = 'suit-tab suit-tab-classification'
+
+
+class RiskInline(TranslationTabularInline):
+    """Inline view for the risks."""
+
+    model = models.Risk
+    extra = 0
+    suit_classes = 'suit-tab suit-tab-classification'
+
+
 ##############################################################################
 # Admin of Chemicals
 ##############################################################################
@@ -171,7 +187,8 @@ class ChemicalAdmin(TranslationAdmin):
         }),
         (_('Relations'), {
             'classes': ('suit-tab', 'suit-tab-classification', ),
-            'fields': ('wgk', 'storage_class', 'rphrases', 'signal')
+            'fields': ('wgk', 'storage_class', 'rphrases', 'signal',
+                       'pictograms')
         }),
         (None, {
             'classes': ('suit-tab', 'suit-tab-seveso',),
@@ -182,7 +199,7 @@ class ChemicalAdmin(TranslationAdmin):
             'fields': ('comment',)
         }),
     )
-    filter_horizontal = ('seveso_categories', 'rphrases',)
+    filter_horizontal = ('seveso_categories', 'rphrases', 'pictograms')
     suit_form_tabs = (
         ('general', _('Identification')),
         ('classification', _('Classification')),
@@ -201,6 +218,8 @@ class ChemicalAdmin(TranslationAdmin):
         ExtendedSafetyDataSheetInline,
         SevesoDocumentInline,
         SevesoInformationInline,
+        HPhraseInline,
+        RiskInline,
     )
 
     def archive_chemicals(self, request, queryset):
