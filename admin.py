@@ -80,6 +80,14 @@ class SevesoInformationInline(TranslationTabularInline):
 ##############################################################################
 # Admin of Chemicals
 ##############################################################################
+@admin.register(models.Pictogram)
+class PictogramAdmin(TranslationAdmin):
+    """Admin view for Pictograms."""
+
+    list_display = ('name', 'code')
+    search_fields = ('name', 'code')
+
+
 @admin.register(models.RiskIndication)
 class RiskIndicationAdmin(TranslationAdmin):
     """Admin view for Risk Indications."""

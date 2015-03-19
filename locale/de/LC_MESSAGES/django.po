@@ -283,11 +283,11 @@ msgstr "Gefahrstoffbezeichung"
 #: models/chemical.py:140 models/chemical.py:194 models/chemical.py:291
 #: tables.py:64 tables.py:98 tables.py:310 tables.py:355
 msgid "Risk Indication"
-msgstr "Gefahrenbezeichnung"
+msgstr "Gefahrstoffbezeichung"
 
 #: models/chemical.py:141
 msgid "Risk Indications"
-msgstr "Gefahrenbezeichnungen"
+msgstr "Gefahrstoffbezeichungen"
 
 #: models/chemical.py:146
 msgid "danger"
