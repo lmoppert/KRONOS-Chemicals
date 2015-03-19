@@ -420,7 +420,7 @@ msgstr "Information"
 
 #: models/chemical.py:316
 msgid "H-Phrase Relation"
-msgstr "H-Satz Relation"
+msgstr "H-Satz"
 
 #: models/chemical.py:317
 msgid "H-Phrase Relations"
