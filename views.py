@@ -108,7 +108,7 @@ class ChemicalDetail(DetailView):
             for location in locs:
                 locations.append({
                     'url': reverse('chemical_department', kwargs={
-                        'pk': chemical.id,
+                        'chem_id': chemical.id,
                         'dep_id': consumer.department.id, }),
                     'name': location.name,
                     'department': consumer.department.name,
