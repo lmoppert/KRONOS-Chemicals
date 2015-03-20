@@ -167,8 +167,8 @@ class ChemicalAdmin(TranslationAdmin):
     list_display = ('name', 'preparation', 'article', 'cas', 'einecs',
                     'archive')
     search_fields = ('name', )
-    list_filter = ('preparation', 'archive', 'signal', 'hphrases__cmr', 'wgk',
-                   'storage_class')
+    list_filter = ('preparation', 'archive', 'hphrases', 'hphrases__cmr', 'wgk',
+                   'storage_class', 'toxdata__tox', 'toxdata__oekotox')
     actions = ('archive_chemicals', 'unarchive_chemicals')
     fieldsets = (
         (None, {
@@ -314,14 +314,6 @@ class SupplierAdmin(admin.ModelAdmin):
     list_display = ('name', 'country', 'info')
     search_fields = ('name', 'info', )
     inlines = (RoleInline, )
-
-
-@admin.register(models.Consumer)
-class ConsumerAdmin(admin.ModelAdmin):
-    """Admin view for a supplier."""
-
-    list_display = ('department', 'chemical', 'supplier')
-    search_fields = ('department', 'chemical', 'supplier')
 
 
 @admin.register(models.Department)
