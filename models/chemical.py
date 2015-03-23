@@ -225,10 +225,10 @@ class Chemical(models.Model):
             'seveso_relevant'))['seveso_relevant__max']
 
     def get_approval_documents(self):
-        return self.document_set.filter(doctype="FREIGABE")
+        return self.document_set.filter(doctype="f")
 
     def get_info_documents(self):
-        return self.document_set.filter(doctype="STOFFINFO")
+        return self.document_set.filter(doctype="i")
 
     def __unicode__(self):
         return self.name
@@ -347,10 +347,12 @@ class Pictogram(models.Model):
 class Document(models.Model):
     """Class for documents belonging to a chemical."""
 
+    DOCTYPES = (('f', _('Approval')), ('i', _('Substance Information')))
     plant = models.ForeignKey('Plant')
     chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"))
     file = FilerFileField(null=True, blank=True, verbose_name=_("File"))
-    doctype = models.CharField(max_length=100, verbose_name=_("Document Type"))
+    doctype = models.CharField(max_length=1, choices=DOCTYPES,
+                               verbose_name=_("Document Type"))
     created = models.DateField(auto_now_add=True, verbose_name=_("Created on"))
 
     class Meta:

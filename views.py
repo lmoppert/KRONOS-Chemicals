@@ -224,7 +224,7 @@ class ApprovalDocumentList(TableListView):
         letter = self.get_filter_values()["letter"]
         return self.get_data_or_dict(
             models.Document,
-            doctype="FREIGABE",
+            doctype="f",
             chemical__name__istartswith=letter,
         )
 

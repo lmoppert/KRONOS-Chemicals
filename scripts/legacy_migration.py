@@ -649,11 +649,15 @@ def create_document():
         trans = get_translations(
             StoffeMenuTranslation, obj.menufacturing.menufacturing_id)
         plant = Plant.objects.get(name=trans.itervalues().next().name)
+        if obj.doctype = "FREIGABE":
+            doctype = "f"
+        else:
+            doctype = "i"
         new = Document.objects.create(
             plant=plant,
             chemical=Chemical.objects.get(id=obj.chemical.chemical_id),
             file=get_file_handle(obj.path),
-            doctype=obj.doctype,
+            doctype=doctype,
         )
         new.created = obj.createddate
         new.save()
