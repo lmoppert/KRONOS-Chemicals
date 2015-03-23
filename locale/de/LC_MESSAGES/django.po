@@ -460,7 +460,7 @@ msgstr "Dokument"
 
 #: models/chemical.py:351 templates/chemicals/chemical_detail.html:194
 msgid "Documents"
-msgstr "Freigabedokumente"
+msgstr "Dokumente"
 
 #: models/chemical.py:360 models/chemical.py:380 models/chemical.py:398
 #: models/chemical.py:416
