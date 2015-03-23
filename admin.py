@@ -93,6 +93,14 @@ class RiskInline(TranslationTabularInline):
     suit_classes = 'suit-tab suit-tab-classification'
 
 
+class ToxInline(admin.TabularInline):
+    """Inline view for the tox / oekotox."""
+
+    model = models.Toxdata
+    extra = 0
+    suit_classes = 'suit-tab suit-tab-sds'
+
+
 ##############################################################################
 # Admin of Chemicals
 ##############################################################################
@@ -220,6 +228,7 @@ class ChemicalAdmin(TranslationAdmin):
         SevesoInformationInline,
         HPhraseInline,
         RiskInline,
+        ToxInline,
     )
 
     def archive_chemicals(self, request, queryset):

@@ -172,7 +172,7 @@ class DepartmentView(TableDetailView):
     def get_table_data(self):
         letter = self.get_filter_values()["letter"]
         chemicals = []
-        consumers = self.get_object().consumer_set.filter(
+        consumers = self.get_object().chemicals.filter(
             chemical__name__istartswith=letter, chemical__archive=False)
         for consumer in consumers:
             chemicals.append(consumer.chemical)
@@ -206,7 +206,7 @@ class SDSDepartmentList(TableDetailView):
 
     def get_table_data(self):
         sds = []
-        consumers = self.get_object().consumer_set.filter(
+        consumers = self.get_object().chemicals.filter(
             chemical__archive=False)
         for chemical in consumers:
             for sheet in chemical.safetydatasheet_set.all():
@@ -287,7 +287,7 @@ class StockDepartmentList(TableDetailView):
     target_name = "stock_department_list"
 
     def get_table_data(self):
-        return self.get_object().consumer_set.all()
+        return self.get_object().chemicals.all()
 
     def get_context_data(self, **kwargs):
         context = super(StockDepartmentList, self).get_context_data(**kwargs)
