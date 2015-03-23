@@ -347,7 +347,7 @@ msgstr "Ständig benötigt"
 
 #: models/chemical.py:169 templates/chemicals/chemical_detail.html:48
 msgid "Preparation"
-msgstr "Zubereitung"
+msgstr "Gemisch"
 
 #: models/chemical.py:171
 msgid "Components Registered"

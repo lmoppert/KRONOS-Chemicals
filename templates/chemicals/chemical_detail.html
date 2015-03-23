@@ -130,11 +130,19 @@
                             {% endfor %}
                         </table>
                         <table class="table table-striped table-bordered table-condensed">
+                            <tr><th>{% trans "Supplier" %}</th><th>{% trans "Tox" %}</th><th>{% trans "Oekotox" %}</th></tr>
+                            {% for obj in chemical.toxdata_set.all %}
+                            <tr><td>{{ obj.supplier.name }}</td><td>{{ obj.tox|yesno }}</td><td>{{ obj.oekotox|yesno }}</td></tr>
+                            {% endfor %}
+                        </table>
+                        {% comment %}
+                        <table class="table table-striped table-bordered table-condensed">
                             <tr><th>{% trans "ID" %}</th><th>{% trans "P-Phrase" %}</th></tr>
                             {% for obj in chemical.pphrases.all %}
                             <tr><td>{{ obj.name }}</td><td>{{ obj.description }}</td></tr>
                             {% endfor %}
                         </table>
+                        {% endcomment %}
                     </div>
                 </div>
             </div>
@@ -157,10 +165,8 @@
             </div>
             <div class="tab-pane fade" id="sds">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <h3>{% trans "Safety Data Sheets" %}</h3>
-                    </div>
                     <div class="col-lg-6">
+                        <h3>{% trans "Safety Data Sheets" %}</h3>
                         <table class="table table-striped table-bordered table-condensed">
                             <tr><th>{% trans "Published on" %}</th><th>{% trans "Supplier" %}</th><th>{% trans "Language" %}</th><th>{% trans "SDS" %}</th></tr>
                             {% for obj in chemical.safetydatasheet_set.all %}
@@ -170,14 +176,9 @@
                             </td></tr>
                             {% endfor %}
                         </table>
-                        <table class="table table-striped table-bordered table-condensed">
-                            <tr><th>{% trans "Supplier" %}</th><th>{% trans "Tox" %}</th><th>{% trans "Oekotox" %}</th></tr>
-                            {% for obj in chemical.toxdata_set.all %}
-                            <tr><td>{{ obj.supplier.name }}</td><td>{{ obj.tox|yesno }}</td><td>{{ obj.oekotox|yesno }}</td></tr>
-                            {% endfor %}
-                        </table>
                     </div>
                     <div class="col-lg-6">
+                        <h3>{% trans "Extended Safety Data Sheets" %}</h3>
                         <table class="table table-striped table-bordered table-condensed">
                             <tr><th>{% trans "Published on" %}</th><th>{% trans "Supplier" %}</th><th>{% trans "Language" %}</th><th>{% trans "eSDS" %}</th></tr>
                             {% for obj in chemical.extendedsafetydatasheet_set.all %}

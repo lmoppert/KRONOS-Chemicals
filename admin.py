@@ -98,7 +98,7 @@ class ToxInline(admin.TabularInline):
 
     model = models.Toxdata
     extra = 0
-    suit_classes = 'suit-tab suit-tab-sds'
+    suit_classes = 'suit-tab suit-tab-classification'
 
 
 ##############################################################################
@@ -174,7 +174,7 @@ class ChemicalAdmin(TranslationAdmin):
 
     list_display = ('name', 'preparation', 'article', 'cas', 'einecs',
                     'archive')
-    search_fields = ('name', )
+    search_fields = ('name', 'article', 'cas', 'einecs', 'registration_number')
     list_filter = ('preparation', 'archive', 'hphrases', 'hphrases__cmr', 'wgk',
                    'storage_class', 'toxdata__tox', 'toxdata__oekotox')
     actions = ('archive_chemicals', 'unarchive_chemicals')
@@ -195,8 +195,8 @@ class ChemicalAdmin(TranslationAdmin):
         }),
         (_('Relations'), {
             'classes': ('suit-tab', 'suit-tab-classification', ),
-            'fields': ('wgk', 'storage_class', 'rphrases', 'signal',
-                       'pictograms')
+            'fields': ('wgk', 'storage_class', 'pictograms', 'signal',
+                       'rphrases')
         }),
         (None, {
             'classes': ('suit-tab', 'suit-tab-seveso',),
