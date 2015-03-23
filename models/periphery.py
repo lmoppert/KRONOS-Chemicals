@@ -194,7 +194,8 @@ class Consumer(models.Model):
 
     chemical = models.ForeignKey('Chemical', verbose_name=_("Chemical"))
     supplier = models.ForeignKey(Supplier, verbose_name=_("Supplier"))
-    department = models.ForeignKey(Department, verbose_name=_("Department"))
+    department = models.ForeignKey(Department, verbose_name=_("Department"),
+                                   related_name='chemicals')
     comment = models.TextField(verbose_name=_("Comment"), blank=True,
                                default='')
 
