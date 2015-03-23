@@ -319,7 +319,7 @@ class ChemicalStockTable(tables.Table):
         stocks = u'<table class="{}">\n'.format(self.Meta.attrs['class'])
         for stock in record.stock_set.all():
             url = reverse('chemical_department', kwargs={
-                'pk': record.id, 'dep_id': stock.location.department.id, })
+                'chem_id': record.id, 'dep_id': stock.location.department.id, })
             row = u'<tr><td class="department"><a href="{}">{}</a></td>\n' \
                   '<td class="location">{}</td>\n' \
                   '<td class="volume">{} {}</td></tr>\n'
