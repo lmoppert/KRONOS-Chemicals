@@ -60,7 +60,7 @@ class Supplier(models.Model):
     def __unicode__(self):
         return self.name
 
-    def get_absolut_url(self):
+    def get_absolute_url(self):
         return reverse('supplier_detail', kwargs={'pk': self.pk})
 
     class Meta:
@@ -111,7 +111,7 @@ class Department(models.Model):
     plant = models.ForeignKey(Plant, verbose_name=_("Plant"))
     name = models.CharField(max_length=100, verbose_name=_("Name"))
 
-    def get_absolut_url(self):
+    def get_absolute_url(self):
         return reverse('department_detail', kwargs={'pk': self.pk})
 
     def __unicode__(self):
@@ -152,7 +152,7 @@ class Location(models.Model):
     def __unicode__(self):
         return self.name
 
-    def get_absolut_url(self):
+    def get_absolute_url(self):
         return reverse('stock_location_list', kwargs={'pk': self.pk})
 
     class Meta:
