@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KRONOS Intranet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-23 17:08+0100\n"
+"POT-Creation-Date: 2015-03-24 09:48+0100\n"
 "PO-Revision-Date: 2014-02-11 09:52+0100\n"
 "Last-Translator: Lutz Moppert <lutz.moppert@kronosww.com>\n"
 "Language: Deutsch\n"
@@ -455,12 +455,9 @@ msgstr "Datei"
 msgid "Document Type"
 msgstr "Dokumenten Typ"
 
-#: models/chemical.py:356 models/chemical.py:371 models/chemical.py:391
-#: models/chemical.py:409 models/chemical.py:427
-#: templates/chemicals/chemical_detail.html:203
-#: templates/chemicals/chemical_detail.html:215
-msgid "Created on"
-msgstr "Erstellt am"
+#: models/chemical.py:356
+msgid "Released on"
+msgstr "Ausgabe"
 
 #: models/chemical.py:360 templates/chemicals/chemical_detail.html:238
 msgid "Document"
@@ -474,6 +471,12 @@ msgstr "Dokumente"
 #: models/chemical.py:426
 msgid "Country Code"
 msgstr "Länderkode"
+
+#: models/chemical.py:371 models/chemical.py:391 models/chemical.py:409
+#: models/chemical.py:427 templates/chemicals/chemical_detail.html:203
+#: templates/chemicals/chemical_detail.html:215
+msgid "Created on"
+msgstr "Erstellt am"
 
 #: models/chemical.py:375
 msgid "Reach Document"

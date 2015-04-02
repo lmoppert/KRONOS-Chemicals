@@ -237,6 +237,7 @@ class Chemical(models.Model):
         return reverse('chemical_detail', kwargs={'pk': self.pk})
 
     class Meta:
+        ordering = ('name',)
         app_label = "chemicals"
         verbose_name = _("Chemical")
         verbose_name_plural = _("Chemicals")
@@ -353,7 +354,7 @@ class Document(models.Model):
     file = FilerFileField(null=True, blank=True, verbose_name=_("File"))
     doctype = models.CharField(max_length=1, choices=DOCTYPES,
                                verbose_name=_("Document Type"))
-    created = models.DateField(auto_now_add=True, verbose_name=_("Created on"))
+    created = models.DateField(blank=True, verbose_name=_("Released on"))
 
     class Meta:
         app_label = "chemicals"
