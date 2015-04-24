@@ -55,27 +55,61 @@ class PeripheryTest(TestCase):
         self.assertEqual(obj.__unicode__(), obj.name)
 
     def test_model_consumer(self):
-        pass
-        # obj = mommy.make(models.Consumer)
-        # This will be hard to test :-(
-        # stocks() should only return related stocks
+        d = mommy.make(models.Department)
+        l = mommy.make(models.Location, department=d)
+        c = mommy.make(models.Chemical)
+        obj = mommy.make(models.Consumer, chemical=c, department=d)
+        stocks = mommy.make(models.Stock, _quantity=10, chemical=c)
+        self.assertEqual(len(stocks), 10)
+        self.assertEqual(len(obj.stocks), 0)
+        stocks[0].location = l
+        stocks[0].save()
+        self.assertEqual(len(obj.stocks), 1)
 
 
 class ChemicalsTest(TestCase):
     "Test the models contained in the chemical.py file"
 
     def test_model_chemical(self):
-        obj = mommy.make(models.Chemical)
+        obj = mommy.make(models.Chemical, make_m2m=True)
         url = reverse('chemical_detail', kwargs={'pk': obj.pk})
         self.assertTrue(isinstance(obj, models.Chemical))
         self.assertEqual(obj.get_absolute_url(), url)
         self.assertEqual(obj.__unicode__(), obj.name)
-        # Missing Tests:
-        # cmr1()
-        # cmr2()
-        # seveso_relevant()
-        # get_approval_documents()
-        # get_info_documents()
+
+    def test_model_chemical_documents(self):
+        from datetime import date
+        obj = mommy.make(models.Chemical)
+        cd = date.today()
+        df = mommy.make(models.Document, doctype='f', chemical=obj, created=cd)
+        di = mommy.make(models.Document, doctype='i', chemical=obj, created=cd)
+        dfs = obj.get_approval_documents()
+        dis = obj.get_info_documents()
+        self.assertEqual(len(obj.document_set.all()), 2)
+        self.assertEqual(len(dfs), 1)
+        self.assertEqual(len(dis), 1)
+        self.assertEqual(dfs[0], df)
+        self.assertEqual(dis[0], di)
+
+    def test_model_chemical_properties(self):
+        obj = mommy.make(models.Chemical)
+        self.assertFalse(obj.cmr1)
+        self.assertFalse(obj.cmr2)
+        h9 = mommy.make(models.HPhrase, cmr=9, seveso_relevant=False)
+        models.HPhraseRelation(chemical=obj, hphrase=h9).save()
+        self.assertFalse(obj.cmr1)
+        self.assertFalse(obj.cmr2)
+        self.assertFalse(obj.seveso_relevant)
+        h2 = mommy.make(models.HPhrase, cmr=2, seveso_relevant=True)
+        models.HPhraseRelation(chemical=obj, hphrase=h2).save()
+        self.assertFalse(obj.cmr1)
+        self.assertTrue(obj.cmr2)
+        self.assertTrue(obj.seveso_relevant)
+        h1 = mommy.make(models.HPhrase, cmr=1, seveso_relevant=False)
+        models.HPhraseRelation(chemical=obj, hphrase=h1).save()
+        self.assertTrue(obj.cmr1)
+        self.assertFalse(obj.cmr2)
+        self.assertTrue(obj.seveso_relevant)
 
     def test_model_synonym(self):
         obj = mommy.make(models.Synonym)
