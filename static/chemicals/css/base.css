@@ -1,47 +1,5 @@
 /*******************************
- * Base Tags
- *******************************/
-body {background:#E3E6EA;}
-#main {background:#FFFFFF !important;}
-a {color:#0e509c; text-decoration:none;}
-a:hover {color:#8dc73f}
-p {padding:8px 0; margin:0}
-h1 {color:#0E509C; font-weight:300; font-size:30px; background:url(../img/titlebg.png) bottom left repeat-x; padding:0 0 5px; width:100%; display:inline-block; margin-top:40px; margin-bottom:20px;}
-h2 {color:#0E509C; font-weight:bold; font-size:14px; background:url(../img/titlebg.png) bottom left repeat-x; padding:0 0 5px; width:100%;}
-h3 {display:block; font-weight:500; font-size:20px;}
-h4 {display:block; font-weight:500; font-size:17px;}
-h5 {display:block; font-weight:bold; font-size:14px;}
-td a {padding: 0 5px;display:block;}
-img {max-width:100%;}
-img.flag {margin:0 3px 2px 0;}
-.with-linebreaks {white-space: pre-wrap;}
-.scrollable-menu {height: auto; max-height: 400px; overflow-x: hidden;}
-
-
-/*******************************
- * HEADER
- *******************************/
-#header {background:#04397d; margin-bottom: 0;}
-html body #header {height:51px;}
-#header .navbar-nav li a.navbar-button {color:#eee; background:#04397d; display:block;}
-#header .navbar-nav li a:focus.navbar-button, #header .navbar-nav li a:hover.navbar-button {color:#fff; background:#0E509C;}
-#header .navbar-header {padding:0;}
-#header .navbar-collapse .dropdown-menu {background:white;}
-#header a.navbar-brand {padding-top:7px; padding-bottom:0;}
-#header li.navheading {margin-top:10px; padding:3px; border-bottom:1px solid #ddd; border-top:1px solid #ddd; color:#999;text-align:center;font-weight:bold;}
-
-
-/*******************************
- * Others
- *******************************/
-#breadcrumbs {width:100%; display:inline-block; text-align:right; font-size:12px; color:#0E509C;}
-#breadcrumbs ul {margin:0;}
-#breadcrumbs li {display:inline;}
-#messages {margin-top:10px;}
-#messages div.alert {margin:5px;}
-
-/*******************************
- * Conent
+ * Content
  *******************************/
 #content {margin-bottom:50px; min-height:500px; font-size:14px !important;}
 #content div.filter-panel {margin:5px 5px 15px 5px;}
@@ -66,41 +24,3 @@ html body #header {height:51px;}
 #content table#stocktable div.form-group {margin-bottom:0;}
 #content table#stocktable td.actions {text-align:center; vertical-align:middle}
 #content .form-template {display:none;}
-
-
-/*******************************
- * Right Column
- *******************************/
-#right_column .submenu {width:75%;}
-#right_column h3 {padding:0 5px 5px 5px; border-bottom:1px solid #A8B4C1; margin:10px 0 0 0; color:#0E509C; font-weight:bold; font-size:16px;}
-#right_column h3 ul {list-style:none; padding:0; margin:0;}
-#right_column h3 ul li {display:none;}
-#right_column h3 ul li.selected, #right_column h3 ul li.ancestor {display:block;}
-#right_column ul.menu {list-style:none; padding-left:0; margin-bottom:50px;}
-#right_column ul.menu li {padding:3px 0 1px 6px; border-bottom:1px solid #A8B4C1;}
-#right_column ul.menu li:hover, #right_column ul.menu li.selected, #right_column ul.menu li:active  {background:url(../img/hoverbg.png) repeat-x; text-decoration:none;}
-#right_column ul.menu li a {display:block;}
-#right_column ul.menu li a:hover, #right_column ul.menu li a:active  {text-decoration:none; color:#0e509c;}
-#right_column ul.menu li ul li {display:none;}
-#right_column ul.menu li ul {list-style:none; padding-left:0; margin:2px 0 0 -6px;}
-#right_column ul.menu li.selected ul li, #right_column ul.menu li.ancestor ul li {display:block;}
-#right_column ul.menu li ul li {padding:3px 0 1px 26px; border-top:1px solid #A8B4C1;border-bottom:0;}
-#right_column ul.menu li ul li:hover, #right_column ul.menu li.selected, #right_column ul.menu li:active  {background:url(../img/hoverbg.png) repeat-x; text-decoration:none;}
-#right_column ul.menu li ul li a {display:block;}
-#right_column ul.menu li ul li a:hover, #right_column ul.menu li a:active  {text-decoration:none; color:#0e509c;}
-
-
-/*******************************
- * FOOTER
- *******************************/
-#footer {background:#E3E6EA; border-top:1px solid #a8b4c1; min-height: 150px;}
-#footer {font-size:12px; color:#3f4f61;}
-#footer #footerlogo {padding-top: 20px;}
-#footer #footercontent {padding-top: 50px;}
-#footer p {padding:0;}
-#footer ul li {list-style-image:none; list-style-position:inside; list-style-type:none; border-left:1px solid #0E509C;}
-#footer ul li:first-child {border-left:0 none;}
-#footer ul li a {padding:0 5px; text-decoration:underline; display:block; position:relative;}
-#footer ul li:first-child a {padding:0 5px 0 0;}
-#footer ul li:last-child a {padding:0 0 0 5px;}
-#footer table tr, #footer table td {padding:0; margin:0;line-height:1.2;}
