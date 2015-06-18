@@ -204,6 +204,13 @@ class Consumer(models.Model):
         return self.chemical.stock_set.filter(
             location__in=self.department.location_set.all())
 
+    def __unicode__(self):
+        return u"{} | {} | {}".format(
+            self.chemical,
+            self.department,
+            self.supplier
+        )
+
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Consumer")

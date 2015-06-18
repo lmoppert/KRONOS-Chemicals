@@ -356,6 +356,9 @@ class Document(models.Model):
                                verbose_name=_("Document Type"))
     created = models.DateField(blank=True, verbose_name=_("Released on"))
 
+    def __unicode__(self):
+        return self.file.label
+
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Document")
@@ -370,6 +373,9 @@ class ReachDocument(models.Model):
     country_code = models.CharField(max_length=2, choices=settings.LANGUAGES,
                                     verbose_name=_("Country Code"))
     created = models.DateField(auto_now_add=True, verbose_name=_("Created on"))
+
+    def __unicode__(self):
+        return self.file.label
 
     class Meta:
         app_label = "chemicals"
@@ -391,6 +397,9 @@ class SevesoDocument(models.Model):
                                     verbose_name=_("Country Code"))
     created = models.DateField(auto_now_add=True, verbose_name=_("Created on"))
 
+    def __unicode__(self):
+        return self.file.label
+
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Seveso Document")
@@ -409,6 +418,9 @@ class SafetyDataSheet(models.Model):
                                     verbose_name=_("Country Code"))
     created = models.DateField(auto_now_add=True, verbose_name=_("Created on"))
 
+    def __unicode__(self):
+        return self.file.label
+
     class Meta:
         app_label = "chemicals"
         verbose_name = _("Safety Data Sheet")
@@ -426,6 +438,9 @@ class ExtendedSafetyDataSheet(models.Model):
     country_code = models.CharField(max_length=2, choices=settings.LANGUAGES,
                                     verbose_name=_("Country Code"))
     created = models.DateField(auto_now_add=True, verbose_name=_("Created on"))
+
+    def __unicode__(self):
+        return self.file.label
 
     class Meta:
         app_label = "chemicals"
