@@ -341,7 +341,7 @@ class ConsumerDetail(FormMixin, DetailView):
     model = models.Consumer
     template_name = "chemicals/consumer_detail.html"
     formset_class = forms.inlineformset_factory(models.Chemical, models.Stock,
-                                                extra=0)
+                                                extra=0, fields='__all__')
 
     def get_object(self):
         return models.Consumer.objects.get(chemical=self.kwargs["chem_id"],
