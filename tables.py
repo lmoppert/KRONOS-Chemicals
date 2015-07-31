@@ -175,6 +175,39 @@ class ConsumerTable(tables.Table):
         fields = ('supplier', 'chemical', 'department', 'comment')
 
 
+class ConsumerStockTable(tables.Table):
+    """Table listing the consumers for one chemical and related stocks"""
+    department = tables.LinkColumn('chemical_department',
+                                   accessor="department.name",
+                                   args=[A('chemical.pk'), A('department.pk')],
+                                   verbose_name=_("Department"))
+    supplier = tables.LinkColumn('supplier_detail',
+                                 accessor='supplier.name',
+                                 args=[A('supplier.pk')],
+                                 verbose_name=_('Supplier'))
+    stocks = tables.Column(empty_values=(), accessor='stocks',
+                           verbose_name=_("Chemical Stocks"), orderable=False,)
+
+    def render_stocks(self, record):
+        stocks = u'<table class="table table-bordered table-condensed">\n'
+        for stock in record.stocks.all():
+            row = u'<tr><td class="location">{}</td>\n' \
+                  '<td class="volume">{} {}</td></tr>\n'
+            stocks += row.format(
+                stock.location.name,
+                stock.max_volume,
+                models.Stock.UNITS[stock.max_unit],
+            )
+        stocks += '</table>'
+        return mark_safe(stocks)
+
+    class Meta:
+        model = models.Consumer
+        attrs = {'class': "table table-bordered table-striped table-condensed"}
+        order_by = ('department', 'supplier')
+        fields = ('department', 'supplier', 'stocks')
+
+
 class SDSTable(tables.Table):
     """Table listing safety data sheets."""
     sds = tables.Column(accessor="file", verbose_name=_("SDS"))

@@ -98,23 +98,12 @@ class ChemicalDetail(DetailView):
     """Returns details about a specific chemical."""
     model = models.Chemical
 
+    def get_table_data(self):
+        return self.get_object().consumer_set.all()
+
     def get_context_data(self, **kwargs):
         context = super(ChemicalDetail, self).get_context_data(**kwargs)
-        chemical = context["chemical"]
-        locations = []
-        for consumer in chemical.consumer_set.all():
-            locs = consumer.department.location_set.filter(
-                stock__in=chemical.stock_set.all())
-            for location in locs:
-                locations.append({
-                    'url': reverse('chemical_department', kwargs={
-                        'chem_id': chemical.id,
-                        'dep_id': consumer.department.id, }),
-                    'name': location.name,
-                    'department': consumer.department.name,
-                    'supplier': consumer.supplier.name
-                })
-        context["locations"] = locations
+        context['table'] = tables.ConsumerStockTable(self.get_table_data())
         return context
 
 
