@@ -79,7 +79,7 @@ class ChemicalTable(tables.Table):
             r = u'<span class="label label-default">%s</span>' % _("No Signal")
         return mark_safe(r)
 
-    def render_consumer_set(self, record):
+    def render_supplier_set(self, record):
         consumers = []
         for consumer in record.consumer_set.all():
             consumers.append(consumer.supplier)
@@ -110,7 +110,7 @@ class CMRChemicalTable(tables.Table):
     name = tables.LinkColumn('chemical_detail', args=[A('pk')])
     supplier_set = tables.Column(empty_values=(), verbose_name=_("Supplier"))
 
-    def render_consumer_set(self, record):
+    def render_supplier_set(self, record):
         consumers = []
         for consumer in record.consumer_set.all():
             consumers.append(consumer.supplier)
@@ -143,7 +143,7 @@ class CMRTable(tables.Table):
         else:
             return "2"
 
-    def render_consumer_set(self, record):
+    def render_supplier_set(self, record):
         consumers = []
         for consumer in record.consumer_set.all():
             consumers.append(consumer.supplier)
