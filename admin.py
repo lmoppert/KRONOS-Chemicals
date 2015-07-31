@@ -168,6 +168,14 @@ class HPhraseAdmin(TranslationAdmin):
     search_fields = ('name', 'description')
 
 
+@admin.register(models.Consumer)
+class ConsumerAdmin(admin.ModelAdmin):
+    """Admin view for the mapping of chemicals, suppliers and departments."""
+
+    list_display = ('chemical', 'supplier', 'department')
+    list_filter = ('chemical', 'supplier', 'department')
+
+
 @admin.register(models.Chemical)
 class ChemicalAdmin(TranslationAdmin):
     """Admin view for the chemicals."""
