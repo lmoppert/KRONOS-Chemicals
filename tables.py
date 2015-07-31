@@ -88,6 +88,7 @@ class ChemicalTable(tables.Table):
     class Meta:
         model = models.Chemical
         attrs = {'class': "table table-bordered table-striped table-condensed"}
+        order_by = ('name',)
         fields = ('name', 'risks', 'pictograms', 'signal', 'storage_class',
                   'wgk', 'supplier_set', )
 

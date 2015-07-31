@@ -333,8 +333,9 @@ class ConsumerDetail(FormMixin, DetailView):
                                                 extra=0, fields='__all__')
 
     def get_object(self):
-        return models.Consumer.objects.get(chemical=self.kwargs["chem_id"],
-                                           department=self.kwargs["dep_id"])
+        consumers = models.Consumer.objects.filter(
+            chemical=self.kwargs["chem_id"], department=self.kwargs["dep_id"])
+        return consumers.first()
 
     def get_department(self):
         return models.Department.objects.get(pk=self.kwargs["dep_id"])
