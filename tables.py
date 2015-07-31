@@ -80,10 +80,10 @@ class ChemicalTable(tables.Table):
         return mark_safe(r)
 
     def render_supplier_set(self, record):
-        consumers = []
+        suppliers = []
         for consumer in record.consumer_set.all():
-            consumers.append(consumer.supplier)
-        return render_as_list(set(consumers))
+            suppliers.append(consumer.supplier)
+        return render_as_list(set(suppliers))
 
     class Meta:
         model = models.Chemical
@@ -111,10 +111,10 @@ class CMRChemicalTable(tables.Table):
     supplier_set = tables.Column(empty_values=(), verbose_name=_("Supplier"))
 
     def render_supplier_set(self, record):
-        consumers = []
+        suppliers = []
         for consumer in record.consumer_set.all():
-            consumers.append(consumer.supplier)
-        return render_as_list(set(consumers))
+            suppliers.append(consumer.supplier)
+        return render_as_list(set(suppliers))
 
     class Meta:
         model = models.Chemical
@@ -144,10 +144,10 @@ class CMRTable(tables.Table):
             return "2"
 
     def render_supplier_set(self, record):
-        consumers = []
+        suppliers = []
         for consumer in record.consumer_set.all():
-            consumers.append(consumer.supplier)
-        return render_as_list(set(consumers))
+            suppliers.append(consumer.supplier)
+        return render_as_list(set(suppliers))
 
     class Meta:
         model = models.Supplier
