@@ -166,8 +166,8 @@ class Chemical(models.Model):
                            verbose_name=_("CAS"))
     einecs = models.CharField(max_length=100, blank=True, null=True,
                               verbose_name=_("EINECS"))
-    signal = models.CharField(max_length=1, choices=SIGNALS, default='n',
-                              verbose_name=_("Signal"))
+    signal = models.CharField(max_length=1, choices=SIGNALS, blank=True,
+                              default='', verbose_name=_("Signal"))
 
     # Boolean switches
     archive = models.BooleanField(default=False, verbose_name=_("Archive"))
