@@ -153,26 +153,18 @@
     <div class="col-lg-6">
         <table class="table table-striped table-bordered table-condensed">
             <tr><th>{% trans "Published on" %}</th><th>{% trans "Supplier" %}</th><th>{% trans "Language" %}</th><th>{% trans "SDS" %}</th></tr>
-            {% for obj in chemical.safetydatasheet_set.all %}
+            {% for obj in sds %}
             <tr><td>{{ obj.issue_date }}</td><td>{{ obj.supplier.name }}</td><td>{{ obj.country_code|language_name_local }}</td><td>
                     <a href="{{ obj.file.url }}" target="_blank">
                         <span class="glyphicon glyphicon-file"></span> {{ obj.file.name }}</a>
             </td></tr>
             {% endfor %}
         </table>
-        {% comment "Deactivated Tox / Oekotox for this view" %}<!--
-        <table class="table table-striped table-bordered table-condensed">
-            <tr><th>{% trans "Supplier" %}</th><th>{% trans "Tox" %}</th><th>{% trans "Oekotox" %}</th></tr>
-            {% for obj in chemical.toxdata_set.all %}
-            <tr><td>{{ obj.supplier.name }}</td><td>{{ obj.tox|yesno }}</td><td>{{ obj.oekotox|yesno }}</td></tr>
-            {% endfor %}
-        </table>
-        -->{% endcomment %}
     </div>
     <div class="col-lg-6">
         <table class="table table-striped table-bordered table-condensed">
             <tr><th>{% trans "Published on" %}</th><th>{% trans "Supplier" %}</th><th>{% trans "Language" %}</th><th>{% trans "eSDS" %}</th></tr>
-            {% for obj in chemical.extendedsafetydatasheet_set.all %}
+            {% for obj in esds %}
             <tr><td>{{ obj.issue_date }}</td><td>{{ obj.supplier.name }}</td><td>{{ obj.country_code|language_name_local }}</td><td>
                     <a href="{{ obj.file.url }}" target="_blank">
                         <span class="glyphicon glyphicon-file"></span> {{ obj.file.name }}</a>
