@@ -218,8 +218,8 @@ class SDSTable(tables.Table):
     chemical = tables.LinkColumn('chemical_detail', args=[A('chemical.pk')],
                                  accessor='chemical.name',
                                  verbose_name=_("Chemical"))
-    departments = tables.Column(accessor='supplier',
-                                verbose_name=_("Departments"))
+    # departments = tables.Column(accessor='supplier',
+    #                             verbose_name=_("Departments"))
     risks = RiskColumn(accessor='chemical.risks', verbose_name=_("Risks"))
     pictograms = PictoColumn(accessor='chemical.pictograms',
                              verbose_name=_("Pictograms"))
@@ -237,13 +237,13 @@ class SDSTable(tables.Table):
             return ''
         return render_file_button(esds.file.url, esds.file.extension)
 
-    def render_departments(self, record):
-        department_list = []
-        suppliers = record.supplier.supplier_set.filter(
-            chemical_id=record.chemical_id)
-        for supplier in suppliers:
-            department_list.append(supplier.department)
-        return render_as_list(department_list)
+    # def render_departments(self, record):
+    #     department_list = []
+    #     suppliers = record.supplier.supplier_set.filter(
+    #         chemical_id=record.chemical_id)
+    #     for supplier in suppliers:
+    #         department_list.append(supplier.department)
+    #     return render_as_list(department_list)
 
     def render_risks(self, record):
         return render_as_list(record.chemical.risks.all())

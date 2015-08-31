@@ -179,6 +179,7 @@ class SDSList(TableListView):
     model = models.SafetyDataSheet
     table_class = tables.SDSTable
     table_heading = _("Safety Data Sheets")
+    target_name = "sds_department_list"
     filters = {'letter': False, 'department': True, 'items': True}
 
     def get_table_data(self):
@@ -190,17 +191,23 @@ class SDSDepartmentList(TableDetailView):
     model = models.Department
     table_class = tables.SDSTable
     table_heading = _("Safety Data Sheets")
-    target_name = "department_detail"
+    target_name = "sds_department_list"
     filters = {'letter': False, 'department': True, 'items': True}
 
     def get_table_data(self):
         sds = []
         consumers = self.get_object().chemicals.filter(
             chemical__archive=False)
-        for chemical in consumers:
-            for sheet in chemical.safetydatasheet_set.all():
+        for consumer in consumers:
+            for sheet in consumer.chemical.safetydatasheet_set.all():
                 sds.append(sheet)
         return sds
+
+    def get_context_data(self, **kwargs):
+        context = super(SDSDepartmentList, self).get_context_data(**kwargs)
+        department = context["department"]
+        context['tablesubheading'] = department.name
+        return context
 
 
 class ApprovalDocumentList(TableListView):

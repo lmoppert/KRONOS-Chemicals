@@ -4,7 +4,11 @@
 
 {% block chemical_content %}
     <div class="row">
-        <h1>{{ tableheading }}</h1>
+        <h1>{{ tableheading }}
+            {% if tablesubheading %}
+            <small>{{ tablesubheading }}</small>
+            {% endif %}
+        </h1>
         <div class="filter-panel">
         {% if show_filter.items %}{% max_items %}{% endif %}
         {% if show_filter.department %}{% department_filter plants target_name %}{% endif %}
