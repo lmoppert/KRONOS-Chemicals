@@ -339,6 +339,7 @@ class DepartmentAdmin(admin.ModelAdmin):
 
     list_display = ('name', 'plant')
     search_fields = ('name', )
+    list_filter = ('plant', )
     inlines = (ManagersInline, )
 
 
