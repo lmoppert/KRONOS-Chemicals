@@ -22,19 +22,19 @@
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "sds_list" %}">{% trans "MSDS" %}</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "approval_list" %}">{% trans "Approval Documents" %}</a></li>
                 {% if 'view_she' in perms %}
-                <li class="navheading"> {% trans "SHE Views" %}</li>
-                <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "H-Phrases" %}</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "chemical_missing_sdb" %}">{% trans "Chemicals without SDS" %}</a></li>
-                <!--
-                <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Seveso-View Departments" %}</a></li>
-                <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Seveso-View" %}</a></li>
-                <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Seveso-View Listed Chemicals" %}</a></li>
-                <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Checklists" %}</a></li>
-                -->
-                <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Tox Oekotox" %}</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "chemical_numbers" %}">{% trans "Chemical Numbers" %}</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "admin:chemicals_chemical_changelist" %}"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
-                    {% trans "Administration" %}</a></li>
+                    <li class="navheading"> {% trans "SHE Views" %}</li>
+                    <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "H-Phrases" %}</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "chemical_missing_sdb" %}">{% trans "Chemicals without SDS" %}</a></li>
+                    <!--
+                    <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Seveso-View Departments" %}</a></li>
+                    <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Seveso-View" %}</a></li>
+                    <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Seveso-View Listed Chemicals" %}</a></li>
+                    <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Checklists" %}</a></li>
+                    -->
+                    <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="{% url "chemical_list" %}">{% trans "Tox Oekotox" %}</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "chemical_numbers" %}">{% trans "Chemical Numbers" %}</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "admin:chemicals_chemical_changelist" %}"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                        {% trans "Administration" %}</a></li>
                 {% endif %}
                 <li class="navheading"> {% trans "Chemical Stock Views" %}</li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url "stock_list" %}">{% trans "Departments" %}</a></li>
