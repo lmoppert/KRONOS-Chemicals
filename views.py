@@ -199,8 +199,8 @@ class SDSDepartmentList(TableDetailView):
         consumers = self.get_object().chemicals.filter(
             chemical__archive=False)
         for consumer in consumers:
-            for sheet in consumer.chemical.safetydatasheet_set.all():
-                sds.append(sheet)
+            sds.extend(consumer.chemical.safetydatasheet_set.filter(
+                supplier_id=consumer.supplier_id))
         return sds
 
     def get_context_data(self, **kwargs):
