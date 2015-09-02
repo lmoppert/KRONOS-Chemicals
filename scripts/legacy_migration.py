@@ -8,9 +8,8 @@ from chemicals.models.periphery import (
     Consumer, Person, Role, Department, Plant, Location, Stock, Supplier)
 from chemicals.models.chemical import (
     Chemical, RiskIndication, StorageClass, SevesoCategory, HPhrase, Toxdata,
-    WGK, RPhrase, PPhrase, Risk, HPhraseRelation, Pictogram, Document,
+    WGK, RPhrase, PPhrase, Risk, HPhraseRelation, Pictogram, Document, Synonym,
     SevesoDocument, ReachDocument, SafetyDataSheet, ExtendedSafetyDataSheet)
-# Synonym
 from chemicals.models.legacy import (
     StoffeChemical, StoffeChemTranslation, StoffeWgk, StoffeWgkTranslation,
     StoffeStorageclass, StoffeStorageclassTranslation, StoffeSevesoKategorie,
@@ -22,10 +21,10 @@ from chemicals.models.legacy import (
     StoffeChemSevesoKategorie, StoffeChemRphrase, StoffeChemPphrase,
     StoffePerson, StoffeContact, StoffeContactPerson, StoffeMenufacturing,
     StoffeMenuTranslation, StoffeDepartment, StoffeLocation, StoffeStock,
-    StoffeChemDepContact, StoffePictoTranslation, Users,
+    StoffeChemDepContact, StoffePictoTranslation, Users, StoffeSynonym,
     StoffeChemPictogramm, StoffePictogramm, StoffeDocument, StoffeToxdata,
     StoffeReachDocument, StoffeSevesoDocument, StoffeEsafetydatasheet,
-    StoffeSafetydatasheet, LegacyFiles, DummyTranslation)
+    StoffeSafetydatasheet, LegacyFiles, DummyTranslation, StoffeChemSynonym)
 
 CountryCodes = ('en-en', 'de-de', 'nl-be')
 
@@ -296,6 +295,29 @@ def create_persons():
             email=obj.mail
         )
     print "%s Persons migrated" % count
+
+
+def create_synonyms():
+    count = 0
+    objs = StoffeChemSynonym.objects.using('legacy').all()
+    print "Found %s Synonyms, processing migrattion..." % objs.count()
+    for obj in objs:
+        count += 1
+        synonym = StoffeSynonym.objects.using('legacy').get(id=obj.synonym_id)
+        chemical = Chemical.objects.get(id=obj.chemical_id)
+        new = Synonym.objects.create(
+            name=synonym.name,
+            chemical=chemical,
+        )
+        lang = get_language(obj.countrycode)
+        if lang == 'de':
+            new.name_de = synonym.name
+        elif lang == 'nl':
+            new.name_nl = synonym.name
+        else:
+            new.name_en = synonym.name
+        new.save()
+    print "%s Synonyms migrated" % count
 
 
 ##############################################################################
@@ -649,7 +671,7 @@ def create_document():
         trans = get_translations(
             StoffeMenuTranslation, obj.menufacturing.menufacturing_id)
         plant = Plant.objects.get(name=trans.itervalues().next().name)
-        if obj.doctype = "FREIGABE":
+        if obj.doctype == "FREIGABE":
             doctype = "f"
         else:
             doctype = "i"
@@ -742,32 +764,33 @@ def create_esdb():
 # Main method
 ##############################################################################
 def run():
-#    # Independent Tables
-#    # create_users()
-#    create_riskindications()
-#    create_wgks()
-#    create_storage_classes()
-#    create_seveso_categories()
-#    create_rphrases()
-#    create_pphrases()
-#    create_hphrases()
-#    create_persons()
-#    create_plants()
-#
-#    # Tables, that have relations to others
-#    count = 0
-#    chemicals = StoffeChemical.objects.using('legacy').all()
-#    print "Found %s Chemicals, processing migrattion..." % chemicals.count()
-#    for chemical in chemicals:
-#        count += 1
-#        create_chemicals(chemical)
-#    print "%s Chemicals migrated" % count
-#    create_suppliers()
-#    create_departments()
-#    create_locations()
-#    create_stocks()
-#    create_consumers()
-#    create_tox()
+    # Independent Tables
+    # create_users()
+    create_riskindications()
+    create_wgks()
+    create_storage_classes()
+    create_seveso_categories()
+    create_rphrases()
+    create_pphrases()
+    create_hphrases()
+    create_persons()
+    create_plants()
+
+    # Tables, that have relations to others
+    count = 0
+    chemicals = StoffeChemical.objects.using('legacy').all()
+    print "Found %s Chemicals, processing migrattion..." % chemicals.count()
+    for chemical in chemicals:
+        count += 1
+        create_chemicals(chemical)
+    print "%s Chemicals migrated" % count
+    create_synonyms()
+    create_suppliers()
+    create_departments()
+    create_locations()
+    create_stocks()
+    create_consumers()
+    create_tox()
 
     # Tables that contain media files
     create_pictograms()

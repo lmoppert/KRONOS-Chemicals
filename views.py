@@ -82,7 +82,7 @@ class TableDetailView(TableListMixin, DetailView):
 ###############################################################################
 class ChemicalList(TableListView):
     """Returns a list of all Chemicals that are not archived."""
-    model = models.Chemical
+    model = models.ChemicalName
     table_heading = _("Chemicals")
     table_class = tables.ChemicalTable
     archive = False
@@ -90,7 +90,7 @@ class ChemicalList(TableListView):
     def get_table_data(self):
         letter = self.get_filter_values()["letter"]
         return self.get_data_or_dict(
-            models.Chemical, name__istartswith=letter, archive=self.archive,
+            models.ChemicalName, name__istartswith=letter, archive=self.archive,
         )
 
 

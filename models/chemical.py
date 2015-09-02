@@ -102,21 +102,6 @@ class StorageClass(models.Model):
         verbose_name_plural = _("Storage Classes")
 
 
-class Synonym(models.Model):
-    """Simple Class for storing synonyms of chemicals."""
-
-    name = models.CharField(max_length=100, verbose_name=_("Synonym"))
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        ordering = ('name',)
-        app_label = "chemicals"
-        verbose_name = _("Synonym")
-        verbose_name_plural = _("Synonyms")
-
-
 class WGK(models.Model):
     """Simple class for storing the WGK of a chemical."""
 
@@ -149,11 +134,24 @@ class RiskIndication(models.Model):
         verbose_name_plural = _("Risk Indications")
 
 
+class ChemicalName(PolymorphicModel):
+    """This only contains the name of the chemicals and synonyms."""
+    name = models.CharField(max_length=200, verbose_name=_("Chemical"))
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('name',)
+        app_label = "chemicals"
+        verbose_name = _("ChemicalName")
+        verbose_name_plural = _("ChemicalNames")
+
+
 class Chemical(models.Model):
-    """ The Chemical is the heart of this application."""
+    """The Chemical is the heart of this application."""
     SIGNALS = (('d', _('danger')), ('w', _('warning')), ('n', _('no signal')),)
 
-    name = models.CharField(max_length=200, verbose_name=_("Chemical"))
     comment = models.TextField(verbose_name=_("Comment"), blank=True,
                                default='')
     article = models.CharField(max_length=100, blank=True, null=True,
@@ -241,6 +239,21 @@ class Chemical(models.Model):
         app_label = "chemicals"
         verbose_name = _("Chemical")
         verbose_name_plural = _("Chemicals")
+
+
+class Synonym(models.Model):
+    """Simple Class for storing synonyms of chemicals."""
+    chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"),
+                                 related_name="synonyms")
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('name',)
+        app_label = "chemicals"
+        verbose_name = _("Synonym")
+        verbose_name_plural = _("Synonyms")
 
 
 class Toxdata(models.Model):

@@ -101,6 +101,15 @@ class ToxInline(admin.TabularInline):
     suit_classes = 'suit-tab suit-tab-classification'
 
 
+class SynonymInline(admin.TabularInline):
+    """Inline view for the synonyms of a chemical."""
+
+    model = models.Synonym
+    fk_name = 'chemical'
+    extra = 0
+    suit_classes = 'suit-tab suit-tab-classification'
+
+
 ##############################################################################
 # Admin of Chemicals
 ##############################################################################
@@ -218,6 +227,7 @@ class ChemicalAdmin(TranslationAdmin):
         ('seveso', _('Seveso')),
     )
     inlines = (
+        SynonymInline,
         DepartmentInline,
         DocumentInline,
         ReachDocumentInline,
