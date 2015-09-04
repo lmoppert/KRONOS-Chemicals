@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from filer.fields.image import FilerImageField
 from filer.fields.file import FilerFileField
 from django.utils.translation import ugettext_lazy as _
+from polymorphic import PolymorphicModel
 
 
 class HPhrase(models.Model):
@@ -148,7 +149,7 @@ class ChemicalName(PolymorphicModel):
         verbose_name_plural = _("ChemicalNames")
 
 
-class Chemical(models.Model):
+class Chemical(ChemicalName):
     """The Chemical is the heart of this application."""
     SIGNALS = (('d', _('danger')), ('w', _('warning')), ('n', _('no signal')),)
 
@@ -184,8 +185,6 @@ class Chemical(models.Model):
                                       verbose_name=_("Storage Class"))
 
     # Many to many relations
-    synonyms = models.ManyToManyField(Synonym, blank=True,
-                                      verbose_name=_("Synonyms"))
     seveso_categories = models.ManyToManyField(
         SevesoCategory, blank=True, verbose_name=_("Seveso Categories"))
     rphrases = models.ManyToManyField(RPhrase, blank=True,
@@ -235,22 +234,20 @@ class Chemical(models.Model):
         return reverse('chemical_detail', kwargs={'pk': self.pk})
 
     class Meta:
-        ordering = ('name',)
         app_label = "chemicals"
         verbose_name = _("Chemical")
         verbose_name_plural = _("Chemicals")
 
 
-class Synonym(models.Model):
+class Synonym(ChemicalName):
     """Simple Class for storing synonyms of chemicals."""
-    chemical = models.ForeignKey(Chemical, verbose_name=_("Chemical"),
-                                 related_name="synonyms")
+    chemical = models.ForeignKey(Chemical, default=1, related_name="synonyms",
+                                 verbose_name=_("Chemical"))
 
     def __unicode__(self):
         return self.name
 
     class Meta:
-        ordering = ('name',)
         app_label = "chemicals"
         verbose_name = _("Synonym")
         verbose_name_plural = _("Synonyms")

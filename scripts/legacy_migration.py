@@ -303,7 +303,8 @@ def create_synonyms():
     print "Found %s Synonyms, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
-        synonym = StoffeSynonym.objects.using('legacy').get(id=obj.synonym_id)
+        synonym = StoffeSynonym.objects.using('legacy').get(
+            synonym_id=obj.synonym_id)
         chemical = Chemical.objects.get(id=obj.chemical_id)
         new = Synonym.objects.create(
             name=synonym.name,
@@ -445,7 +446,7 @@ def create_consumers():
     print "Found %s Consumners, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
-        if count % 100 == 0:
+        if count % 500 == 0:
             print "    ...%s Consumners have been processed" % count
         chemical = Chemical.objects.get(id=obj.chemical.chemical_id)
         try:
@@ -468,6 +469,8 @@ def create_tox():
     print "Found %s Toxdata items, processing migration..." % objs.count()
     for obj in objs:
         count += 1
+        if count % 500 == 0:
+            print "    ...%s Toxdata items have been processed" % count
         Toxdata.objects.create(
             supplier=Supplier.objects.get(id=obj.supplier_id),
             chemical=Chemical.objects.get(id=obj.chemical_id),
@@ -571,7 +574,7 @@ def create_chemicals(chemical):
     if first_trans.name == '':
         first_trans.name == "<N/A>"
     # Create chemical
-    if oid % 100 == 0:
+    if oid % 500 == 0:
         print "    ...processing Chemical above %s" % oid
     new_chemical = Chemical.objects.create(
         id=oid,
@@ -675,14 +678,13 @@ def create_document():
             doctype = "f"
         else:
             doctype = "i"
-        new = Document.objects.create(
+        Document.objects.create(
             plant=plant,
             chemical=Chemical.objects.get(id=obj.chemical.chemical_id),
             file=get_file_handle(obj.path),
             doctype=doctype,
+            created=obj.createddate
         )
-        new.created = obj.createddate
-        new.save()
     print "%s Documents migrated" % count
 
 
@@ -693,13 +695,12 @@ def create_reach_document():
     print "Found %s REACH Documents, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
-        new = ReachDocument.objects.create(
+        ReachDocument.objects.create(
             chemical=Chemical.objects.get(id=obj.chemical.chemical_id),
             file=get_file_handle(obj.reachdoc_path),
             country_code=get_language(obj.countrycode),
+            created=obj.createddate
         )
-        new.created = obj.createddate
-        new.save()
     print "%s REACH Documents migrated" % count
 
 
@@ -710,13 +711,12 @@ def create_seveso_document():
     print "Found %s Seveso Documents, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
-        new = SevesoDocument.objects.create(
+        SevesoDocument.objects.create(
             chemical=Chemical.objects.get(id=obj.chemical.chemical_id),
             file=get_file_handle(obj.doc_path),
             country_code=get_language(obj.countrycode),
+            created=obj.createddate
         )
-        new.created = obj.createddate
-        new.save()
     print "%s Seveso Documents migrated" % count
 
 
@@ -729,15 +729,14 @@ def create_sdb():
         count += 1
         if count % 500 == 0:
             print "    ...%s SDS have been processed" % count
-        new = SafetyDataSheet.objects.create(
+        SafetyDataSheet.objects.create(
             supplier=Supplier.objects.get(id=obj.supplier.contact_id),
             chemical=Chemical.objects.get(id=obj.chemical.chemical_id),
             file=get_file_handle(obj.path),
             issue_date=obj.issuedate,
             country_code=get_language(obj.countrycode),
+            created=obj.createddate
         )
-        new.created = obj.createddate
-        new.save()
     print "%s SDS migrated" % count
 
 
@@ -748,15 +747,14 @@ def create_esdb():
     print "Found %s eSDS, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
-        new = ExtendedSafetyDataSheet.objects.create(
+        ExtendedSafetyDataSheet.objects.create(
             supplier=Supplier.objects.get(id=obj.supplier.contact_id),
             chemical=Chemical.objects.get(id=obj.chemical.chemical_id),
             file=get_file_handle(obj.path),
             issue_date=obj.issuedate,
             country_code=get_language(obj.countrycode),
+            created=obj.createddate
         )
-        new.created = obj.createddate
-        new.save()
     print "%s eSDS migrated" % count
 
 

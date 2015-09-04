@@ -89,9 +89,8 @@ class ChemicalList(TableListView):
 
     def get_table_data(self):
         letter = self.get_filter_values()["letter"]
-        return self.get_data_or_dict(
-            models.ChemicalName, name__istartswith=letter, archive=self.archive,
-        )
+        return self.get_data_or_dict(models.ChemicalName,
+                                     name__istartswith=letter,)
 
 
 class ChemicalDetail(DetailView):
