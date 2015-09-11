@@ -325,6 +325,13 @@ class SupplierAdmin(admin.ModelAdmin):
     inlines = (RoleInline, )
 
 
+class LocationInline(admin.TabularInline):
+    """Inline view for the locations of a department."""
+
+    model = models.Location
+    extra = 0
+
+
 @admin.register(models.Department)
 class DepartmentAdmin(admin.ModelAdmin):
     """Admin view for a department."""
@@ -332,7 +339,7 @@ class DepartmentAdmin(admin.ModelAdmin):
     list_display = ('name', 'plant')
     search_fields = ('name', )
     list_filter = ('plant', )
-    inlines = (ManagersInline, )
+    inlines = (LocationInline, ManagersInline)
 
 
 @admin.register(models.Plant)
