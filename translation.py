@@ -49,3 +49,4 @@ class CommentTranslationOptions(TranslationOptions):
 
 translator.register(models.Chemical, CommentTranslationOptions)
 translator.register(models.Synonym)
+translator.register(models.Identifier)

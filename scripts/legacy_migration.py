@@ -7,9 +7,10 @@ from filer.models.foldermodels import Folder
 from chemicals.models.periphery import (
     Consumer, Person, Role, Department, Plant, Location, Stock, Supplier)
 from chemicals.models.chemical import (
-    Chemical, RiskIndication, StorageClass, SevesoCategory, HPhrase, Toxdata,
-    WGK, RPhrase, PPhrase, Risk, HPhraseRelation, Pictogram, Document, Synonym,
-    SevesoDocument, ReachDocument, SafetyDataSheet, ExtendedSafetyDataSheet)
+    Chemical, Synonym, Identifier, RiskIndication, StorageClass, SevesoCategory,
+    HPhrase, Toxdata, WGK, RPhrase, PPhrase, Risk, HPhraseRelation, Pictogram,
+    Document, SevesoDocument, ReachDocument, SafetyDataSheet,
+    ExtendedSafetyDataSheet)
 from chemicals.models.legacy import (
     StoffeChemical, StoffeChemTranslation, StoffeWgk, StoffeWgkTranslation,
     StoffeStorageclass, StoffeStorageclassTranslation, StoffeSevesoKategorie,
@@ -297,30 +298,6 @@ def create_persons():
     print "%s Persons migrated" % count
 
 
-def create_synonyms():
-    count = 0
-    objs = StoffeChemSynonym.objects.using('legacy').all()
-    print "Found %s Synonyms, processing migrattion..." % objs.count()
-    for obj in objs:
-        count += 1
-        synonym = StoffeSynonym.objects.using('legacy').get(
-            synonym_id=obj.synonym_id)
-        chemical = Chemical.objects.get(id=obj.chemical_id)
-        new = Synonym.objects.create(
-            name=synonym.name,
-            chemical=chemical,
-        )
-        lang = get_language(obj.countrycode)
-        if lang == 'de':
-            new.name_de = synonym.name
-        elif lang == 'nl':
-            new.name_nl = synonym.name
-        else:
-            new.name_en = synonym.name
-        new.save()
-    print "%s Synonyms migrated" % count
-
-
 ##############################################################################
 # Create methods contacts
 ##############################################################################
@@ -330,8 +307,8 @@ def create_suppliers():
     print "Found %s Suppliers, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
-        if obj.contact_id % 100 == 0:
-            print "Processing Suppliers above %s" % obj.contact_id
+        if count % 100 == 0:
+            print "   ...%s Suppliers have been processed" % count
         address = make_address(obj.address, obj.street, obj.number, obj.plz,
                                obj.city)
         new_obj = Supplier.objects.create(
@@ -423,9 +400,9 @@ def create_stocks():
     print "Found %s Stocks, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
+        if count % 500 == 0:
+            print "   ...%s Stocks have been processed" % count
         oid = obj.location_id
-        if obj.stock_id % 100 == 0:
-            print "Processing Stock above %s" % obj.stock_id
         location = Location.objects.get(id=oid)
         chemical = Chemical.objects.get(id=obj.chemical_id)
         Stock.objects.create(
@@ -447,7 +424,7 @@ def create_consumers():
     for obj in objs:
         count += 1
         if count % 500 == 0:
-            print "    ...%s Consumners have been processed" % count
+            print "   ...%s Consumners have been processed" % count
         chemical = Chemical.objects.get(id=obj.chemical.chemical_id)
         try:
             supplier = Supplier.objects.get(id=obj.contact.contact_id)
@@ -470,7 +447,7 @@ def create_tox():
     for obj in objs:
         count += 1
         if count % 500 == 0:
-            print "    ...%s Toxdata items have been processed" % count
+            print "   ...%s Toxdata items have been processed" % count
         Toxdata.objects.create(
             supplier=Supplier.objects.get(id=obj.supplier_id),
             chemical=Chemical.objects.get(id=obj.chemical_id),
@@ -496,32 +473,44 @@ def create_simple_relations(oid, chemical):
             id=obj.storageclassid_id)
     ####################
     # Seveso Categorie
-    count = 0
     objs = StoffeChemSevesoKategorie.objects.using('legacy').filter(
         chemical=oid)
     for obj in objs:
-        count += 1
         chemical.seveso_categories.add(
             SevesoCategory.objects.get(name=obj.seveso_kategorie)
         )
     ####################
     # R-Phrase
-    count = 0
     objs = StoffeChemRphrase.objects.using('legacy').filter(chemical=oid)
     for obj in objs:
-        count += 1
         chemical.rphrases.add(
             RPhrase.objects.get(name=obj.rphrase)
         )
     ####################
     # P-Phrase
-    count = 0
     objs = StoffeChemPphrase.objects.using('legacy').filter(chemical=oid)
     for obj in objs:
-        count += 1
         chemical.pphrases.add(
             PPhrase.objects.get(name=obj.pphrase)
         )
+    ####################
+    # Synonyms
+    objs = StoffeChemSynonym.objects.using('legacy').filter(chemical_id=oid)
+    for obj in objs:
+        synonym = StoffeSynonym.objects.using('legacy').get(
+            synonym_id=obj.synonym_id)
+        new = Synonym.objects.create(
+            name=synonym.name,
+            chemical=chemical,
+        )
+        lang = get_language(obj.countrycode)
+        if lang == 'de':
+            new.name_de = synonym.name
+        elif lang == 'nl':
+            new.name_nl = synonym.name
+        else:
+            new.name_en = synonym.name
+        new.save()
     ####################
 
 
@@ -574,14 +563,8 @@ def create_chemicals(chemical):
     if first_trans.name == '':
         first_trans.name == "<N/A>"
     # Create chemical
-    if oid % 500 == 0:
-        print "    ...processing Chemical above %s" % oid
     new_chemical = Chemical.objects.create(
         id=oid,
-        name=first_trans.name,
-        name_en=trans['en-en'].name,
-        name_de=trans['de-de'].name,
-        name_nl=trans['nl-be'].name,
         comment=first_trans.comment,
         comment_en=trans['en-en'].comment,
         comment_de=trans['de-de'].comment,
@@ -595,10 +578,13 @@ def create_chemicals(chemical):
         archive=chemical.archive,
         reach_vo=chemical.reach_vo,
         components_registered=chemical.regkomponents,
-
-        # Many to many relations to contact model
-        # departments=chemical.,  # relation through Supplier
-        # locations=chemical.,    # relation through Stock
+    )
+    Identifier.objects.create(
+        name=first_trans.name,
+        name_en=trans['en-en'].name,
+        name_de=trans['de-de'].name,
+        name_nl=trans['nl-be'].name,
+        chemical=new_chemical,
     )
     # Create Many to many relations
     create_simple_relations(oid, new_chemical)
@@ -653,7 +639,7 @@ def create_pictograms():
             name_nl=trans['nl-be'].bezeichnung,
             image=get_file_handle(obj.path),
         )
-        print "Pic created: %s" % new_pic.name
+        print "   ...pic created: %s" % new_pic.name
         signals = StoffeChemPictogramm.objects.using('legacy').filter(
             pictogramm=obj.pictogramm_id)
         for s in signals:
@@ -671,6 +657,8 @@ def create_document():
     print "Found %s Documents, processing migration..." % objs.count()
     for obj in objs:
         count += 1
+        if count % 100 == 0:
+            print "   ...%s Documents have been processed" % count
         trans = get_translations(
             StoffeMenuTranslation, obj.menufacturing.menufacturing_id)
         plant = Plant.objects.get(name=trans.itervalues().next().name)
@@ -728,7 +716,7 @@ def create_sdb():
     for obj in objs:
         count += 1
         if count % 500 == 0:
-            print "    ...%s SDS have been processed" % count
+            print "   ...%s SDS have been processed" % count
         SafetyDataSheet.objects.create(
             supplier=Supplier.objects.get(id=obj.supplier.contact_id),
             chemical=Chemical.objects.get(id=obj.chemical.chemical_id),
@@ -763,7 +751,7 @@ def create_esdb():
 ##############################################################################
 def run():
     # Independent Tables
-    # create_users()
+    create_users()
     create_riskindications()
     create_wgks()
     create_storage_classes()
@@ -780,9 +768,10 @@ def run():
     print "Found %s Chemicals, processing migrattion..." % chemicals.count()
     for chemical in chemicals:
         count += 1
+        if count % 200 == 0:
+            print "   ...%s Chemicals have been processed" % count
         create_chemicals(chemical)
     print "%s Chemicals migrated" % count
-    create_synonyms()
     create_suppliers()
     create_departments()
     create_locations()

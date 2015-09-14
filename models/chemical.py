@@ -135,21 +135,7 @@ class RiskIndication(models.Model):
         verbose_name_plural = _("Risk Indications")
 
 
-class ChemicalName(PolymorphicModel):
-    """This only contains the name of the chemicals and synonyms."""
-    name = models.CharField(max_length=200, verbose_name=_("Chemical"))
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        ordering = ('name',)
-        app_label = "chemicals"
-        verbose_name = _("ChemicalName")
-        verbose_name_plural = _("ChemicalNames")
-
-
-class Chemical(ChemicalName):
+class Chemical(models.Model):
     """The Chemical is the heart of this application."""
     SIGNALS = (('d', _('danger')), ('w', _('warning')), ('n', _('no signal')),)
 
@@ -228,7 +214,7 @@ class Chemical(ChemicalName):
         return self.document_set.filter(doctype="i")
 
     def __unicode__(self):
-        return self.name
+        return self.name.name
 
     def get_absolute_url(self):
         return reverse('chemical_detail', kwargs={'pk': self.pk})
@@ -237,6 +223,34 @@ class Chemical(ChemicalName):
         app_label = "chemicals"
         verbose_name = _("Chemical")
         verbose_name_plural = _("Chemicals")
+
+
+class ChemicalName(PolymorphicModel):
+    """This only contains the name of the chemicals and synonyms."""
+    name = models.CharField(max_length=200, verbose_name=_("Chemical"))
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('name',)
+        app_label = "chemicals"
+        verbose_name = _("ChemicalName")
+        verbose_name_plural = _("ChemicalNames")
+
+
+class Identifier(ChemicalName):
+    """Class for storing the name of a chemical."""
+    chemical = models.OneToOneField(Chemical, default=1, related_name="name",
+                                    verbose_name=_("Chemical"))
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        app_label = "chemicals"
+        verbose_name = _("Name")
+        verbose_name_plural = _("Name")
 
 
 class Synonym(ChemicalName):

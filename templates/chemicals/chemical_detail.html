@@ -38,7 +38,13 @@
                     </table>
                 </div>
             </div>
-            <br><b>{% trans "Comment" %}</b>
+            <br><strong>{% trans "Synonyms" %}</strong>
+            <ul class="list-inline">
+                {% for obj in chemical.synonyms.all %}
+                <li>{{ obj.name }}</li>
+                {% endfor %}
+            </ul>
+            <br><strong>{% trans "Comment" %}</strong>
             <div class="well well-sm">
                 {{ chemical.comment }}
             </div>

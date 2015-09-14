@@ -28,14 +28,14 @@ class RiskColumn(tables.Column):
     empty_values = ()
 
     def render(self, record):
-        return render_as_list(record.risks.all())
+        return render_as_list(record.chemical.risks.all())
 
 
 class PictoColumn(tables.Column):
     empty_values = ()
 
     def render(self, record):
-        return render_as_list(record.pictograms.all())
+        return render_as_list(record.chemical.pictograms.all())
 
 
 class ChemicalNumberTable(tables.Table):
@@ -50,7 +50,8 @@ class ChemicalNumberTable(tables.Table):
 
 class ChemicalTable(tables.Table):
     """Table for the Chemical View."""
-    name = tables.LinkColumn('chemical_detail', args=[A('pk')])
+    name = tables.LinkColumn('chemical_detail', args=[A(
+        'chemical.pk')])
     wgk = tables.Column(verbose_name=_('WGK'), accessor='wgk.name')
     # Translators: This is an abbreviation for Storage Classes
     storage_class = tables.Column(verbose_name=_("SC"),
@@ -81,7 +82,7 @@ class ChemicalTable(tables.Table):
 
     def render_supplier_set(self, record):
         suppliers = []
-        for consumer in record.consumer_set.all():
+        for consumer in record.chemical.consumer_set.all():
             suppliers.append(consumer.supplier)
         return render_as_list(set(suppliers))
 
