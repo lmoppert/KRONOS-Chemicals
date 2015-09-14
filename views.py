@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import FormMixin
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.contrib import messages
 from django_tables2 import SingleTableMixin, RequestConfig
 from django import forms
@@ -82,15 +82,17 @@ class TableDetailView(TableListMixin, DetailView):
 ###############################################################################
 class ChemicalList(TableListView):
     """Returns a list of all Chemicals that are not archived."""
-    model = models.Chemical
+    model = models.ChemicalName
     table_heading = _("Chemicals")
     table_class = tables.ChemicalTable
     archive = False
 
     def get_table_data(self):
         letter = self.get_filter_values()["letter"]
-        return self.get_data_or_dict(
-            models.Chemical, name__istartswith=letter, archive=self.archive,
+        return models.ChemicalName.objects.filter(
+            name__istartswith=letter).filter(
+            Q(synonym__chemical__archive=self.archive) |
+            Q(identifier__chemical__archive=self.archive)
         )
 
 
@@ -130,7 +132,7 @@ class CMRList(ConsumerList):
         for h in models.HPhrase.objects.all():
             if h.cmr < 9:
                 chemicals.extend(h.chemical_set.filter(archive=False).filter(
-                    name__istartswith=letter)
+                    name__name__istartswith=letter)
                 )
         return chemicals
 
@@ -162,7 +164,7 @@ class DepartmentView(TableDetailView):
         letter = self.get_filter_values()["letter"]
         chemicals = []
         consumers = self.get_object().chemicals.filter(
-            chemical__name__istartswith=letter, chemical__archive=False)
+            chemical__name__name__istartswith=letter, chemical__archive=False)
         for consumer in consumers:
             chemicals.append(consumer.chemical)
         return chemicals
@@ -221,7 +223,7 @@ class ApprovalDocumentList(TableListView):
         return self.get_data_or_dict(
             models.Document,
             doctype="f",
-            chemical__name__istartswith=letter,
+            chemical__name__name__istartswith=letter,
         )
 
 
@@ -236,8 +238,11 @@ class ChemicalsMissingSDB(ChemicalList):
         letter = self.get_filter_values()["letter"]
         chemicals = models.Chemical.objects.annotate(
             num_sds=Count('safetydatasheet')).filter(num_sds=0).filter(
-            name__istartswith=letter).filter(archive=self.archive)
-        return chemicals
+            name__name__istartswith=letter).filter(archive=self.archive)
+        chemical_names = []
+        for chemical in chemicals:
+            chemical_names.append(chemical.name)
+        return chemical_names
 
 
 class ToxList(TableListView):
@@ -255,7 +260,9 @@ class ChemicalNumbers(ChemicalList):
     def get_table_data(self):
         letter = self.get_filter_values()["letter"]
         return self.get_data_or_dict(
-            models.Chemical, name__istartswith=letter, archive=self.archive,
+            models.Chemical,
+            name__name__istartswith=letter,
+            archive=self.archive,
         )
 
 
@@ -403,7 +410,9 @@ class ChemicalStockList(TableListView):
     def get_table_data(self):
         letter = self.get_filter_values()["letter"]
         return self.get_data_or_dict(
-            models.Chemical, name__istartswith=letter, archive=self.archive,
+            models.Chemical,
+            name__name__istartswith=letter,
+            archive=self.archive,
         )
 
     def get_context_data(self, **kwargs):

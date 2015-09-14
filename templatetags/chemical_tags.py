@@ -43,8 +43,10 @@ def show_signal(value):
         s = u'<span class="label label-warning">%s</span>' % _("Warning")
     elif value == 'd' or value == u'd':
         s = u'<span class="label label-danger">%s</span>' % _("Danger")
-    else:
+    elif value == 'n' or value == u'n':
         s = u'<span class="label label-default">%s</span>' % _("No Signal")
+    else:
+        s = u''
     return mark_safe(s)
 
 

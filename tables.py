@@ -28,14 +28,14 @@ class RiskColumn(tables.Column):
     empty_values = ()
 
     def render(self, record):
-        return render_as_list(record.risks.all())
+        return render_as_list(record.chemical.risks.all())
 
 
 class PictoColumn(tables.Column):
     empty_values = ()
 
     def render(self, record):
-        return render_as_list(record.pictograms.all())
+        return render_as_list(record.chemical.pictograms.all())
 
 
 class ChemicalNumberTable(tables.Table):
@@ -50,11 +50,22 @@ class ChemicalNumberTable(tables.Table):
 
 class ChemicalTable(tables.Table):
     """Table for the Chemical View."""
-    name = tables.LinkColumn('chemical_detail', args=[A('pk')])
-    wgk = tables.Column(verbose_name=_('WGK'), accessor='wgk.name')
+    name = tables.LinkColumn(
+        'chemical_detail',
+    )
+    wgk = tables.Column(
+        verbose_name=_('WGK'),
+        accessor='chemical.wgk.name',
+    )
     # Translators: This is an abbreviation for Storage Classes
-    storage_class = tables.Column(verbose_name=_("SC"),
-                                  accessor='storage_class.name')
+    storage_class = tables.Column(
+        verbose_name=_("SC"),
+        accessor='chemical.storage_class.name',
+    )
+    signal = tables.Column(
+        empty_values=(),
+        verbose_name=_("Signal"),
+    )
     supplier_set = tables.Column(
         empty_values=(),
         verbose_name=_("Supplier"),
@@ -69,24 +80,35 @@ class ChemicalTable(tables.Table):
         orderable=False,
     )
 
+    def render_name(self, record):
+        name = record.name
+        url = reverse('chemical_detail', kwargs={'pk': record.chemical.id})
+        if record.polymorphic_ctype.model == u'synonym':
+            r = u'<a href="{}"><em>{}</em></a>'.format(url, name)
+        else:
+            r = u'<a href="{}">{}</a>'.format(url, name)
+        return mark_safe(r)
+
     def render_signal(self, record):
-        s = record.signal
+        s = record.chemical.signal
         if s == 'w' or s == u'w':
             r = u'<span class="label label-warning">%s</span>' % _("Warning")
         elif s == 'd' or s == u'd':
             r = u'<span class="label label-danger">%s</span>' % _("Danger")
-        else:
+        elif s == 'n' or s == u'n':
             r = u'<span class="label label-default">%s</span>' % _("No Signal")
+        else:
+            r = u''
         return mark_safe(r)
 
     def render_supplier_set(self, record):
         suppliers = []
-        for consumer in record.consumer_set.all():
+        for consumer in record.chemical.consumer_set.all():
             suppliers.append(consumer.supplier)
         return render_as_list(set(suppliers))
 
     class Meta:
-        model = models.Chemical
+        model = models.Identifier
         attrs = {'class': "table table-bordered table-striped table-condensed"}
         order_by = ('name',)
         fields = ('name', 'risks', 'pictograms', 'signal', 'storage_class',
@@ -96,8 +118,22 @@ class ChemicalTable(tables.Table):
 class DepartmentChemicalTable(tables.Table):
     """Table for use in Department View"""
     name = tables.LinkColumn('chemical_detail', args=[A('pk')])
-    risks = RiskColumn(verbose_name=_("Risk Indication"))
-    pictograms = PictoColumn(verbose_name=_("Pictogram"))
+    risks = tables.Column(
+        verbose_name=_("Risk Indication"),
+        orderable=False,
+        empty_values=(),
+    )
+    pictograms = PictoColumn(
+        verbose_name=_("Pictogram"),
+        orderable=False,
+        empty_values=(),
+    )
+
+    def render_risks(self, record):
+        return render_as_list(record.risks.all())
+
+    def render_pictograms(self, record):
+        return render_as_list(record.pictograms.all())
 
     class Meta:
         model = models.Chemical
@@ -340,11 +376,13 @@ class ChemicalStockTable(tables.Table):
         verbose_name=_("Chemical Stocks"),
         orderable=False,
     )
-    risks = RiskColumn(
+    risks = tables.Column(
+        empty_values=(),
         verbose_name=_("Risk Indication"),
         orderable=False,
     )
-    pictograms = PictoColumn(
+    pictograms = tables.Column(
+        empty_values=(),
         verbose_name=_("Pictogram"),
         orderable=False,
     )
@@ -362,6 +400,12 @@ class ChemicalStockTable(tables.Table):
                 stock.max_volume, models.Stock.UNITS[stock.max_unit],)
         stocks += '</table>'
         return mark_safe(stocks)
+
+    def render_risks(self, record):
+        return render_as_list(record.risks.all())
+
+    def render_pictograms(self, record):
+        return render_as_list(record.pictograms.all())
 
     class Meta:
         model = models.Chemical
@@ -403,12 +447,6 @@ class StockLocationTable(tables.Table):
         else:
             r = u'<span class="label label-default">%s</span>' % _("No Signal")
         return mark_safe(r)
-
-    def render_risks(self, record):
-        return render_as_list(record.chemical.risks.all())
-
-    def render_pictograms(self, record):
-        return render_as_list(record.chemical.pictograms.all())
 
     class Meta:
         model = models.Stock

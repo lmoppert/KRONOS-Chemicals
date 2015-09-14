@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from filer.fields.image import FilerImageField
 from filer.fields.file import FilerFileField
 from django.utils.translation import ugettext_lazy as _
+from polymorphic import PolymorphicModel
 
 
 class HPhrase(models.Model):
@@ -102,21 +103,6 @@ class StorageClass(models.Model):
         verbose_name_plural = _("Storage Classes")
 
 
-class Synonym(models.Model):
-    """Simple Class for storing synonyms of chemicals."""
-
-    name = models.CharField(max_length=100, verbose_name=_("Synonym"))
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        ordering = ('name',)
-        app_label = "chemicals"
-        verbose_name = _("Synonym")
-        verbose_name_plural = _("Synonyms")
-
-
 class WGK(models.Model):
     """Simple class for storing the WGK of a chemical."""
 
@@ -150,10 +136,9 @@ class RiskIndication(models.Model):
 
 
 class Chemical(models.Model):
-    """ The Chemical is the heart of this application."""
+    """The Chemical is the heart of this application."""
     SIGNALS = (('d', _('danger')), ('w', _('warning')), ('n', _('no signal')),)
 
-    name = models.CharField(max_length=200, verbose_name=_("Chemical"))
     comment = models.TextField(verbose_name=_("Comment"), blank=True,
                                default='')
     article = models.CharField(max_length=100, blank=True, null=True,
@@ -186,8 +171,6 @@ class Chemical(models.Model):
                                       verbose_name=_("Storage Class"))
 
     # Many to many relations
-    synonyms = models.ManyToManyField(Synonym, blank=True,
-                                      verbose_name=_("Synonyms"))
     seveso_categories = models.ManyToManyField(
         SevesoCategory, blank=True, verbose_name=_("Seveso Categories"))
     rphrases = models.ManyToManyField(RPhrase, blank=True,
@@ -231,16 +214,57 @@ class Chemical(models.Model):
         return self.document_set.filter(doctype="i")
 
     def __unicode__(self):
-        return self.name
+        return self.name.name
 
     def get_absolute_url(self):
         return reverse('chemical_detail', kwargs={'pk': self.pk})
 
     class Meta:
-        ordering = ('name',)
         app_label = "chemicals"
         verbose_name = _("Chemical")
         verbose_name_plural = _("Chemicals")
+
+
+class ChemicalName(PolymorphicModel):
+    """This only contains the name of the chemicals and synonyms."""
+    name = models.CharField(max_length=200, verbose_name=_("Chemical"))
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('name',)
+        app_label = "chemicals"
+        verbose_name = _("ChemicalName")
+        verbose_name_plural = _("ChemicalNames")
+
+
+class Identifier(ChemicalName):
+    """Class for storing the name of a chemical."""
+    chemical = models.OneToOneField(Chemical, default=1, related_name="name",
+                                    verbose_name=_("Chemical"))
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        app_label = "chemicals"
+        verbose_name = _("Name")
+        verbose_name_plural = _("Name")
+
+
+class Synonym(ChemicalName):
+    """Simple Class for storing synonyms of chemicals."""
+    chemical = models.ForeignKey(Chemical, default=1, related_name="synonyms",
+                                 verbose_name=_("Chemical"))
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        app_label = "chemicals"
+        verbose_name = _("Synonym")
+        verbose_name_plural = _("Synonyms")
 
 
 class Toxdata(models.Model):

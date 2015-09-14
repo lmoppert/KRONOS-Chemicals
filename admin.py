@@ -101,6 +101,25 @@ class ToxInline(admin.TabularInline):
     suit_classes = 'suit-tab suit-tab-classification'
 
 
+class SynonymInline(admin.TabularInline):
+    """Inline view for the synonyms of a chemical."""
+
+    model = models.Synonym
+    fk_name = 'chemical'
+    extra = 0
+    suit_classes = 'suit-tab suit-tab-general'
+
+
+class IdentifierInline(admin.TabularInline):
+    """Inline view for the synonyms of a chemical."""
+
+    model = models.Identifier
+    can_delete = False
+    fk_name = 'chemical'
+    extra = 0
+    suit_classes = 'suit-tab suit-tab-general'
+
+
 ##############################################################################
 # Admin of Chemicals
 ##############################################################################
@@ -179,17 +198,13 @@ class ChemicalAdmin(TranslationAdmin):
                    'storage_class', 'toxdata__tox', 'toxdata__oekotox')
     actions = ('archive_chemicals', 'unarchive_chemicals')
     fieldsets = (
-        (None, {
-            'classes': ('suit-tab', 'suit-tab-general',),
-            'fields': ('name', 'synonyms',)
-        }),
         (_('Values'), {
-            'classes': ('suit-tab', 'suit-tab-general',),
+            'classes': ('suit-tab', 'suit-tab-identification',),
             'fields': ('article', 'registration_number', 'cas',
                        'einecs',)
         }),
         (_('Flags'), {
-            'classes': ('suit-tab', 'suit-tab-general',),
+            'classes': ('suit-tab', 'suit-tab-identification',),
             'fields': ('needed', 'preparation', 'archive', 'reach_vo',
                        'components_registered')
         }),
@@ -203,13 +218,14 @@ class ChemicalAdmin(TranslationAdmin):
             'fields': ('seveso_categories', )
         }),
         (_('Comments'), {
-            'classes': ('suit-tab', 'suit-tab-general',),
+            'classes': ('suit-tab', 'suit-tab-identification',),
             'fields': ('comment',)
         }),
     )
     filter_horizontal = ('seveso_categories', 'rphrases', 'pictograms')
     suit_form_tabs = (
-        ('general', _('Identification')),
+        ('general', _('Names')),
+        ('identification', _('Identification')),
         ('classification', _('Classification')),
         ('department', _('Department / Supplier')),
         ('sds', _('SDS / Documents')),
@@ -218,6 +234,8 @@ class ChemicalAdmin(TranslationAdmin):
         ('seveso', _('Seveso')),
     )
     inlines = (
+        IdentifierInline,
+        SynonymInline,
         DepartmentInline,
         DocumentInline,
         ReachDocumentInline,

@@ -11,8 +11,8 @@ class NameTranslationOptions(TranslationOptions):
 
 translator.register(models.Plant, NameTranslationOptions)
 translator.register(models.Pictogram, NameTranslationOptions)
-translator.register(models.Synonym, NameTranslationOptions)
 translator.register(models.RiskIndication, NameTranslationOptions)
+translator.register(models.ChemicalName, NameTranslationOptions)
 
 
 class DescriptionTranslationOptions(TranslationOptions):
@@ -42,9 +42,11 @@ translator.register(models.Risk, InfoTranslationOptions)
 translator.register(models.HPhraseRelation, InfoTranslationOptions)
 
 
-class ChemicalTranslationOptions(TranslationOptions):
+class CommentTranslationOptions(TranslationOptions):
     """Translating both, name and comment field."""
-    fields = ('name', 'comment',)
+    fields = ('comment',)
 
 
-translator.register(models.Chemical, ChemicalTranslationOptions)
+translator.register(models.Chemical, CommentTranslationOptions)
+translator.register(models.Synonym)
+translator.register(models.Identifier)
