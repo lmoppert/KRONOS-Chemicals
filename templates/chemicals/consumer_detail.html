@@ -97,6 +97,11 @@
         </table>
         {% endif %}
         <hr>
+        <a href="{% url 'stock_department_list' pk=department.id %}"
+            role="buttopn" class="btn btn-primary btn-xs">
+            <span class="glyphicon glyphicon-circle-arrow-left"></span>
+            {% trans "Back to Overview" %}
+        </a>
     </div>
 </div>
 <h3>{% trans "Chemical Directive" %}</h3>
