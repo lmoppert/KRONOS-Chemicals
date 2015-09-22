@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KRONOS Intranet \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-18 11:22+0200\n"
+"POT-Creation-Date: 2015-09-22 11:35+0200\n"
 "PO-Revision-Date: 2015-09-14 10:16+0200\n"
 "Last-Translator: Lutz Moppert <lutz.moppert@kronosww.com>>\n"
 "Language: Dutch\n"
@@ -67,19 +67,19 @@ msgstr "Seveso"
 
 #: admin.py:255
 msgid "Move selected chemicals to archive"
-msgstr ""
+msgstr "Move selected chemicals to archive"
 
 #: admin.py:260
 msgid "Remove selected chemicals from archive"
-msgstr ""
+msgstr "Remove selected chemicals from archive"
 
 #: admin.py:276
 msgid "managed department"
-msgstr ""
+msgstr "managed department"
 
 #: admin.py:277
 msgid "managed departments"
-msgstr ""
+msgstr "managed departments"
 
 #: admin.py:285
 msgid "department admin"
@@ -107,7 +107,7 @@ msgstr "Belangrijke gegevens"
 
 #: admin.py:311
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: admin.py:312
 msgid "Extended"
@@ -115,11 +115,11 @@ msgstr "Uitgebreid"
 
 #: models/checklist.py:19
 msgid "Check List Usage"
-msgstr ""
+msgstr "Check List Usage"
 
 #: models/checklist.py:20
 msgid "Check List Usages"
-msgstr ""
+msgstr "Check List Usages"
 
 #: models/checklist.py:26
 msgid "open"
@@ -135,31 +135,31 @@ msgstr "gesloten"
 
 #: models/checklist.py:40
 msgid "Check List"
-msgstr ""
+msgstr "Check List"
 
 #: models/checklist.py:41
 msgid "Check Lists"
-msgstr ""
+msgstr "Check Lists"
 
 #: models/checklist.py:57
 msgid "Check List Section"
-msgstr ""
+msgstr "Check List Section"
 
 #: models/checklist.py:58
 msgid "Check List Sections"
-msgstr ""
+msgstr "Check List Sections"
 
 #: models/checklist.py:69
 msgid "Personal Protective Equipment (PPE)"
-msgstr ""
+msgstr "Personal Protective Equipment (PPE)"
 
 #: models/checklist.py:70
 msgid "Personal Protective Equipments (PPE)"
-msgstr ""
+msgstr "Personal Protective Equipments (PPE)"
 
 #: models/checklist.py:86 models/chemical.py:21 models/chemical.py:34
 #: models/chemical.py:340 templates/chemicals/chemical_detail.html:133
-#: templates/chemicals/consumer_detail.html:145
+#: templates/chemicals/consumer_detail.html:147
 msgid "H-Phrase"
 msgstr "H-Zin"
 
@@ -187,27 +187,27 @@ msgstr "WGK"
 
 #: models/checklist.py:137
 msgid "Pictogram Check"
-msgstr ""
+msgstr "Pictogram Check"
 
 #: models/checklist.py:138
 msgid "Pictogram Checks"
-msgstr ""
+msgstr "Pictogram Checks"
 
 #: models/checklist.py:154
 msgid "Storage Class Check"
-msgstr ""
+msgstr "Storage Class Check"
 
 #: models/checklist.py:155
 msgid "Storage Class Checks"
-msgstr ""
+msgstr "Storage Class Checks"
 
 #: models/checklist.py:171
 msgid "PPE Check"
-msgstr ""
+msgstr "PPE Check"
 
 #: models/checklist.py:172
 msgid "PPE Checks"
-msgstr ""
+msgstr "PPE Checks"
 
 #: models/chemical.py:17 templates/chemicals/chemical_detail.html:72
 msgid "CMR Category 1A/1B"
@@ -227,9 +227,9 @@ msgstr "niet CMR relevant"
 #: templates/chemicals/chemical_detail.html:116
 #: templates/chemicals/chemical_detail.html:123
 #: templates/chemicals/chemical_detail.html:127
-#: templates/chemicals/consumer_detail.html:128
-#: templates/chemicals/consumer_detail.html:135
-#: templates/chemicals/consumer_detail.html:139
+#: templates/chemicals/consumer_detail.html:130
+#: templates/chemicals/consumer_detail.html:137
+#: templates/chemicals/consumer_detail.html:141
 msgid "Description"
 msgstr "Betekenis"
 
@@ -243,7 +243,7 @@ msgstr "CMR"
 
 #: models/chemical.py:58 models/chemical.py:68
 #: templates/chemicals/chemical_detail.html:105
-#: templates/chemicals/consumer_detail.html:117
+#: templates/chemicals/consumer_detail.html:119
 msgid "R-Phrase"
 msgstr "R-Zin"
 
@@ -261,7 +261,7 @@ msgstr "Seveso categories"
 
 #: models/chemical.py:92 models/chemical.py:102 models/chemical.py:171
 #: templates/chemicals/chemical_detail.html:123
-#: templates/chemicals/consumer_detail.html:135
+#: templates/chemicals/consumer_detail.html:137
 msgid "Storage Class"
 msgstr "Opslag klasse"
 
@@ -271,7 +271,7 @@ msgstr "Opslag klassen"
 
 #: models/chemical.py:126 models/chemical.py:332
 #: templates/chemicals/chemical_detail.html:97
-#: templates/chemicals/consumer_detail.html:109
+#: templates/chemicals/consumer_detail.html:111
 msgid "Risk"
 msgstr "Gevarenklasse"
 
@@ -320,7 +320,7 @@ msgstr "EINECS"
 
 #: models/chemical.py:155 tables.py:67
 #: templates/chemicals/chemical_detail.html:121
-#: templates/chemicals/consumer_detail.html:133
+#: templates/chemicals/consumer_detail.html:135
 msgid "Signal"
 msgstr "Signaalwoord"
 
@@ -338,16 +338,16 @@ msgstr "Mengsel"
 
 #: models/chemical.py:164
 msgid "Components Registered"
-msgstr ""
+msgstr "Registratie alle componenten"
 
 #: models/chemical.py:166 templates/chemicals/chemical_detail.html:68
 msgid "Listed in annex XIV REACH regulation"
-msgstr "gelistet in Anhang XIV REACH-VO"
+msgstr "Opgelijst in bijlage XIV REACH Verordening"
 
 #: models/chemical.py:181 models/chemical.py:360 models/chemical.py:368
 #: tables.py:79 tables.py:127 tables.py:386 tables.py:437
 #: templates/chemicals/chemical_detail.html:116
-#: templates/chemicals/consumer_detail.html:128
+#: templates/chemicals/consumer_detail.html:130
 msgid "Pictogram"
 msgstr "Pictogram"
 
@@ -369,15 +369,15 @@ msgstr "Chemisch product"
 #: templates/chemicals/base.html.py:17 templates/chemicals/base.html:42
 #: views.py:86 views.py:404
 msgid "Chemicals"
-msgstr "Chemikaliën"
+msgstr "Chemicaliën"
 
 #: models/chemical.py:238
 msgid "ChemicalName"
-msgstr ""
+msgstr "Chemicaliën naam"
 
 #: models/chemical.py:239
 msgid "ChemicalNames"
-msgstr "Chemische naam"
+msgstr "Chemicaliën naam"
 
 #: models/chemical.py:252 models/chemical.py:253 models/periphery.py:45
 #: models/periphery.py:96 models/periphery.py:112 models/periphery.py:150
@@ -398,8 +398,8 @@ msgstr "Synoniem"
 #: tables.py:263 templates/chemicals/chemical_detail.html:139
 #: templates/chemicals/chemical_detail.html:158
 #: templates/chemicals/chemical_detail.html:170
-#: templates/chemicals/consumer_detail.html:158
-#: templates/chemicals/consumer_detail.html:169
+#: templates/chemicals/consumer_detail.html:160
+#: templates/chemicals/consumer_detail.html:171
 msgid "Supplier"
 msgstr "Leverancier"
 
@@ -442,11 +442,11 @@ msgstr "H-Zin rel."
 
 #: models/chemical.py:359
 msgid "Code"
-msgstr ""
+msgstr "code"
 
 #: models/chemical.py:361
 msgid "Image"
-msgstr ""
+msgstr "image"
 
 #: models/chemical.py:369 tables.py:261 tables.py:336
 msgid "Pictograms"
@@ -464,11 +464,11 @@ msgstr "Stof informatie"
 #: models/chemical.py:378 models/chemical.py:396 models/chemical.py:419
 #: models/chemical.py:438 models/chemical.py:459
 msgid "File"
-msgstr ""
+msgstr "File"
 
 #: models/chemical.py:380
 msgid "Document Type"
-msgstr ""
+msgstr "Dokument type"
 
 #: models/chemical.py:381
 msgid "Released on"
@@ -476,7 +476,7 @@ msgstr "Uitgebracht op"
 
 #: models/chemical.py:388 templates/chemicals/chemical_detail.html:224
 msgid "Document"
-msgstr "Document"
+msgstr "Dokument"
 
 #: models/chemical.py:389 templates/chemicals/chemical_detail.html:182
 msgid "Documents"
@@ -518,7 +518,7 @@ msgid "Safety Data Sheet"
 msgstr "Veiligheidsinformatieblad"
 
 #: models/chemical.py:451 templates/chemicals/chemical_detail.html:156
-#: templates/chemicals/consumer_detail.html:154 views.py:183 views.py:195
+#: templates/chemicals/consumer_detail.html:156 views.py:183 views.py:195
 msgid "Safety Data Sheets"
 msgstr "Veiligheidsinformatiebladen"
 
@@ -536,7 +536,7 @@ msgstr "Titel"
 
 #: models/periphery.py:15
 msgid "Academic Title"
-msgstr ""
+msgstr "Academic Title"
 
 #: models/periphery.py:17
 msgid "Surname"
@@ -554,12 +554,12 @@ msgstr "Telefoon"
 #: models/periphery.py:22 models/periphery.py:52
 #: templates/chemicals/supplier_detail.html:14
 msgid "Fax"
-msgstr ""
+msgstr "Fax"
 
 #: models/periphery.py:24 models/periphery.py:54
 #: templates/chemicals/supplier_detail.html:17
 msgid "Email"
-msgstr ""
+msgstr "email"
 
 #: models/periphery.py:36 models/periphery.py:79
 msgid "Person"
@@ -614,19 +614,19 @@ msgstr "Afdeling"
 
 #: models/periphery.py:130
 msgid "Profile"
-msgstr ""
+msgstr "Profile"
 
 #: models/periphery.py:132
 msgid "Managed Department"
-msgstr ""
+msgstr "Managed Department"
 
 #: models/periphery.py:139
 msgid "User Profile"
-msgstr ""
+msgstr "User Profile"
 
 #: models/periphery.py:140
 msgid "User Profiles"
-msgstr ""
+msgstr "User Profiles"
 
 #: models/periphery.py:161 models/periphery.py:176
 msgid "Location"
@@ -668,8 +668,8 @@ msgstr "volume"
 msgid "Unit"
 msgstr "eenheid"
 
-#: models/periphery.py:182 templates/chemicals/consumer_detail.html:19
-#: templates/chemicals/consumer_detail.html:91
+#: models/periphery.py:182 templates/chemicals/consumer_detail.html:16
+#: templates/chemicals/consumer_detail.html:88
 msgid "Year Volume"
 msgstr "Stock / jaar"
 
@@ -711,23 +711,23 @@ msgstr "CMR categorie"
 
 #: tables.py:226 tables.py:342 tables.py:376
 msgid "Chemical Stocks"
-msgstr "chemical stocks"
+msgstr "Chemicaliën voorraad"
 
 #: tables.py:250 templates/chemicals/chemical_detail.html:158
-#: templates/chemicals/consumer_detail.html:158
+#: templates/chemicals/consumer_detail.html:160
 msgid "SDS"
 msgstr "SDS"
 
 #: tables.py:251 templates/chemicals/chemical_detail.html:170
-#: templates/chemicals/consumer_detail.html:169
+#: templates/chemicals/consumer_detail.html:171
 msgid "eSDS"
 msgstr "eSDS"
 
 #: tables.py:253 templates/chemicals/chemical_detail.html:158
 #: templates/chemicals/chemical_detail.html:170
 #: templates/chemicals/chemical_detail.html:224
-#: templates/chemicals/consumer_detail.html:158
-#: templates/chemicals/consumer_detail.html:169
+#: templates/chemicals/consumer_detail.html:160
+#: templates/chemicals/consumer_detail.html:171
 msgid "Language"
 msgstr "Taal"
 
@@ -737,11 +737,11 @@ msgstr "SDS"
 
 #: templates/chemicals/base.html:9
 msgid "Chemical Stock"
-msgstr "Chemical Stock"
+msgstr "Chemicaliën voorraad"
 
 #: templates/chemicals/base.html:12
 msgid "More Views"
-msgstr "mere overzicht"
+msgstr "Extra views"
 
 #: templates/chemicals/base.html:16
 msgid "Chemical Views"
@@ -753,15 +753,15 @@ msgstr "Goedkeuring document"
 
 #: templates/chemicals/base.html:25
 msgid "SHE Views"
-msgstr ""
+msgstr "SHE Views"
 
 #: templates/chemicals/base.html:27 views.py:235
 msgid "Chemicals without SDS"
-msgstr ""
+msgstr "Chemicaliën zonder SDS"
 
 #: templates/chemicals/base.html:29
 msgid "Seveso-View Departments"
-msgstr "Seveso-View Departments"
+msgstr "Seveso-View Afdeling"
 
 #: templates/chemicals/base.html:30
 msgid "Seveso-View"
@@ -773,19 +773,20 @@ msgstr "Seveso-View Listed Chemicals"
 
 #: templates/chemicals/base.html:35 views.py:258
 msgid "Chemical Numbers"
-msgstr "Chemikaliën Nummer"
+msgstr "Chemicaliën Nummer"
 
 #: templates/chemicals/base.html:37
 msgid "Administration"
-msgstr ""
+msgstr "Administration"
 
 #: templates/chemicals/base.html:39
 msgid "Chemical Stock Views"
-msgstr ""
+msgstr "Chemicaliën voorraad views"
 
 #: templates/chemicals/base.html:41 views.py:305 views.py:322
+#| msgid "Stock Location"
 msgid "Stock Locations"
-msgstr "Locatie"
+msgstr "Voorraad"
 
 #: templates/chemicals/chemical_detail.html:57
 msgid "Always needed"
@@ -793,7 +794,7 @@ msgstr "Veel gebruikt"
 
 #: templates/chemicals/chemical_detail.html:60
 msgid "Components registered"
-msgstr ""
+msgstr "Registratie alle componenten"
 
 #: templates/chemicals/chemical_detail.html:63
 msgid "Archived"
@@ -801,50 +802,50 @@ msgstr "Archief"
 
 #: templates/chemicals/chemical_detail.html:78
 msgid "Seveso relevant"
-msgstr ""
+msgstr "Seveso relevant"
 
 #: templates/chemicals/chemical_detail.html:86
 msgid "SDS / Document"
-msgstr ""
+msgstr "SDS / Document"
 
 #: templates/chemicals/chemical_detail.html:88
 msgid "Checklist"
 msgstr "Checklist"
 
 #: templates/chemicals/chemical_detail.html:93
-#: templates/chemicals/consumer_detail.html:105
+#: templates/chemicals/consumer_detail.html:107
 msgid "Chemical Directive"
-msgstr "Chemikaliën Richtlijnen"
+msgstr "Chemicaliën Richtlijnen"
 
 #: templates/chemicals/chemical_detail.html:97
 #: templates/chemicals/chemical_detail.html:201
 #: templates/chemicals/chemical_detail.html:217
-#: templates/chemicals/consumer_detail.html:109
+#: templates/chemicals/consumer_detail.html:111
 #: templates/chemicals/supplier_detail.html:26
 msgid "Info"
-msgstr ""
+msgstr "Informatie"
 
 #: templates/chemicals/chemical_detail.html:105
 #: templates/chemicals/chemical_detail.html:133
-#: templates/chemicals/consumer_detail.html:117
-#: templates/chemicals/consumer_detail.html:145
+#: templates/chemicals/consumer_detail.html:119
+#: templates/chemicals/consumer_detail.html:147
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: templates/chemicals/chemical_detail.html:112
-#: templates/chemicals/consumer_detail.html:124
+#: templates/chemicals/consumer_detail.html:126
 msgid "CLP"
-msgstr ""
+msgstr "CLP"
 
 #: templates/chemicals/chemical_detail.html:127
-#: templates/chemicals/consumer_detail.html:139
+#: templates/chemicals/consumer_detail.html:141
 msgid "Water Hazard Classification"
-msgstr ""
+msgstr "Watergevarenklasse"
 
 #: templates/chemicals/chemical_detail.html:158
 #: templates/chemicals/chemical_detail.html:170
-#: templates/chemicals/consumer_detail.html:158
-#: templates/chemicals/consumer_detail.html:169
+#: templates/chemicals/consumer_detail.html:160
+#: templates/chemicals/consumer_detail.html:171
 msgid "Published on"
 msgstr "Uitgavedatum"
 
@@ -852,52 +853,52 @@ msgstr "Uitgavedatum"
 msgid "General documents"
 msgstr "Product Informatie"
 
-#: templates/chemicals/consumer_detail.html:8
-msgid "Back to Overview"
-msgstr ""
-
-#: templates/chemicals/consumer_detail.html:17
-#: templates/chemicals/consumer_detail.html:89
+#: templates/chemicals/consumer_detail.html:14
+#: templates/chemicals/consumer_detail.html:86
 msgid "Stock Location"
-msgstr ""
+msgstr "Voorraad"
 
-#: templates/chemicals/consumer_detail.html:18
-#: templates/chemicals/consumer_detail.html:90
+#: templates/chemicals/consumer_detail.html:15
+#: templates/chemicals/consumer_detail.html:87
 msgid "Max Volume"
 msgstr "max volume"
 
-#: templates/chemicals/consumer_detail.html:20
+#: templates/chemicals/consumer_detail.html:17
 msgid "Remove"
-msgstr ""
+msgstr "verwijderen"
 
-#: templates/chemicals/consumer_detail.html:66
+#: templates/chemicals/consumer_detail.html:63
 msgid "Add a location from the list"
-msgstr ""
+msgstr "Voeg een locatie uit de lijst"
 
-#: templates/chemicals/consumer_detail.html:80
+#: templates/chemicals/consumer_detail.html:77
 msgid "Save Changes"
 msgstr "Bevestigen"
 
+#: templates/chemicals/consumer_detail.html:103
+msgid "Back to Overview"
+msgstr "Terug naar het overzicht "
+
 #: templates/chemicals/letter_filter.html:45
 msgid "all"
-msgstr ""
+msgstr "all"
 
 #: templates/chemicals/max_items.html:3
 msgid "Items per page"
-msgstr ""
+msgstr "Data gegevens per pagina"
 
 #: templates/chemicals/table.html:40
 msgid "Previous"
-msgstr ""
+msgstr "vorig"
 
 #: templates/chemicals/table.html:42
 #, python-format
 msgid "Page %(current)s of %(total)s"
-msgstr ""
+msgstr "Paginanummer %(current)s van %(total)s"
 
 #: templates/chemicals/table.html:44
 msgid "Next"
-msgstr ""
+msgstr "volgende"
 
 #: urls.py:22
 msgid "Archived chemicals"
@@ -913,12 +914,13 @@ msgstr "Afdeling (chemical view)"
 
 #: views.py:276
 msgid "Departments (Stock View)"
-msgstr "Afdeling (stock view)"
+msgstr "Afdeling (voorraad)"
 
 #: views.py:393
 msgid "Changes have been saved."
-msgstr ""
+msgstr "Wijzigingen zijn opgeslagen."
 
 #: views.py:396
 msgid "Changes have not been saved yet. Errors are displayed below."
 msgstr ""
+"Veranderingen zijn nog niet opgeslagen. Fouten worden hieronder weergegeven."

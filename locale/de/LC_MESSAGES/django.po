@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KRONOS Intranet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-18 11:22+0200\n"
+"POT-Creation-Date: 2015-09-22 11:35+0200\n"
 "PO-Revision-Date: 2014-02-11 09:52+0100\n"
 "Last-Translator: Lutz Moppert <lutz.moppert@kronosww.com>\n"
 "Language: Deutsch\n"
@@ -159,7 +159,7 @@ msgstr "Persönliche Schutz-Ausrüstungen (PSA)"
 
 #: models/checklist.py:86 models/chemical.py:21 models/chemical.py:34
 #: models/chemical.py:340 templates/chemicals/chemical_detail.html:133
-#: templates/chemicals/consumer_detail.html:145
+#: templates/chemicals/consumer_detail.html:147
 msgid "H-Phrase"
 msgstr "H-Satz"
 
@@ -227,9 +227,9 @@ msgstr "Nicht CMR-Relevant"
 #: templates/chemicals/chemical_detail.html:116
 #: templates/chemicals/chemical_detail.html:123
 #: templates/chemicals/chemical_detail.html:127
-#: templates/chemicals/consumer_detail.html:128
-#: templates/chemicals/consumer_detail.html:135
-#: templates/chemicals/consumer_detail.html:139
+#: templates/chemicals/consumer_detail.html:130
+#: templates/chemicals/consumer_detail.html:137
+#: templates/chemicals/consumer_detail.html:141
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -243,7 +243,7 @@ msgstr "CMR"
 
 #: models/chemical.py:58 models/chemical.py:68
 #: templates/chemicals/chemical_detail.html:105
-#: templates/chemicals/consumer_detail.html:117
+#: templates/chemicals/consumer_detail.html:119
 msgid "R-Phrase"
 msgstr "R-Satz"
 
@@ -261,7 +261,7 @@ msgstr "Seveso Kategorien"
 
 #: models/chemical.py:92 models/chemical.py:102 models/chemical.py:171
 #: templates/chemicals/chemical_detail.html:123
-#: templates/chemicals/consumer_detail.html:135
+#: templates/chemicals/consumer_detail.html:137
 msgid "Storage Class"
 msgstr "Lagerklasse"
 
@@ -271,7 +271,7 @@ msgstr "Lagerklassen"
 
 #: models/chemical.py:126 models/chemical.py:332
 #: templates/chemicals/chemical_detail.html:97
-#: templates/chemicals/consumer_detail.html:109
+#: templates/chemicals/consumer_detail.html:111
 msgid "Risk"
 msgstr "Gefahrstoffbezeichung"
 
@@ -320,7 +320,7 @@ msgstr "EINECS"
 
 #: models/chemical.py:155 tables.py:67
 #: templates/chemicals/chemical_detail.html:121
-#: templates/chemicals/consumer_detail.html:133
+#: templates/chemicals/consumer_detail.html:135
 msgid "Signal"
 msgstr "Signalwort"
 
@@ -347,7 +347,7 @@ msgstr "Gelistet in Anhang XIV, REACH-VO"
 #: models/chemical.py:181 models/chemical.py:360 models/chemical.py:368
 #: tables.py:79 tables.py:127 tables.py:386 tables.py:437
 #: templates/chemicals/chemical_detail.html:116
-#: templates/chemicals/consumer_detail.html:128
+#: templates/chemicals/consumer_detail.html:130
 msgid "Pictogram"
 msgstr "Piktogramm"
 
@@ -398,8 +398,8 @@ msgstr "Synonyme"
 #: tables.py:263 templates/chemicals/chemical_detail.html:139
 #: templates/chemicals/chemical_detail.html:158
 #: templates/chemicals/chemical_detail.html:170
-#: templates/chemicals/consumer_detail.html:158
-#: templates/chemicals/consumer_detail.html:169
+#: templates/chemicals/consumer_detail.html:160
+#: templates/chemicals/consumer_detail.html:171
 msgid "Supplier"
 msgstr "Lieferant"
 
@@ -518,7 +518,7 @@ msgid "Safety Data Sheet"
 msgstr "Sicherheitsdatenblatt"
 
 #: models/chemical.py:451 templates/chemicals/chemical_detail.html:156
-#: templates/chemicals/consumer_detail.html:154 views.py:183 views.py:195
+#: templates/chemicals/consumer_detail.html:156 views.py:183 views.py:195
 msgid "Safety Data Sheets"
 msgstr "Sicherheitsdatenblätter"
 
@@ -668,8 +668,8 @@ msgstr "Menge"
 msgid "Unit"
 msgstr "Einheit"
 
-#: models/periphery.py:182 templates/chemicals/consumer_detail.html:19
-#: templates/chemicals/consumer_detail.html:91
+#: models/periphery.py:182 templates/chemicals/consumer_detail.html:16
+#: templates/chemicals/consumer_detail.html:88
 msgid "Year Volume"
 msgstr "Jahresmenge"
 
@@ -714,20 +714,20 @@ msgid "Chemical Stocks"
 msgstr "Chemikalienlager"
 
 #: tables.py:250 templates/chemicals/chemical_detail.html:158
-#: templates/chemicals/consumer_detail.html:158
+#: templates/chemicals/consumer_detail.html:160
 msgid "SDS"
 msgstr "SDB"
 
 #: tables.py:251 templates/chemicals/chemical_detail.html:170
-#: templates/chemicals/consumer_detail.html:169
+#: templates/chemicals/consumer_detail.html:171
 msgid "eSDS"
 msgstr "eSDB"
 
 #: tables.py:253 templates/chemicals/chemical_detail.html:158
 #: templates/chemicals/chemical_detail.html:170
 #: templates/chemicals/chemical_detail.html:224
-#: templates/chemicals/consumer_detail.html:158
-#: templates/chemicals/consumer_detail.html:169
+#: templates/chemicals/consumer_detail.html:160
+#: templates/chemicals/consumer_detail.html:171
 msgid "Language"
 msgstr "Sprache"
 
@@ -812,39 +812,39 @@ msgid "Checklist"
 msgstr "Checklisten"
 
 #: templates/chemicals/chemical_detail.html:93
-#: templates/chemicals/consumer_detail.html:105
+#: templates/chemicals/consumer_detail.html:107
 msgid "Chemical Directive"
 msgstr "Stoff- und Zubereitungsrichtlinie"
 
 #: templates/chemicals/chemical_detail.html:97
 #: templates/chemicals/chemical_detail.html:201
 #: templates/chemicals/chemical_detail.html:217
-#: templates/chemicals/consumer_detail.html:109
+#: templates/chemicals/consumer_detail.html:111
 #: templates/chemicals/supplier_detail.html:26
 msgid "Info"
 msgstr "Information"
 
 #: templates/chemicals/chemical_detail.html:105
 #: templates/chemicals/chemical_detail.html:133
-#: templates/chemicals/consumer_detail.html:117
-#: templates/chemicals/consumer_detail.html:145
+#: templates/chemicals/consumer_detail.html:119
+#: templates/chemicals/consumer_detail.html:147
 msgid "ID"
 msgstr "ID"
 
 #: templates/chemicals/chemical_detail.html:112
-#: templates/chemicals/consumer_detail.html:124
+#: templates/chemicals/consumer_detail.html:126
 msgid "CLP"
 msgstr "CLP"
 
 #: templates/chemicals/chemical_detail.html:127
-#: templates/chemicals/consumer_detail.html:139
+#: templates/chemicals/consumer_detail.html:141
 msgid "Water Hazard Classification"
 msgstr "Wassergefährdungsklasse"
 
 #: templates/chemicals/chemical_detail.html:158
 #: templates/chemicals/chemical_detail.html:170
-#: templates/chemicals/consumer_detail.html:158
-#: templates/chemicals/consumer_detail.html:169
+#: templates/chemicals/consumer_detail.html:160
+#: templates/chemicals/consumer_detail.html:171
 msgid "Published on"
 msgstr "Ausgabe"
 
@@ -852,31 +852,31 @@ msgstr "Ausgabe"
 msgid "General documents"
 msgstr "Dokumente"
 
-#: templates/chemicals/consumer_detail.html:8
-msgid "Back to Overview"
-msgstr "Zurück zur Übersicht"
-
-#: templates/chemicals/consumer_detail.html:17
-#: templates/chemicals/consumer_detail.html:89
+#: templates/chemicals/consumer_detail.html:14
+#: templates/chemicals/consumer_detail.html:86
 msgid "Stock Location"
 msgstr "Lagerort"
 
-#: templates/chemicals/consumer_detail.html:18
-#: templates/chemicals/consumer_detail.html:90
+#: templates/chemicals/consumer_detail.html:15
+#: templates/chemicals/consumer_detail.html:87
 msgid "Max Volume"
 msgstr "Maximaler Lagerbestand"
 
-#: templates/chemicals/consumer_detail.html:20
+#: templates/chemicals/consumer_detail.html:17
 msgid "Remove"
 msgstr "Entfernen"
 
-#: templates/chemicals/consumer_detail.html:66
+#: templates/chemicals/consumer_detail.html:63
 msgid "Add a location from the list"
 msgstr "Einen Lagerort aus der Liste hinzufügen"
 
-#: templates/chemicals/consumer_detail.html:80
+#: templates/chemicals/consumer_detail.html:77
 msgid "Save Changes"
 msgstr "Änderungen speichern"
+
+#: templates/chemicals/consumer_detail.html:103
+msgid "Back to Overview"
+msgstr "Zurück zur Übersicht"
 
 #: templates/chemicals/letter_filter.html:45
 msgid "all"
