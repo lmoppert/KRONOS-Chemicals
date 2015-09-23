@@ -120,7 +120,6 @@ def make_address(info, street, number, zip, city):
 def create_users():
     count = 0
     objs = Users.objects.using('legacy').all()
-    print "Found %s Users, processing migrattion..." % objs.count()
     for obj in objs:
         oid = obj.userid
         if oid < 10 or oid == 114:
@@ -133,13 +132,12 @@ def create_users():
             last_name=obj.lastname,
             email=obj.email,
         )
-    print "%s Users migrated" % count
+    print "    %s Users migrated" % count
 
 
 def create_riskindications():
     count = 0
     objs = StoffeRiskindication.objects.using('legacy').all()
-    print "Found %s Risks, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
         oid = obj.riskindication_id
@@ -152,13 +150,12 @@ def create_riskindications():
                 name_de=trans['de-de'].name,
                 name_nl=trans['nl-be'].name,
             )
-    print "%s Risks migrated" % count
+    print "    %s Risks migrated" % count
 
 
 def create_wgks():
     count = 0
     objs = StoffeWgk.objects.using('legacy').all()
-    print "Found %s WGKs, processing migrattion..." % objs.count()
     WGK.objects.create(
         name='--',
         description='Keine WGK angegeben',
@@ -177,13 +174,12 @@ def create_wgks():
             description_de=trans['de-de'].name,
             description_nl=trans['nl-be'].name,
         )
-    print "%s WGKs migrated" % count
+    print "    %s WGKs migrated" % count
 
 
 def create_storage_classes():
     count = 0
     objs = StoffeStorageclass.objects.using('legacy').all()
-    print "Found %s Storage Classes, processing migrattion..." % objs.count()
     StorageClass.objects.create(
         name='--',
         description='No storage class assigned yet',
@@ -203,13 +199,12 @@ def create_storage_classes():
             description_de=trans['de-de'].description,
             description_nl=trans['nl-be'].description,
         )
-    print "%s Storage Classes migrated" % count
+    print "    %s Storage Classes migrated" % count
 
 
 def create_seveso_categories():
     count = 0
     objs = StoffeSevesoKategorie.objects.using('legacy').all()
-    print "Found %s Seveso Categories, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
         oid = obj.seveso_kategorie_id
@@ -221,13 +216,12 @@ def create_seveso_categories():
             description_de=trans['de-de'].name,
             description_nl=trans['nl-be'].name,
         )
-    print "%s Seveso Categories migrated" % count
+    print "    %s Seveso Categories migrated" % count
 
 
 def create_hphrases():
     count = 0
     objs = StoffeHphrase.objects.using('legacy').all()
-    print "Found %s H-Phrases, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
         oid = obj.hphrase_id
@@ -240,13 +234,12 @@ def create_hphrases():
             description_nl=trans['nl-be'].name,
             seveso_relevant=obj.seveso_relevant,
         )
-    print "%s H-Phrases migrated" % count
+    print "    %s H-Phrases migrated" % count
 
 
 def create_pphrases():
     count = 0
     objs = StoffePphrase.objects.using('legacy').all()
-    print "Found %s P-Phrases, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
         oid = obj.pphrase_id
@@ -258,13 +251,12 @@ def create_pphrases():
             description_de=trans['de-de'].name,
             description_nl=trans['nl-be'].name,
         )
-    print "%s P-Phrases migrated" % count
+    print "    %s P-Phrases migrated" % count
 
 
 def create_rphrases():
     count = 0
     objs = StoffeRphrase.objects.using('legacy').all()
-    print "Found %s R-Phrases, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
         oid = obj.rphrase_id
@@ -276,13 +268,12 @@ def create_rphrases():
             description_de=trans['de-de'].name,
             description_nl=trans['nl-be'].name,
         )
-    print "%s R-Phrases migrated" % count
+    print "    %s R-Phrases migrated" % count
 
 
 def create_persons():
     count = 0
     objs = StoffePerson.objects.using('legacy').all()
-    print "Found %s Persons, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
         Person.objects.create(
@@ -295,7 +286,23 @@ def create_persons():
             fax=obj.fax,
             email=obj.mail
         )
-    print "%s Persons migrated" % count
+    print "    %s Persons migrated" % count
+
+
+def create_plants():
+    count = 0
+    objs = StoffeMenufacturing.objects.using('legacy').all()
+    for obj in objs:
+        count += 1
+        oid = obj.menufacturing_id
+        trans = get_translations(StoffeMenuTranslation, oid)
+        Plant.objects.create(
+            name=trans.itervalues().next(),
+            name_en=trans['en-en'].name,
+            name_de=trans['de-de'].name,
+            name_nl=trans['nl-be'].name,
+        )
+    print "    %s Plants migrated" % count
 
 
 ##############################################################################
@@ -304,11 +311,8 @@ def create_persons():
 def create_suppliers():
     count = 0
     objs = StoffeContact.objects.using('legacy').all()
-    print "Found %s Suppliers, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
-        if count % 100 == 0:
-            print "   ...%s Suppliers have been processed" % count
         address = make_address(obj.address, obj.street, obj.number, obj.plz,
                                obj.city)
         new_obj = Supplier.objects.create(
@@ -337,32 +341,12 @@ def create_suppliers():
                 supplier=new_obj,
                 role=role
             )
-    print "%s Suppliers migrated" % count
-
-
-def create_plants():
-    count = 0
-    print "Processing plants"
-    objs = StoffeMenufacturing.objects.using('legacy').all()
-    print "Found %s Plants, processing migrattion..." % objs.count()
-    for obj in objs:
-        count += 1
-        oid = obj.menufacturing_id
-        trans = get_translations(StoffeMenuTranslation, oid)
-        Plant.objects.create(
-            name=trans.itervalues().next(),
-            name_en=trans['en-en'].name,
-            name_de=trans['de-de'].name,
-            name_nl=trans['nl-be'].name,
-        )
-    print "%s Plants migrated" % count
+    print "    %s Suppliers migrated" % count
 
 
 def create_departments():
     count = 0
-    print "Processing departments"
     objs = StoffeDepartment.objects.using('legacy').all()
-    print "Found %s Departments, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
         oid = obj.menufacturing_id
@@ -373,14 +357,12 @@ def create_departments():
             name=obj.name,
             plant=plant
         )
-    print "%s Departments migrated" % count
+    print "    %s Departments migrated" % count
 
 
 def create_locations():
     count = 0
-    print "Processing locations"
     objs = StoffeLocation.objects.using('legacy').all()
-    print "Found %s Locations, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
         oid = obj.department_id
@@ -390,17 +372,16 @@ def create_locations():
             name=obj.name,
             department=department
         )
-    print "%s Locations migrated" % count
+    print "    %s Locations migrated" % count
 
 
 def create_stocks():
     count = 0
-    print "Processing stocks"
     objs = StoffeStock.objects.using('legacy').all()
     print "Found %s Stocks, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
-        if count % 500 == 0:
+        if count % 1000 == 0:
             print "   ...%s Stocks have been processed" % count
         oid = obj.location_id
         location = Location.objects.get(id=oid)
@@ -418,12 +399,11 @@ def create_stocks():
 
 def create_consumers():
     count = 0
-    print "Processing consumers"
     objs = StoffeChemDepContact.objects.using('legacy').all()
     print "Found %s Consumners, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
-        if count % 500 == 0:
+        if count % 1000 == 0:
             print "   ...%s Consumners have been processed" % count
         chemical = Chemical.objects.get(id=obj.chemical.chemical_id)
         try:
@@ -441,12 +421,11 @@ def create_consumers():
 
 def create_tox():
     count = 0
-    print "Processing Toxdata"
     objs = StoffeToxdata.objects.using('legacy').all()
     print "Found %s Toxdata items, processing migration..." % objs.count()
     for obj in objs:
         count += 1
-        if count % 500 == 0:
+        if count % 1000 == 0:
             print "   ...%s Toxdata items have been processed" % count
         Toxdata.objects.create(
             supplier=Supplier.objects.get(id=obj.supplier_id),
@@ -530,7 +509,7 @@ def create_complex_relations(oid, chemical):
             robj.info_de = StoffeChemRisk.objects.using('legacy').get(
                 chemical=oid, countrycode='de-de', riskindication=roid).info
             robj.info_nl = StoffeChemRisk.objects.using('legacy').get(
-                chemical=oid, countrycode='be-be', riskindication=roid).info
+                chemical=oid, countrycode='nl-be', riskindication=roid).info
         except:
             pass
         chemical.risk_set.add(robj)
@@ -549,7 +528,7 @@ def create_complex_relations(oid, chemical):
             robj.info_de = StoffeChemHphrase.objects.using('legacy').get(
                 chemical=oid, countrycode='de-de', hphrase=roid).info
             robj.info_nl = StoffeChemHphrase.objects.using('legacy').get(
-                chemical=oid, countrycode='be-be', hphrase=roid).info
+                chemical=oid, countrycode='nl-be', hphrase=roid).info
         except:
             pass
         chemical.hphraserelation_set.add(robj)
@@ -565,6 +544,8 @@ def create_chemicals(chemical):
     # Create chemical
     new_chemical = Chemical.objects.create(
         id=oid,
+        region_de=(trans['de-de'].name is not None),
+        region_be=(trans['nl-be'].name is not None),
         comment=first_trans.comment,
         comment_en=trans['en-en'].comment,
         comment_de=trans['de-de'].comment,
@@ -579,6 +560,10 @@ def create_chemicals(chemical):
         reach_vo=chemical.reach_vo,
         components_registered=chemical.regkomponents,
     )
+    if trans['de-de'].name is None:
+        trans['de-de'].name = trans['en-en'].name
+    if trans['nl-be'].name is None:
+        trans['nl-be'].name = trans['en-en'].name
     Identifier.objects.create(
         name=first_trans.name,
         name_en=trans['en-en'].name,
@@ -625,7 +610,6 @@ def create_chemicals(chemical):
 ##############################################################################
 def create_pictograms():
     count = 0
-    print "Processing Pictograms"
     objs = StoffePictogramm.objects.using('legacy').all()
     print "Found %s Pictograms, processing migrattion..." % objs.count()
     for obj in objs:
@@ -652,13 +636,9 @@ def create_pictograms():
 
 def create_document():
     count = 0
-    print "Processing Documents"
     objs = StoffeDocument.objects.using('legacy').all()
-    print "Found %s Documents, processing migration..." % objs.count()
     for obj in objs:
         count += 1
-        if count % 100 == 0:
-            print "   ...%s Documents have been processed" % count
         trans = get_translations(
             StoffeMenuTranslation, obj.menufacturing.menufacturing_id)
         plant = Plant.objects.get(name=trans.itervalues().next().name)
@@ -673,14 +653,12 @@ def create_document():
             doctype=doctype,
             created=obj.createddate
         )
-    print "%s Documents migrated" % count
+    print "    %s Documents migrated" % count
 
 
 def create_reach_document():
     count = 0
-    print "Processing REACH Documents"
     objs = StoffeReachDocument.objects.using('legacy').all()
-    print "Found %s REACH Documents, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
         ReachDocument.objects.create(
@@ -689,14 +667,12 @@ def create_reach_document():
             country_code=get_language(obj.countrycode),
             created=obj.createddate
         )
-    print "%s REACH Documents migrated" % count
+    print "    %s REACH Documents migrated" % count
 
 
 def create_seveso_document():
     count = 0
-    print "Processing Seveso Documents"
     objs = StoffeSevesoDocument.objects.using('legacy').all()
-    print "Found %s Seveso Documents, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
         SevesoDocument.objects.create(
@@ -705,17 +681,16 @@ def create_seveso_document():
             country_code=get_language(obj.countrycode),
             created=obj.createddate
         )
-    print "%s Seveso Documents migrated" % count
+    print "    %s Seveso Documents migrated" % count
 
 
 def create_sdb():
     count = 0
-    print "Processing SDS"
     objs = StoffeSafetydatasheet.objects.using('legacy').all()
     print "Found %s SDS, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
-        if count % 500 == 0:
+        if count % 1000 == 0:
             print "   ...%s SDS have been processed" % count
         SafetyDataSheet.objects.create(
             supplier=Supplier.objects.get(id=obj.supplier.contact_id),
@@ -730,9 +705,7 @@ def create_sdb():
 
 def create_esdb():
     count = 0
-    print "Processing eSDS"
     objs = StoffeEsafetydatasheet.objects.using('legacy').all()
-    print "Found %s eSDS, processing migrattion..." % objs.count()
     for obj in objs:
         count += 1
         ExtendedSafetyDataSheet.objects.create(
@@ -743,7 +716,7 @@ def create_esdb():
             country_code=get_language(obj.countrycode),
             created=obj.createddate
         )
-    print "%s eSDS migrated" % count
+    print "    %s eSDS migrated" % count
 
 
 ##############################################################################
@@ -751,7 +724,7 @@ def create_esdb():
 ##############################################################################
 def run():
     # Independent Tables
-    create_users()
+    print "Processing independent tables..."
     create_riskindications()
     create_wgks()
     create_storage_classes()
@@ -761,6 +734,7 @@ def run():
     create_hphrases()
     create_persons()
     create_plants()
+    print "...done"
 
     # Tables, that have relations to others
     count = 0
@@ -768,7 +742,7 @@ def run():
     print "Found %s Chemicals, processing migrattion..." % chemicals.count()
     for chemical in chemicals:
         count += 1
-        if count % 200 == 0:
+        if count % 500 == 0:
             print "   ...%s Chemicals have been processed" % count
         create_chemicals(chemical)
     print "%s Chemicals migrated" % count

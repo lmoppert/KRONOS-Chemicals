@@ -198,6 +198,10 @@ class ChemicalAdmin(TranslationAdmin):
                    'storage_class', 'toxdata__tox', 'toxdata__oekotox')
     actions = ('archive_chemicals', 'unarchive_chemicals')
     fieldsets = (
+        (_('Regions'), {
+            'classes': ('suit-tab', 'suit-tab-general',),
+            'fields': ('region_de', 'region_be')
+        }),
         (_('Values'), {
             'classes': ('suit-tab', 'suit-tab-identification',),
             'fields': ('article', 'registration_number', 'cas',

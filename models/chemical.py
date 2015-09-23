@@ -155,6 +155,8 @@ class Chemical(models.Model):
                               default='', verbose_name=_("Signal"))
 
     # Boolean switches
+    region_de = models.BooleanField(default=True, verbose_name=_("Region D"))
+    region_be = models.BooleanField(default=False, verbose_name=_("Region BE"))
     archive = models.BooleanField(default=False, verbose_name=_("Archive"))
     needed = models.BooleanField(default=False,
                                  verbose_name=_("Permanently Needed"))
