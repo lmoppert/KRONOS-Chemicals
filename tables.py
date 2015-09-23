@@ -199,7 +199,7 @@ class ConsumerTable(tables.Table):
                                  args=[A('supplier.pk')],
                                  verbose_name=_('Supplier'))
     chemical = tables.LinkColumn('chemical_detail',
-                                 accessor='chemical.name',
+                                 accessor='chemical.name.name',
                                  args=[A('chemical.pk')],
                                  verbose_name=_('Chemical'))
     department = tables.Column(accessor='department.name',
@@ -252,7 +252,7 @@ class SDSTable(tables.Table):
     language = tables.Column(accessor="country_code",
                              verbose_name=_("Language"))
     chemical = tables.LinkColumn('chemical_detail', args=[A('chemical.pk')],
-                                 accessor='chemical.name',
+                                 accessor='chemical.name.name',
                                  verbose_name=_("Chemical"))
     # departments = tables.Column(accessor='supplier',
     #                             verbose_name=_("Departments"))
@@ -295,7 +295,7 @@ class ApprovalTable(tables.Table):
     """Table listing approval documents."""
     document = tables.Column(accessor="file", verbose_name=_("Approval"))
     chemical = tables.LinkColumn('chemical_detail', args=[A('chemical.pk')],
-                                 accessor='chemical.name',
+                                 accessor='chemical.name.name',
                                  verbose_name=_("Chemical"))
 
     def render_document(self, record):
@@ -462,6 +462,6 @@ class ToxTable(tables.Table):
     #       that is performance, but .select_related may also do the trick. Will
     #       test this on the Stock View for chemicals first!
     name = tables.LinkColumn(
-        'chemical_detail', accessor='chemical.name', args=[A('chemical.pk')])
+        'chemical_detail', accessor='chemical.name.name', args=[A('chemical.pk')])
     supplier = tables.Column(accessor='supplier.name')
     sds = tables.Column(accessor='chemical.safetydatasheet.first')

@@ -206,8 +206,7 @@ class Chemical(models.Model):
 
     @property
     def seveso_relevant(self):
-        return self.hphrases.all().aggregate(models.Max(
-            'seveso_relevant'))['seveso_relevant__max']
+        return self.hphrases.filter(seveso_relevant=True).exists()
 
     def get_approval_documents(self):
         return self.document_set.filter(doctype="f")
