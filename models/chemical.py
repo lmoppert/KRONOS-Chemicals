@@ -189,6 +189,12 @@ class Chemical(models.Model):
                                       blank=True, verbose_name=_("H-Phrases"))
     locations = models.ManyToManyField('Location', through='Stock', blank=True,
                                        verbose_name=_("Locations"))
+    departments = models.ManyToManyField('Department', through='Consumer',
+                                         blank=True,
+                                         verbose_name=_("Departments"))
+    suppliers = models.ManyToManyField('Supplier', through='Consumer',
+                                         blank=True,
+                                         verbose_name=_("Suppliers"))
 
     @property
     def cmr1(self):

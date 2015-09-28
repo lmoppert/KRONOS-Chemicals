@@ -117,7 +117,8 @@ class ChemicalTable(tables.Table):
 
 class DepartmentChemicalTable(tables.Table):
     """Table for use in Department View"""
-    name = tables.LinkColumn('chemical_detail', args=[A('pk')])
+    name = tables.LinkColumn('chemical_detail', args=[A('pk')],
+                             accessor='name.name',)
     risks = tables.Column(
         verbose_name=_("Risk Indication"),
         orderable=False,
@@ -247,45 +248,50 @@ class ConsumerStockTable(tables.Table):
 
 class SDSTable(tables.Table):
     """Table listing safety data sheets."""
-    sds = tables.Column(accessor="file", verbose_name=_("SDS"))
-    esds = tables.FileColumn(accessor="file", verbose_name=_("eSDS"))
-    language = tables.Column(accessor="country_code",
-                             verbose_name=_("Language"))
-    chemical = tables.LinkColumn('chemical_detail', args=[A('chemical.pk')],
-                                 accessor='chemical.name.name',
-                                 verbose_name=_("Chemical"))
-    # departments = tables.Column(accessor='supplier',
-    #                             verbose_name=_("Departments"))
-    risks = RiskColumn(accessor='chemical.risks', verbose_name=_("Risks"))
-    pictograms = PictoColumn(accessor='chemical.pictograms',
-                             verbose_name=_("Pictograms"))
-    supplier = tables.Column(accessor='supplier.name',
-                             verbose_name=_("Supplier"))
+    sds = tables.Column(empty_values=(), verbose_name=_("SDS"))
+    esds = tables.FileColumn(empty_values=(), verbose_name=_("eSDS"))
+    chemical = tables.LinkColumn('chemical_detail', verbose_name=_("Chemical"))
+    risks = RiskColumn(verbose_name=_("Risks"))
+    pictograms = PictoColumn(verbose_name=_("Pictograms"))
+    supplier = tables.Column(verbose_name=_("Supplier"))
+
+    def render_chemical(self, record):
+        name = record['chemical']
+        url = reverse('chemical_detail', kwargs={'pk': name.chemical.id})
+        if name.polymorphic_ctype.model == u'synonym':
+            r = u'<a href="{}"><em>{}</em></a>'.format(url, name.name)
+        else:
+            r = u'<a href="{}">{}</a>'.format(url, name.name)
+        return mark_safe(r)
 
     def render_sds(self, record):
-        return render_file_button(record.file.url, record.file.extension)
+        chemical = record['chemical'].chemical
+        supplier = record['supplier']
+        r = u'<ul class="list-unstyled">'
+        for sds in chemical.safetydatasheet_set.filter(supplier=supplier):
+            r += "<li>{}</li>".format(
+                render_file_button(sds.file.url, sds.country_code.upper()))
+        r += u'</ul>'
+        return mark_safe(r)
 
     def render_esds(self, record):
-        try:
-            esds = record.chemical.extendedsafetydatasheet_set.get(
-                supplier=record.supplier)
-        except:
-            return ''
-        return render_file_button(esds.file.url, esds.file.extension)
-
-    # def render_departments(self, record):
-    #     department_list = []
-    #     suppliers = record.supplier.supplier_set.filter(
-    #         chemical_id=record.chemical_id)
-    #     for supplier in suppliers:
-    #         department_list.append(supplier.department)
-    #     return render_as_list(department_list)
+        chemical = record['chemical'].chemical
+        supplier = record['supplier']
+        r = u'<ul class="list-unstyled">'
+        for sds in chemical.extendedsafetydatasheet_set.filter(
+                supplier=supplier):
+            r += "<li>{}</li>".format(
+                render_file_button(sds.file.url, sds.country_code.upper()))
+        r += u'</ul>'
+        return mark_safe(r)
 
     def render_risks(self, record):
-        return render_as_list(record.chemical.risks.all())
+        chemical = record['chemical'].chemical
+        return render_as_list(chemical.risks.all())
 
     def render_pictograms(self, record):
-        return render_as_list(record.chemical.pictograms.all())
+        chemical = record['chemical'].chemical
+        return render_as_list(chemical.pictograms.all())
 
     class Meta:
         attrs = {'class': "table table-bordered table-striped table-condensed"}
@@ -323,7 +329,6 @@ class DepartmentConsumerTable(tables.Table):
     """Table displaying Stocks of a Department."""
     chemical = tables.LinkColumn(
         'chemical_department',
-        args=[A('chemical.pk'), A('department.pk')],
         verbose_name=_("Chemical"),
     )
     risks = RiskColumn(
@@ -338,14 +343,26 @@ class DepartmentConsumerTable(tables.Table):
     )
     stocks = tables.Column(
         empty_values=(),
-        accessor='stocks',
         verbose_name=_("Chemical Stocks"),
         orderable=False,
     )
 
+    def render_chemical(self, record):
+        name = record.name
+        url = reverse('chemical_department', kwargs={
+            'chem_id': record.chemical.id,
+            'dep_id': record.department
+        })
+        if record.polymorphic_ctype.model == u'synonym':
+            r = u'<a href="{}"><em>{}</em></a>'.format(url, name)
+        else:
+            r = u'<a href="{}">{}</a>'.format(url, name)
+        return mark_safe(r)
+
     def render_stocks(self, record):
         stocks = u'<table class="{}">\n'.format(self.Meta.attrs['class'])
-        for stock in record.stocks.all():
+        for stock in record.chemical.stock_set.filter(
+                location__department=record.department):
             row = u'<tr><td class="location">{}</td>\n' \
                   '<td class="volume">{} {}</td></tr>\n'
             stocks += row.format(
@@ -462,6 +479,7 @@ class ToxTable(tables.Table):
     #       that is performance, but .select_related may also do the trick. Will
     #       test this on the Stock View for chemicals first!
     name = tables.LinkColumn(
-        'chemical_detail', accessor='chemical.name.name', args=[A('chemical.pk')])
+        'chemical_detail', accessor='chemical.name.name',
+        args=[A('chemical.pk')])
     supplier = tables.Column(accessor='supplier.name')
     sds = tables.Column(accessor='chemical.safetydatasheet.first')

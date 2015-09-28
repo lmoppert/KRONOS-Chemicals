@@ -163,7 +163,7 @@ class DepartmentView(TableDetailView):
     def get_table_data(self):
         letter = self.get_filter_values()["letter"]
         chemicals = []
-        consumers = self.get_object().chemicals.filter(
+        consumers = self.get_object().consumer_set.filter(
             chemical__name__name__istartswith=letter, chemical__archive=False)
         for consumer in consumers:
             chemicals.append(consumer.chemical)
@@ -197,13 +197,22 @@ class SDSDepartmentList(TableDetailView):
     filters = {'letter': False, 'department': True, 'items': True}
 
     def get_table_data(self):
-        sds = []
-        consumers = self.get_object().chemicals.filter(
-            chemical__archive=False)
-        for consumer in consumers:
-            sds.extend(consumer.chemical.safetydatasheet_set.filter(
-                supplier_id=consumer.supplier_id))
-        return sds
+        data = []
+        department_id = self.get_object().id
+        chemicals = models.ChemicalName.objects.filter(
+            Q(synonym__chemical__departments__id=department_id) |
+            Q(identifier__chemical__departments__id=department_id)
+        ).filter(
+            Q(synonym__chemical__archive=False) |
+            Q(identifier__chemical__archive=False)
+        )
+        for chemical in chemicals:
+            consumers = chemical.chemical.consumer_set.filter(
+                department=department_id)
+            for consumer in consumers:
+                supplier = consumer.supplier
+                data.append({'supplier': supplier, 'chemical': chemical})
+        return data
 
     def get_context_data(self, **kwargs):
         context = super(SDSDepartmentList, self).get_context_data(**kwargs)
@@ -286,11 +295,18 @@ class StockDepartmentList(TableDetailView):
     model = models.Department
     table_class = tables.DepartmentConsumerTable
     table_heading = _("Stocks")
-    filters = {'letter': False, 'department': True}
     target_name = "stock_department_list"
+    filters = {'letter': False, 'department': True, 'items': True}
 
     def get_table_data(self):
-        return self.get_object().chemicals.all()
+        department_id = self.get_object().id
+        return models.ChemicalName.objects.filter(
+            Q(synonym__chemical__departments__id=department_id) |
+            Q(identifier__chemical__departments__id=department_id)
+        ).filter(
+            Q(synonym__chemical__archive=False) |
+            Q(identifier__chemical__archive=False)
+        ).extra(select={'department': department_id})
 
     def get_context_data(self, **kwargs):
         context = super(StockDepartmentList, self).get_context_data(**kwargs)
