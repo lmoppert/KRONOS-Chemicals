@@ -242,6 +242,12 @@ def create_hphrases():
     for obj in objs:
         count += 1
         oid = obj.hphrase_id
+        if oid in (76,78,79,81,82,83,84,85,86):
+            cmr = 1
+        elif oid in (77,80,87,88,89,90):
+            cmr = 2
+        else:
+            cmr = 9
         trans = get_translations(StoffeHphraseTranslation, oid)
         HPhrase.objects.create(
             name=oid,
@@ -250,9 +256,9 @@ def create_hphrases():
             description_de=trans['de-de'].name,
             description_nl=trans['nl-be'].name,
             seveso_relevant=obj.seveso_relevant,
+            cmr=cmr
         )
     print "    %s H-Phrases migrated" % count
-
 
 def create_pphrases():
     count = 0
