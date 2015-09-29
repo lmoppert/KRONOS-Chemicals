@@ -22,7 +22,7 @@ from chemicals.models.legacy import (
     StoffeChemSevesoKategorie, StoffeChemRphrase, StoffeChemPphrase,
     StoffePerson, StoffeContact, StoffeContactPerson, StoffeMenufacturing,
     StoffeMenuTranslation, StoffeDepartment, StoffeLocation, StoffeStock,
-    StoffeChemDepContact, StoffePictoTranslation, Users, StoffeSynonym,
+    StoffeChemDepContact, StoffePictoTranslation, StoffeSynonym,
     StoffeChemPictogramm, StoffePictogramm, StoffeDocument, StoffeToxdata,
     StoffeReachDocument, StoffeSevesoDocument, StoffeEsafetydatasheet,
     StoffeSafetydatasheet, LegacyFiles, DummyTranslation, StoffeChemSynonym)
@@ -118,21 +118,38 @@ def make_address(info, street, number, zip, city):
 # Create methods for the independent models
 ##############################################################################
 def create_users():
+    USERS = ({
+        'id': 'lmoppert@eu.nli.net',
+        'fn': 'Lutz',
+        'ln': 'Moppert',
+        'em': 'lutz.moppert@kronosww.com',
+    }, {
+        'id': 'SKnuf@EU.NLI.NET',
+        'fn': 'Sandra',
+        'ln': 'Knuf',
+        'em': 'sandra.knuf@kronosww.com',
+    }, {
+        'id': 'MMueller@EU.NLI.NET',
+        'fn': 'Michaela',
+        'ln': 'Müller',
+        'em': 'michaela.mueller@kronosww.com',
+    }, {
+        'id': 'CKunigke@EU.NLI.NET',
+        'fn': 'Christopher',
+        'ln': 'Kunigkeit',
+        'em': 'christopher.kunigkeit@kronosww.com',
+    })
     count = 0
-    objs = Users.objects.using('legacy').all()
-    for obj in objs:
-        oid = obj.userid
-        if oid < 10 or oid == 114:
-            continue
+    for user in USERS:
         count += 1
         User.objects.create(
-            id=oid,
-            username=obj.username,
-            first_name=obj.firstname,
-            last_name=obj.lastname,
-            email=obj.email,
+            username=user["id"],
+            first_name=user["fn"],
+            last_name=user["ln"],
+            email=user["em"],
+            is_staff=True,
         )
-    print "    %s Users migrated" % count
+    print "    %s Users created" % count
 
 
 def create_riskindications():
@@ -760,4 +777,5 @@ def run():
     create_seveso_document()
     create_sdb()
     create_esdb()
+    create_users()
     print "All objecst migrated - Thanks for your patience!"

@@ -269,7 +269,7 @@ class SDSTable(tables.Table):
         supplier = record['supplier']
         r = u'<ul class="list-unstyled">'
         for sds in chemical.safetydatasheet_set.filter(supplier=supplier):
-            r += "<li>{}</li>".format(
+            r += '<li style="margin-bottom:10px">{}</li>'.format(
                 render_file_button(sds.file.url, sds.country_code.upper()))
         r += u'</ul>'
         return mark_safe(r)
@@ -280,7 +280,7 @@ class SDSTable(tables.Table):
         r = u'<ul class="list-unstyled">'
         for sds in chemical.extendedsafetydatasheet_set.filter(
                 supplier=supplier):
-            r += "<li>{}</li>".format(
+            r += '<li style="margin-bottom:10px">{}</li>'.format(
                 render_file_button(sds.file.url, sds.country_code.upper()))
         r += u'</ul>'
         return mark_safe(r)
