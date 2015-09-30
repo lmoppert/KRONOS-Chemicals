@@ -109,7 +109,8 @@ class Department(models.Model):
     """Class with informations about a department in a specific plant."""
 
     plant = models.ForeignKey(Plant, verbose_name=_("Plant"))
-    name = models.CharField(max_length=100, verbose_name=_("Name"))
+    name = models.CharField(max_length=100, verbose_name=_("Name"),
+                            db_index=True)
 
     def get_absolute_url(self):
         return reverse('department_detail', kwargs={'pk': self.pk})

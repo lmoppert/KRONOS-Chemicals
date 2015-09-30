@@ -234,7 +234,8 @@ class Chemical(models.Model):
 
 class ChemicalName(PolymorphicModel):
     """This only contains the name of the chemicals and synonyms."""
-    name = models.CharField(max_length=200, verbose_name=_("Chemical"))
+    name = models.CharField(max_length=200, verbose_name=_("Chemical"),
+                            db_index=True)
 
     def __unicode__(self):
         return self.name
