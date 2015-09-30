@@ -119,7 +119,7 @@ def make_address(info, street, number, zip, city):
 ##############################################################################
 def create_users():
     USERS = ({
-        'id': 'lmoppert@eu.nli.net',
+        'id': 'LMoppert@EU.NLI.NET',
         'fn': 'Lutz',
         'ln': 'Moppert',
         'em': 'lutz.moppert@kronosww.com',
@@ -242,9 +242,9 @@ def create_hphrases():
     for obj in objs:
         count += 1
         oid = obj.hphrase_id
-        if oid in (76,78,79,81,82,83,84,85,86):
+        if oid in (76, 78, 79, 81, 82, 83, 84, 85, 86):
             cmr = 1
-        elif oid in (77,80,87,88,89,90):
+        elif oid in (77, 80, 87, 88, 89, 90):
             cmr = 2
         else:
             cmr = 9
@@ -259,6 +259,7 @@ def create_hphrases():
             cmr=cmr
         )
     print "    %s H-Phrases migrated" % count
+
 
 def create_pphrases():
     count = 0

@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from filer.fields.image import FilerImageField
 from filer.fields.file import FilerFileField
 from django.utils.translation import ugettext_lazy as _
-from polymorphic import PolymorphicModel
+from polymorphic import PolymorphicModel, PolymorphicManager
 
 
 class HPhrase(models.Model):
@@ -156,7 +156,7 @@ class Chemical(models.Model):
 
     # Boolean switches
     region_de = models.BooleanField(default=True, verbose_name=_("Region D"))
-    region_be = models.BooleanField(default=False, verbose_name=_("Region BE"))
+    region_be = models.BooleanField(default=False, verbose_name=_("Region B"))
     archive = models.BooleanField(default=False, verbose_name=_("Archive"))
     needed = models.BooleanField(default=False,
                                  verbose_name=_("Permanently Needed"))
@@ -193,8 +193,8 @@ class Chemical(models.Model):
                                          blank=True,
                                          verbose_name=_("Departments"))
     suppliers = models.ManyToManyField('Supplier', through='Consumer',
-                                         blank=True,
-                                         verbose_name=_("Suppliers"))
+                                       blank=True,
+                                       verbose_name=_("Suppliers"))
 
     @property
     def cmr1(self):
