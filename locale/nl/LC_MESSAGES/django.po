@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KRONOS Intranet \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-28 17:18+0200\n"
+"POT-Creation-Date: 2015-09-30 15:30+0200\n"
 "PO-Revision-Date: 2015-09-14 10:16+0200\n"
 "Last-Translator: Lutz Moppert <lutz.moppert@kronosww.com>>\n"
 "Language: Dutch\n"
@@ -17,7 +17,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:201
-#| msgid "Relations"
 msgid "Regions"
 msgstr "Regio's"
 
@@ -331,11 +330,12 @@ msgstr "Signaalwoord"
 
 #: models/chemical.py:158
 msgid "Region D"
-msgstr ""
+msgstr "Region D"
 
 #: models/chemical.py:159
-msgid "Region BE"
-msgstr ""
+#| msgid "Regions"
+msgid "Region B"
+msgstr "Region B"
 
 #: models/chemical.py:160 templates/chemicals/base.html:21
 msgid "Archive"
@@ -370,12 +370,12 @@ msgstr "Locatie"
 
 #: models/chemical.py:194 models/periphery.py:124
 #: templates/chemicals/base.html:19 templates/chemicals/base.html.py:40
-#: views.py:160
+#: views.py:253
 msgid "Departments"
 msgstr "Afdeling"
 
 #: models/chemical.py:197 models/periphery.py:70
-#: templates/chemicals/base.html:18 views.py:116
+#: templates/chemicals/base.html:18 views.py:209
 msgid "Suppliers"
 msgstr "leverancier"
 
@@ -391,7 +391,7 @@ msgstr "Chemisch product"
 
 #: models/chemical.py:232 templates/chemicals/base.html:8
 #: templates/chemicals/base.html.py:17 templates/chemicals/base.html:42
-#: views.py:86 views.py:420
+#: views.py:102 views.py:431
 msgid "Chemicals"
 msgstr "Chemicaliën"
 
@@ -542,7 +542,7 @@ msgid "Safety Data Sheet"
 msgstr "Veiligheidsinformatieblad"
 
 #: models/chemical.py:458 templates/chemicals/chemical_detail.html:156
-#: templates/chemicals/consumer_detail.html:156 views.py:183 views.py:195
+#: templates/chemicals/consumer_detail.html:156 views.py:129 views.py:141
 msgid "Safety Data Sheets"
 msgstr "Veiligheidsinformatiebladen"
 
@@ -692,7 +692,7 @@ msgstr "Stock / jaar"
 msgid "Stock"
 msgstr "Stock"
 
-#: models/periphery.py:189 views.py:297
+#: models/periphery.py:189 views.py:183
 msgid "Stocks"
 msgstr "Stocks"
 
@@ -754,7 +754,7 @@ msgstr "Extra views"
 msgid "Chemical Views"
 msgstr "Chemicaliën overzicht"
 
-#: templates/chemicals/base.html:23 views.py:228
+#: templates/chemicals/base.html:23 views.py:276
 msgid "Approval Documents"
 msgstr "Goedkeuring document"
 
@@ -762,7 +762,7 @@ msgstr "Goedkeuring document"
 msgid "SHE Views"
 msgstr "SHE Views"
 
-#: templates/chemicals/base.html:27 views.py:244
+#: templates/chemicals/base.html:27 views.py:292
 msgid "Chemicals without SDS"
 msgstr "Chemicaliën zonder SDS"
 
@@ -778,7 +778,7 @@ msgstr "Seveso-View"
 msgid "Seveso-View Listed Chemicals"
 msgstr "Seveso-View Listed Chemicals"
 
-#: templates/chemicals/base.html:35 views.py:267
+#: templates/chemicals/base.html:35 views.py:315
 msgid "Chemical Numbers"
 msgstr "Chemicaliën Nummer"
 
@@ -790,7 +790,7 @@ msgstr "Administration"
 msgid "Chemical Stock Views"
 msgstr "Chemicaliën voorraad views"
 
-#: templates/chemicals/base.html:41 views.py:321 views.py:338
+#: templates/chemicals/base.html:41 views.py:332 views.py:349
 msgid "Stock Locations"
 msgstr "Voorraad"
 
@@ -918,23 +918,23 @@ msgstr "volgende"
 msgid "Archived chemicals"
 msgstr "Gearchiveerde chemicaliën"
 
-#: views.py:127
-msgid "Suppliers (CMR)"
-msgstr "Leverancier (CMR)"
-
-#: views.py:149
-msgid "Departments (Chemical View)"
-msgstr "Afdeling (chemical view)"
-
-#: views.py:285
+#: views.py:171
 msgid "Departments (Stock View)"
 msgstr "Afdeling (voorraad)"
 
-#: views.py:409
+#: views.py:220
+msgid "Suppliers (CMR)"
+msgstr "Leverancier (CMR)"
+
+#: views.py:242
+msgid "Departments (Chemical View)"
+msgstr "Afdeling (chemical view)"
+
+#: views.py:420
 msgid "Changes have been saved."
 msgstr "Wijzigingen zijn opgeslagen."
 
-#: views.py:412
+#: views.py:423
 msgid "Changes have not been saved yet. Errors are displayed below."
 msgstr ""
 "Veranderingen zijn nog niet opgeslagen. Fouten worden hieronder weergegeven."
