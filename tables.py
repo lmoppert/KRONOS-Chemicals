@@ -52,19 +52,23 @@ class ChemicalTable(tables.Table):
     """Table for the Chemical View."""
     name = tables.LinkColumn(
         'chemical_detail',
+        accessor='name',
     )
     wgk = tables.Column(
         verbose_name=_('WGK'),
         accessor='chemical.wgk.name',
+        orderable=False,
     )
     # Translators: This is an abbreviation for Storage Classes
     storage_class = tables.Column(
         verbose_name=_("SC"),
         accessor='chemical.storage_class.name',
+        orderable=False,
     )
     signal = tables.Column(
         empty_values=(),
         verbose_name=_("Signal"),
+        orderable=False,
     )
     supplier_set = tables.Column(
         empty_values=(),
@@ -248,12 +252,34 @@ class ConsumerStockTable(tables.Table):
 
 class SDSTable(tables.Table):
     """Table listing safety data sheets."""
-    sds = tables.Column(empty_values=(), verbose_name=_("SDS"))
-    esds = tables.FileColumn(empty_values=(), verbose_name=_("eSDS"))
-    chemical = tables.LinkColumn('chemical_detail', verbose_name=_("Chemical"))
-    risks = RiskColumn(verbose_name=_("Risks"))
-    pictograms = PictoColumn(verbose_name=_("Pictograms"))
-    supplier = tables.Column(verbose_name=_("Supplier"))
+    sds = tables.Column(
+        empty_values=(),
+        orderable=False,
+        verbose_name=_("SDS"),
+    )
+    esds = tables.FileColumn(
+        empty_values=(),
+        orderable=False,
+        verbose_name=_("eSDS"),
+    )
+    chemical = tables.LinkColumn(
+        'chemical_detail',
+        verbose_name=_("Chemical"),
+        accessor='chemical.name',
+        order_by=('chemical.name_lower'),
+    )
+    risks = RiskColumn(
+        verbose_name=_("Risks"),
+        orderable=False,
+    )
+    pictograms = PictoColumn(
+        verbose_name=_("Pictograms"),
+        orderable=False,
+    )
+    supplier = tables.Column(
+        verbose_name=_("Supplier"),
+        orderable=False,
+    )
 
     def render_chemical(self, record):
         name = record['chemical']
@@ -329,6 +355,7 @@ class DepartmentConsumerTable(tables.Table):
     """Table displaying Stocks of a Department."""
     chemical = tables.LinkColumn(
         'chemical_department',
+        accessor='name',
         verbose_name=_("Chemical"),
     )
     risks = RiskColumn(

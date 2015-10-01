@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import FormMixin
+from django.db.models.functions import Lower
 from django.db.models import Count, Q
 from django.contrib import messages
 from django_tables2 import SingleTableMixin, RequestConfig
@@ -148,7 +149,7 @@ class SDSDepartmentList(TableDetailView):
         chemicals = models.ChemicalName.objects.filter(
             Q(synonym__chemical__departments__id=department_id) |
             Q(identifier__chemical__departments__id=department_id)
-        )
+        ).annotate(name_lower=Lower('name'))
         for chemical in self.filter_queryset(chemicals):
             consumers = chemical.chemical.consumer_set.filter(
                 department=department_id)
