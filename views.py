@@ -150,7 +150,7 @@ class SDSDepartmentList(TableDetailView):
             Q(synonym__chemical__departments__id=department_id) |
             Q(identifier__chemical__departments__id=department_id)
         ).annotate(name_lower=Lower('name'))
-        for chemical in self.filter_queryset(chemicals):
+        for chemical in self.filter_queryset(chemicals).distinct():
             consumers = chemical.chemical.consumer_set.filter(
                 department=department_id)
             for consumer in consumers:
