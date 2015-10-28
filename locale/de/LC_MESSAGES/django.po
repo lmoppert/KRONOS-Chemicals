@@ -710,7 +710,7 @@ msgstr "LGK"
 
 #: tables.py:95 tables.py:461 templatetags/chemical_tags.py:43
 msgid "Warning"
-msgstr "Warnung"
+msgstr "Achtung"
 
 #: tables.py:97 tables.py:463 templatetags/chemical_tags.py:45
 msgid "Danger"
