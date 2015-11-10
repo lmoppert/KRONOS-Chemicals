@@ -46,7 +46,7 @@ msgstr "Identificatie"
 
 #: admin.py:233 templates/chemicals/chemical_detail.html:84
 msgid "Classification"
-msgstr "Inderling"
+msgstr "Indeling"
 
 #: admin.py:234 templates/chemicals/chemical_detail.html:85
 msgid "Department / Supplier"
