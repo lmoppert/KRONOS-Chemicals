@@ -101,7 +101,7 @@ class ToxInline(admin.TabularInline):
     suit_classes = 'suit-tab suit-tab-classification'
 
 
-class SynonymInline(admin.TabularInline):
+class SynonymInline(TranslationTabularInline):
     """Inline view for the synonyms of a chemical."""
 
     model = models.Synonym
@@ -110,7 +110,7 @@ class SynonymInline(admin.TabularInline):
     suit_classes = 'suit-tab suit-tab-general'
 
 
-class IdentifierInline(admin.TabularInline):
+class IdentifierInline(TranslationTabularInline):
     """Inline view for the synonyms of a chemical."""
 
     model = models.Identifier
