@@ -294,7 +294,7 @@ msgstr "Gefahr"
 
 #: models/chemical.py:140
 msgid "warning"
-msgstr "Warnung"
+msgstr "Achtung"
 
 #: models/chemical.py:140
 msgid "no signal"
