@@ -123,6 +123,24 @@ class IdentifierInline(TranslationTabularInline):
 ##############################################################################
 # Admin of Chemicals
 ##############################################################################
+@admin.register(models.ExtendedSafetyDataSheet)
+class ESDSAdmin(admin.ModelAdmin):
+    """Admin view for Extended Safety Data Sheets."""
+
+    list_display = ('__unicode__', 'country_code')
+    search_fields = ('__unicode__',)
+    list_filter = ('country_code', 'supplier', 'issue_date')
+
+
+@admin.register(models.SafetyDataSheet)
+class SDSAdmin(admin.ModelAdmin):
+    """Admin view for Safety Data Sheets."""
+
+    list_display = ('__unicode__', 'country_code')
+    search_fields = ('__unicode__',)
+    list_filter = ('country_code', 'supplier', 'issue_date')
+
+
 @admin.register(models.Pictogram)
 class PictogramAdmin(TranslationAdmin):
     """Admin view for Pictograms."""
