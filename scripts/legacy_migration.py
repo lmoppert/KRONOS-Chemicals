@@ -131,7 +131,7 @@ def create_users():
     }, {
         'id': 'MMueller@EU.NLI.NET',
         'fn': 'Michaela',
-        'ln': 'Müller',
+        'ln': 'Mueller',
         'em': 'michaela.mueller@kronosww.com',
     }, {
         'id': 'CKunigke@EU.NLI.NET',
