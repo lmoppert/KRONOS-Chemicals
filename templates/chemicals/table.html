@@ -35,7 +35,7 @@
     </tbody>
 </table>
 
-<ul class="pagination">
+<ul class="pagination hidden-print">
     {% if table.page.has_previous %}
     <li class="previous"><a href="{% querystring table.prefixed_page_field=table.page.previous_page_number %}">{% trans "Previous" %}</a></li>
     {% endif %}
