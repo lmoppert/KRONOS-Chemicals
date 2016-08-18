@@ -1,5 +1,5 @@
 {% load i18n chemical_tags %}
-<ul class="nav nav-pills">
+<ul class="nav nav-pills hidden-print">
     {% for plant, location_list in locations.items|sort_list %}
     <li class="dropdown">
         <a data-toggle="dropdown" role="button" href="#" id="plant_dd_{{ plant }}" >

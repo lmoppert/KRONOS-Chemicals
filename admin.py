@@ -372,6 +372,8 @@ class LocationInline(admin.TabularInline):
 
     model = models.Location
     extra = 0
+    verbose_name = _("Stock Location")
+    verbose_name_plural = _("Stock Locations")
 
 
 @admin.register(models.Department)
