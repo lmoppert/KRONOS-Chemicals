@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from filer.fields.image import FilerImageField
 from filer.fields.file import FilerFileField
 from django.utils.translation import ugettext_lazy as _
-from polymorphic import PolymorphicModel, PolymorphicManager
+from polymorphic.models import PolymorphicModel
 
 
 class HPhrase(models.Model):

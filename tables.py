@@ -481,16 +481,24 @@ class StockLocationTable(tables.Table):
         verbose_name=_("Pictogram"),
         orderable=False,
     )
+    volume = tables.Column(
+        empty_values=(),
+        verbose_name=_("Volume"),
+        orderable=False,
+    )
 
-    def render_signal(self, record):
-        s = record.signal
-        if s == 'w' or s == u'w':
-            r = u'<span class="label label-warning">%s</span>' % _("Warning")
-        elif s == 'd' or s == u'd':
-            r = u'<span class="label label-danger">%s</span>' % _("Danger")
-        else:
-            r = u'<span class="label label-default">%s</span>' % _("No Signal")
-        return mark_safe(r)
+    def render_volume(self, record):
+        return "{} {}".format(record.max_volume,
+                              models.Stock.UNITS[record.max_unit])
+    # def render_signal(self, record):
+    #     s = record.signal
+    #     if s == 'w' or s == u'w':
+    #         r = u'<span class="label label-warning">%s</span>' % _("Warning")
+    #     elif s == 'd' or s == u'd':
+    #         r = u'<span class="label label-danger">%s</span>' % _("Danger")
+    #     else:
+    #         r = u'<span class="label label-default">%s</span>' % _("No Signal")
+    #     return mark_safe(r)
 
     class Meta:
         model = models.Stock
