@@ -237,6 +237,13 @@ class ChemicalName(PolymorphicModel):
     name = models.CharField(max_length=200, verbose_name=_("Chemical"),
                             db_index=True)
 
+    @property
+    def chemical(self):
+        if self.polymorphic_ctype_id == 27:
+            return self.synonym.chemical
+        else:
+            return self.identifier.chemical
+
     def __unicode__(self):
         return self.name
 

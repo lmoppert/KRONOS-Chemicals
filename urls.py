@@ -3,7 +3,7 @@
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import RedirectView
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from .views import (ChemicalList, ChemicalDetail, ConsumerDetail,
                     ConsumerList, CMRList, StockList, SupplierDetail,
                     DepartmentList, DepartmentView, SDSList, SDSDepartmentList,
@@ -12,8 +12,7 @@ from .views import (ChemicalList, ChemicalDetail, ConsumerDetail,
                     ChemicalNumbers)
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     #########################
     # Chemical Views
     url(r'^(?P<pk>\d+)$', ChemicalDetail.as_view(), name='chemical_detail'),
@@ -50,6 +49,6 @@ urlpatterns = patterns(
         name='chemical_stock_list'),
     #########################
     # Generic Views
-    url(r'^$', RedirectView.as_view(url=reverse_lazy('chemical_list')),
-        name='home'),
-)
+    url(r'^$', RedirectView.as_view(url=reverse_lazy('chemical_list'),
+                                    permanent=True), name='home'),
+]

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% load i18n sekizai_tags %}
-{% load static from staticfiles %}
+{% load i18n %}
+{% load static %}
 
 {% block top_menu %}
     <ul class="nav navbar-nav">
@@ -62,9 +62,9 @@
         {% block chemical_content %}
         {% endblock %}
     </div>
-    {% addtoblock "js" %}
-        <script type="text/javascript"
-            src="{% static "chemicals/js/chemicals.js" %}">
-        </script>
-    {% endaddtoblock %}
+{% endblock %}
+{% block extra_js %}
+    <script type="text/javascript"
+        src="{% static "chemicals/js/chemicals.js" %}">
+    </script>
 {% endblock %}

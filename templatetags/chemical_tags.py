@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from django import template
-from django.utils.datastructures import SortedDict
 from django.utils.safestring import mark_safe
+from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
+from collections import OrderedDict
 from chemicals.models.periphery import Stock
 
 register = template.Library()
@@ -12,7 +13,7 @@ register = template.Library()
 def sort_list(value):
     """Return the given list sorted"""
     if isinstance(value, dict):
-        new_dict = SortedDict()
+        new_dict = OrderedDict()
         key_list = value.keys()
         key_list.sort()
         for key in key_list:
@@ -39,15 +40,16 @@ def show_unit(value):
 @register.filter
 def show_signal(value):
     """Show the word representation of a signal"""
+    template = u'<span class="label label-{}">{}</span>'
     if value == 'w' or value == u'w':
-        s = u'<span class="label label-warning">%s</span>' % _("Warning")
+        html = format_html(template, "warning", _("Warning"))
     elif value == 'd' or value == u'd':
-        s = u'<span class="label label-danger">%s</span>' % _("Danger")
+        html = format_html(template, "danger", _("Danger"))
     elif value == 'n' or value == u'n':
-        s = u'<span class="label label-default">%s</span>' % _("No Signal")
+        html = format_html(template, "default", _("No Signal"))
     else:
-        s = u''
-    return mark_safe(s)
+        html = mark_safe('')
+    return html
 
 
 @register.inclusion_tag('chemicals/letter_filter.html', takes_context=True)
