@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% load i18n sekizai_tags %}
 {% load static from staticfiles %}
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static "chemicals/css/base.css" %}">
+{% endblock %}
 
 {% block top_menu %}
     <ul class="nav navbar-nav">
