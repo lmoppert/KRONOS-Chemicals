@@ -374,48 +374,40 @@ class ConsumerDetail(FormMixin, DetailView):
     formset_class = forms.inlineformset_factory(models.Chemical, models.Stock,
                                                 extra=0, fields='__all__')
 
-    def get_consumers(self):
+    def consumers(self):
         return models.Consumer.objects.filter(
             chemical=self.kwargs["chem_id"], department=self.kwargs["dep_id"])
 
-    def get_sds(self, chemical):
+    def suppliers(self):
         suppliers = []
-        for consumer in self.get_consumers():
+        for consumer in self.consumers():
             suppliers.append(consumer.supplier)
-        sds = chemical.safetydatasheet_set.filter(supplier_id__in=suppliers)
-        esds = chemical.extendedsafetydatasheet_set.filter(
-            supplier_id__in=suppliers)
-        return sds, esds
+        return suppliers
 
     def get_object(self):
-        return self.get_consumers().first()
+        return self.consumers().first()
 
-    def get_department(self):
-        return models.Department.objects.get(pk=self.kwargs["dep_id"])
-
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        department = self.object.department
-        chemical = self.object.chemical
-        stocks = self.object.stocks
-        sds, esds = self.get_sds(chemical)
-        formset = self.formset_class(instance=chemical, queryset=stocks)
-        context = self.get_context_data(formset=formset, department=department,
-                                        stocks=stocks, chemical=chemical,
-                                        sds=sds, esds=esds)
-        return self.render_to_response(context)
+    def get_context_data(self, **kwargs):
+        obj = self.get_object()
+        kwargs['object'] = obj
+        kwargs['department'] = obj.department
+        kwargs['chemical'] = obj.chemical
+        kwargs['stocks'] = obj.stocks
+        kwargs['sds'] = obj.chemical.safetydatasheet_set.filter(
+            supplier_id__in=self.suppliers())
+        kwargs['esds'] = obj.chemical.extendedsafetydatasheet_set.filter(
+            supplier_id__in=self.suppliers())
+        kwargs['formset'] = self.formset_class(instance=obj.chemical,
+                                               **self.get_form_kwargs())
+        return super(FormMixin, self).get_context_data(**kwargs)
 
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        department = self.object.department
-        chemical = self.object.chemical
-        sds, esds = self.get_sds(chemical)
+        obj = self.get_object()
+        context = self.get_context_data()
         success_url = reverse('chemical_department', kwargs={
-            'chem_id': chemical.id, 'dep_id': department.id, })
-        formset = self.formset_class(instance=chemical,
+            'chem_id': obj.chemical.id, 'dep_id': obj.department.id, })
+        formset = self.formset_class(instance=obj.chemical,
                                      **self.get_form_kwargs())
-        context = self.get_context_data(formset=formset, department=department,
-                                        chemical=chemical, sds=sds, esds=esds)
         if formset.is_valid():
             formset.save()
             messages.success(request, _("Changes have been saved."))
