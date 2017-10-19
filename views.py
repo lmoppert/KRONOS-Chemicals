@@ -218,7 +218,7 @@ class ConsumerList(TableListView):
 class CMRList(ConsumerList):
     """Returns a list of Suppliers for CMR Chemicals."""
     table_class = tables.CMRTable
-    table_heading = _("Suppliers (CMR)")
+    table_heading = _("CMR Chemicals")
 
     def get_table_data(self):
         letter = self.get_filter_values()["letter"]
