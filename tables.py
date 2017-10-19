@@ -329,6 +329,7 @@ class ApprovalTable(tables.Table):
     chemical = tables.LinkColumn('chemical_detail', args=[A('chemical.pk')],
                                  accessor='chemical.name.name',
                                  verbose_name=_("Chemical"))
+    plant = tables.Column(verbose_name=_("Plant"))
 
     def render_document(self, record):
         return render_file_button(record.file.url, record.file.extension)
@@ -490,15 +491,6 @@ class StockLocationTable(tables.Table):
     def render_volume(self, record):
         return "{} {}".format(record.max_volume,
                               models.Stock.UNITS[record.max_unit])
-    # def render_signal(self, record):
-    #     s = record.signal
-    #     if s == 'w' or s == u'w':
-    #         r = u'<span class="label label-warning">%s</span>' % _("Warning")
-    #     elif s == 'd' or s == u'd':
-    #         r = u'<span class="label label-danger">%s</span>' % _("Danger")
-    #     else:
-    #         r = u'<span class="label label-default">%s</span>' % _("No Signal")
-    #     return mark_safe(r)
 
     class Meta:
         model = models.Stock
