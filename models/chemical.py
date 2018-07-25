@@ -80,7 +80,7 @@ class SevesoCategory(models.Model):
         return "%s - %s" % (self.name, self.description)
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('name', )
         app_label = "chemicals"
         verbose_name = _("Seveso Category")
         verbose_name_plural = _("Seveso Categories")

@@ -211,7 +211,7 @@ class ChemicalAdmin(TranslationAdmin):
 
     list_display = ('name', 'preparation', 'article', 'cas', 'einecs',
                     'archive')
-    search_fields = ('name__name', 'article', 'cas', 'einecs',
+    search_fields = ('name__name', 'synonyms__name', 'article', 'cas', 'einecs',
                      'registration_number')
     list_filter = ('preparation', 'archive', 'hphrases', 'hphrases__cmr', 'wgk',
                    'storage_class', 'toxdata__tox', 'toxdata__oekotox',
