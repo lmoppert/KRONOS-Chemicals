@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KRONOS Intranet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-19 12:17+0200\n"
+"POT-Creation-Date: 2018-08-22 15:57+0200\n"
 "PO-Revision-Date: 2014-02-11 09:52+0100\n"
 "Last-Translator: Lutz Moppert <lutz.moppert@kronosww.com>\n"
 "Language: Deutsch\n"
@@ -430,8 +430,8 @@ msgstr "Synonyme"
 #: tables.py:280 templates/chemicals/chemical_detail.html:139
 #: templates/chemicals/chemical_detail.html:158
 #: templates/chemicals/chemical_detail.html:170
-#: templates/chemicals/consumer_detail.html:160
-#: templates/chemicals/consumer_detail.html:171
+#: templates/chemicals/consumer_detail.html:158
+#: templates/chemicals/consumer_detail.html:170
 msgid "Supplier"
 msgstr "Lieferant"
 
@@ -559,6 +559,7 @@ msgid "Extended Safety Data Sheet"
 msgstr "Erweitertes Sicherheitsdatenblatt"
 
 #: models/chemical.py:480 templates/chemicals/chemical_detail.html:168
+#: templates/chemicals/consumer_detail.html:168
 msgid "Extended Safety Data Sheets"
 msgstr "Erweiterte Sicherheitsdatenblätter"
 
@@ -737,12 +738,12 @@ msgid "Chemical Stocks"
 msgstr "Chemikalienlager"
 
 #: tables.py:258 templates/chemicals/chemical_detail.html:158
-#: templates/chemicals/consumer_detail.html:160
+#: templates/chemicals/consumer_detail.html:158
 msgid "SDS"
 msgstr "SDB"
 
 #: tables.py:263 templates/chemicals/chemical_detail.html:170
-#: templates/chemicals/consumer_detail.html:171
+#: templates/chemicals/consumer_detail.html:170
 msgid "eSDS"
 msgstr "eSDB"
 
@@ -854,16 +855,16 @@ msgstr "Wassergefährdungsklasse"
 
 #: templates/chemicals/chemical_detail.html:158
 #: templates/chemicals/chemical_detail.html:170
-#: templates/chemicals/consumer_detail.html:160
-#: templates/chemicals/consumer_detail.html:171
+#: templates/chemicals/consumer_detail.html:158
+#: templates/chemicals/consumer_detail.html:170
 msgid "Published on"
 msgstr "Ausgabe"
 
 #: templates/chemicals/chemical_detail.html:158
 #: templates/chemicals/chemical_detail.html:170
 #: templates/chemicals/chemical_detail.html:224
-#: templates/chemicals/consumer_detail.html:160
-#: templates/chemicals/consumer_detail.html:171
+#: templates/chemicals/consumer_detail.html:158
+#: templates/chemicals/consumer_detail.html:170
 msgid "Language"
 msgstr "Sprache"
 
@@ -922,7 +923,6 @@ msgid "Departments (Stock View)"
 msgstr "Abteilungen (Chemikalienlager-Ansicht)"
 
 #: views.py:221
-#| msgid "Chemicals"
 msgid "CMR Chemicals"
 msgstr "CMR-Stoffe"
 
