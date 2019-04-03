@@ -144,12 +144,12 @@ class Chemical(models.Model):
     article = models.CharField(max_length=100, blank=True, null=True,
                                verbose_name=_("Article Number"))
     registration_number = models.CharField(
-        max_length=100, blank=True, null=True,
+        max_length=200, blank=True, null=True,
         verbose_name=_("Registration Number")
     )
-    cas = models.CharField(max_length=100, blank=True, null=True,
+    cas = models.CharField(max_length=200, blank=True, null=True,
                            verbose_name=_("CAS"))
-    einecs = models.CharField(max_length=100, blank=True, null=True,
+    einecs = models.CharField(max_length=200, blank=True, null=True,
                               verbose_name=_("EINECS"))
     signal = models.CharField(max_length=1, choices=SIGNALS, blank=True,
                               default='', verbose_name=_("Signal"))
