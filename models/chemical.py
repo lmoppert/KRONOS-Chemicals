@@ -389,7 +389,10 @@ class Document(models.Model):
     created = models.DateField(blank=True, verbose_name=_("Released on"))
 
     def __unicode__(self):
-        return self.file.label
+        if self.file:
+            return self.file.label
+        else:
+            return "SDS {}: File Missing".format(self.pk)
 
     class Meta:
         app_label = "chemicals"
@@ -407,7 +410,10 @@ class ReachDocument(models.Model):
     created = models.DateField(auto_now_add=True, verbose_name=_("Created on"))
 
     def __unicode__(self):
-        return self.file.label
+        if self.file:
+            return self.file.label
+        else:
+            return "SDS {}: File Missing".format(self.pk)
 
     class Meta:
         app_label = "chemicals"
@@ -430,7 +436,10 @@ class SevesoDocument(models.Model):
     created = models.DateField(auto_now_add=True, verbose_name=_("Created on"))
 
     def __unicode__(self):
-        return self.file.label
+        if self.file:
+            return self.file.label
+        else:
+            return "SDS {}: File Missing".format(self.pk)
 
     class Meta:
         app_label = "chemicals"
@@ -451,7 +460,10 @@ class SafetyDataSheet(models.Model):
     created = models.DateField(auto_now_add=True, verbose_name=_("Created on"))
 
     def __unicode__(self):
-        return self.file.label
+        if self.file:
+            return self.file.label
+        else:
+            return "SDS {}: File Missing".format(self.pk)
 
     class Meta:
         app_label = "chemicals"
@@ -472,7 +484,10 @@ class ExtendedSafetyDataSheet(models.Model):
     created = models.DateField(auto_now_add=True, verbose_name=_("Created on"))
 
     def __unicode__(self):
-        return self.file.label
+        if self.file:
+            return self.file.label
+        else:
+            return "SDS {}: File Missing".format(self.pk)
 
     class Meta:
         app_label = "chemicals"
