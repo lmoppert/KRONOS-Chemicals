@@ -6,3 +6,4 @@
 #content table#stocktable div.form-group {margin-bottom:0;}
 #content table#stocktable td.actions {text-align:center; vertical-align:middle}
 #content .form-template {display:none;}
+#content img.pictogram {float: left; max-width: 37px; margin-right: 3px;}

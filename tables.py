@@ -24,6 +24,18 @@ def render_file_button(url, ext):
     return mark_safe(button.format(url, ext.upper()))
 
 
+class HPhraseColumn(tables.Column):
+    empty_values = ()
+
+    def render(self, record):
+        out = ""
+        col = u'<span style="white-space: nowrap" title="{}">{}</span><hr>'
+        objs = record.chemical.hphrases.all()
+        for obj in sorted(objs, key=attrgetter('name')):
+            out += col.format(escape(obj.description), escape(obj.name))
+        return mark_safe(out[:-4])
+
+
 class RiskColumn(tables.Column):
     empty_values = ()
 
@@ -35,7 +47,12 @@ class PictoColumn(tables.Column):
     empty_values = ()
 
     def render(self, record):
-        return render_as_list(record.chemical.pictograms.all())
+        out = ""
+        pic = u'<img src="{}" class="pictogram" title="{}">'
+        objs = record.chemical.pictograms.all()
+        for obj in sorted(objs, key=attrgetter('name')):
+            out += pic.format(escape(obj.image.url), escape(obj.name))
+        return mark_safe(out)
 
 
 class ChemicalNumberTable(tables.Table):
@@ -75,10 +92,14 @@ class ChemicalTable(tables.Table):
         verbose_name=_("Supplier"),
         orderable=False,
     )
-    risks = RiskColumn(
-        verbose_name=_("Risk Indication"),
+    risks = HPhraseColumn(
+        verbose_name=_("H-Phrases"),
         orderable=False,
     )
+    # risks = RiskColumn(
+    #     verbose_name=_("Risk Indication"),
+    #     orderable=False,
+    # )
     pictograms = PictoColumn(
         verbose_name=_("Pictogram"),
         orderable=False,
