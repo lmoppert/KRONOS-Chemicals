@@ -7,3 +7,4 @@
 #content table#stocktable td.actions {text-align:center; vertical-align:middle}
 #content .form-template {display:none;}
 #content img.pictogram {float: left; max-width: 37px; margin-right: 3px;}
+#content td span.as_enum {margin-right:1ex; text-decoration:underline; text-decoration-style:dotted;}

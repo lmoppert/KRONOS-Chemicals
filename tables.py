@@ -18,41 +18,26 @@ def render_as_list(objs):
     return mark_safe(out[:-4])
 
 
+def render_as_enumeration(objs):
+    out = ""
+    col = u'<span class="as_enum" title="{}">{}</span>'
+    for obj in sorted(objs, key=attrgetter('name')):
+        out += col.format(escape(obj.description), escape(obj.name))
+    return mark_safe(out)
+
+
+def render_thumbs(objs):
+    out = ""
+    pic = u'<img src="{}" class="pictogram" title="{}">'
+    for obj in sorted(objs, key=attrgetter('name')):
+        out += pic.format(escape(obj.image.url), escape(obj.name))
+    return mark_safe(out)
+
+
 def render_file_button(url, ext):
     button = """<a type="button" class="btn btn-warning btn-sm" href="{}"
     target="_blank"><span class="glyphicon glyphicon-file"></span> {}</a>"""
     return mark_safe(button.format(url, ext.upper()))
-
-
-class HPhraseColumn(tables.Column):
-    empty_values = ()
-
-    def render(self, record):
-        out = ""
-        col = u'<span style="white-space: nowrap" title="{}">{}</span><hr>'
-        objs = record.chemical.hphrases.all()
-        for obj in sorted(objs, key=attrgetter('name')):
-            out += col.format(escape(obj.description), escape(obj.name))
-        return mark_safe(out[:-4])
-
-
-class RiskColumn(tables.Column):
-    empty_values = ()
-
-    def render(self, record):
-        return render_as_list(record.chemical.risks.all())
-
-
-class PictoColumn(tables.Column):
-    empty_values = ()
-
-    def render(self, record):
-        out = ""
-        pic = u'<img src="{}" class="pictogram" title="{}">'
-        objs = record.chemical.pictograms.all()
-        for obj in sorted(objs, key=attrgetter('name')):
-            out += pic.format(escape(obj.image.url), escape(obj.name))
-        return mark_safe(out)
 
 
 class ChemicalNumberTable(tables.Table):
@@ -92,16 +77,14 @@ class ChemicalTable(tables.Table):
         verbose_name=_("Supplier"),
         orderable=False,
     )
-    risks = HPhraseColumn(
+    hphrases = tables.Column(
+        empty_values=(),
         verbose_name=_("H-Phrases"),
         orderable=False,
     )
-    # risks = RiskColumn(
-    #     verbose_name=_("Risk Indication"),
-    #     orderable=False,
-    # )
-    pictograms = PictoColumn(
-        verbose_name=_("Pictogram"),
+    pictograms = tables.Column(
+        empty_values=(),
+        verbose_name=_("Pictograms"),
         orderable=False,
     )
 
@@ -132,11 +115,17 @@ class ChemicalTable(tables.Table):
             suppliers.append(consumer.supplier)
         return render_as_list(set(suppliers))
 
+    def render_hphrases(self, record):
+        return render_as_enumeration(record.chemical.hphrases.all())
+
+    def render_pictograms(self, record):
+        return render_thumbs(record.chemical.pictograms.all())
+
     class Meta:
         model = models.Identifier
         attrs = {'class': "table table-bordered table-striped table-condensed"}
         order_by = ('name',)
-        fields = ('name', 'risks', 'pictograms', 'signal', 'storage_class',
+        fields = ('name', 'hphrases', 'pictograms', 'signal', 'storage_class',
                   'wgk', 'supplier_set', )
 
 
@@ -144,28 +133,28 @@ class DepartmentChemicalTable(tables.Table):
     """Table for use in Department View"""
     name = tables.LinkColumn('chemical_detail', args=[A('pk')],
                              accessor='name.name',)
-    risks = tables.Column(
-        verbose_name=_("Risk Indication"),
-        orderable=False,
+    hphrases = tables.Column(
         empty_values=(),
+        verbose_name=_("H-Phrases"),
+        orderable=False,
     )
-    pictograms = PictoColumn(
-        verbose_name=_("Pictogram"),
-        orderable=False,
+    pictograms = tables.Column(
         empty_values=(),
+        verbose_name=_("Pictograms"),
+        orderable=False,
     )
 
-    def render_risks(self, record):
-        return render_as_list(record.risks.all())
+    def render_hphrases(self, record):
+        return render_as_enumeration(record.hphrases.all())
 
     def render_pictograms(self, record):
-        return render_as_list(record.pictograms.all())
+        return render_thumbs(record.pictograms.all())
 
     class Meta:
         model = models.Chemical
         attrs = {'class': "table table-bordered table-striped table-condensed"}
         order_by = ('name',)
-        fields = ('name', 'risks', 'pictograms')
+        fields = ('name', 'hphrases', 'pictograms')
 
 
 class CMRChemicalTable(tables.Table):
@@ -289,11 +278,13 @@ class SDSTable(tables.Table):
         accessor='chemical.name',
         order_by=('chemical.name_lower'),
     )
-    risks = RiskColumn(
-        verbose_name=_("Risks"),
+    hphrases = tables.Column(
+        empty_values=(),
+        verbose_name=_("H-Phrases"),
         orderable=False,
     )
-    pictograms = PictoColumn(
+    pictograms = tables.Column(
+        empty_values=(),
         verbose_name=_("Pictograms"),
         orderable=False,
     )
@@ -332,13 +323,13 @@ class SDSTable(tables.Table):
         r += u'</ul>'
         return mark_safe(r)
 
-    def render_risks(self, record):
+    def render_hphrases(self, record):
         chemical = record['chemical'].chemical
-        return render_as_list(chemical.risks.all())
+        return render_as_enumeration(chemical.hphrases.all())
 
     def render_pictograms(self, record):
         chemical = record['chemical'].chemical
-        return render_as_list(chemical.pictograms.all())
+        return render_thumbs(chemical.pictograms.all())
 
     class Meta:
         attrs = {'class': "table table-bordered table-striped table-condensed"}
@@ -369,7 +360,7 @@ class DepartmentTable(tables.Table):
         model = models.Location
         attrs = {'class': "table table-bordered table-striped table-condensed"}
         order_by = ('name',)
-        fields = ('department', 'chemical', 'risks', 'pictograms', 'stock',
+        fields = ('department', 'chemical', 'hphrases', 'pictograms', 'stock',
                   'max_volume', 'max_unit')
 
 
@@ -380,12 +371,14 @@ class DepartmentConsumerTable(tables.Table):
         accessor='name',
         verbose_name=_("Chemical"),
     )
-    risks = RiskColumn(
-        accessor='chemical.risks',
-        verbose_name=_("Risks"),
+    hphrases = tables.Column(
+        empty_values=(),
+        # accessor='chemical.hphrases',
+        verbose_name=_("H-Phrases"),
         orderable=False,
     )
-    pictograms = PictoColumn(
+    pictograms = tables.Column(
+        empty_values=(),
         accessor='chemical.pictograms',
         verbose_name=_("Pictograms"),
         orderable=False,
@@ -408,6 +401,9 @@ class DepartmentConsumerTable(tables.Table):
             r = u'<a href="{}">{}</a>'.format(url, name)
         return mark_safe(r)
 
+    def render_hphrases(self, record):
+        return render_as_enumeration(record.chemical.hphrases.all())
+
     def render_stocks(self, record):
         stocks = u'<table class="{}">\n'.format(self.Meta.attrs['class'])
         for stock in record.chemical.stock_set.filter(
@@ -422,16 +418,13 @@ class DepartmentConsumerTable(tables.Table):
         stocks += '</table>'
         return mark_safe(stocks)
 
-    def render_risks(self, record):
-        return render_as_list(record.chemical.risks.all())
-
     def render_pictograms(self, record):
-        return render_as_list(record.chemical.pictograms.all())
+        return render_thumbs(record.chemical.pictograms.all())
 
     class Meta:
         model = models.Consumer
         attrs = {'class': "table table-bordered table-striped table-condensed"}
-        fields = ('chemical', 'risks', 'pictograms', 'stocks')
+        fields = ('chemical', 'hphrases', 'pictograms', 'stocks')
 
 
 class ChemicalStockTable(tables.Table):
@@ -442,14 +435,15 @@ class ChemicalStockTable(tables.Table):
         verbose_name=_("Chemical Stocks"),
         orderable=False,
     )
-    risks = tables.Column(
+    hphrases = tables.Column(
         empty_values=(),
-        verbose_name=_("Risk Indication"),
+        accessor='chemical.hphrases',
+        verbose_name=_("H-Phrases"),
         orderable=False,
     )
     pictograms = tables.Column(
         empty_values=(),
-        verbose_name=_("Pictogram"),
+        verbose_name=_("Pictograms"),
         orderable=False,
     )
 
@@ -467,16 +461,16 @@ class ChemicalStockTable(tables.Table):
         stocks += '</table>'
         return mark_safe(stocks)
 
-    def render_risks(self, record):
-        return render_as_list(record.risks.all())
+    def render_hphrases(self, record):
+        return render_as_enumeration(record.hphrases.all())
 
     def render_pictograms(self, record):
-        return render_as_list(record.pictograms.all())
+        return render_thumbs(record.pictograms.all())
 
     class Meta:
         model = models.Chemical
         attrs = {'class': "table table-bordered table-striped table-condensed"}
-        fields = ('name', 'stock_set', 'risks', 'pictograms', )
+        fields = ('name', 'stock_set', 'hphrases', 'pictograms', )
 
 
 class StockLocationTable(tables.Table):
@@ -495,12 +489,14 @@ class StockLocationTable(tables.Table):
         accessor='chemical.storage_class.name',
         verbose_name=_("SC")
     )
-    risks = RiskColumn(
-        verbose_name=_("Risk Indication"),
+    hphrases = tables.Column(
+        empty_values=(),
+        verbose_name=_("H-Phrases"),
         orderable=False,
     )
-    pictograms = PictoColumn(
-        verbose_name=_("Pictogram"),
+    pictograms = tables.Column(
+        empty_values=(),
+        verbose_name=_("Pictograms"),
         orderable=False,
     )
     volume = tables.Column(
@@ -508,6 +504,12 @@ class StockLocationTable(tables.Table):
         verbose_name=_("Volume"),
         orderable=False,
     )
+
+    def render_hphrases(self, record):
+        return render_as_enumeration(record.chemical.hphrases.all())
+
+    def render_pictograms(self, record):
+        return render_thumbs(record.chemical.pictograms.all())
 
     def render_volume(self, record):
         return "{} {}".format(record.max_volume,
@@ -517,7 +519,7 @@ class StockLocationTable(tables.Table):
         model = models.Stock
         attrs = {'class': "table table-bordered table-striped table-condensed"}
         order_by = ('location.name',)
-        fields = ('chemical', 'storage_class', 'wgk', 'risks', 'pictograms', )
+        fields = ('chemical', 'storage_class', 'wgk', 'hphrases', 'pictograms')
 
 
 class ToxTable(tables.Table):
